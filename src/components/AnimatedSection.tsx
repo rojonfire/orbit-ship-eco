@@ -10,24 +10,22 @@ interface AnimatedSectionProps {
 
 const AnimatedSection = ({ children, className, delay = 0 }: AnimatedSectionProps) => {
   const { ref, isVisible } = useScrollAnimation();
-  const [show, setShow] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Force show after a short delay to ensure content is visible
-    const timer = setTimeout(() => {
-      setShow(true);
-    }, 50 + delay);
-    return () => clearTimeout(timer);
-  }, [delay]);
+    // Ensure content is visible after mount
+    setMounted(true);
+  }, []);
 
-  const visible = isVisible || show;
+  // Always show content - animation is just a nice-to-have
+  const visible = mounted || isVisible;
 
   return (
     <div
       ref={ref}
       className={cn(
-        "transition-all duration-700 ease-out",
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+        "transition-all duration-500 ease-out",
+        visible ? "opacity-100 translate-y-0" : "opacity-100 translate-y-0",
         className
       )}
       style={{ transitionDelay: `${delay}ms` }}
