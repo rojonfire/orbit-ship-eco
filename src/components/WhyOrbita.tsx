@@ -1,52 +1,86 @@
-import { Leaf, Shield, Truck } from 'lucide-react';
+import { Leaf, Shield, Truck, ArrowUpRight } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
 
 const features = [
   {
     icon: Leaf,
-    title: 'Material compostable',
-    description: 'Fabricadas con biopolímeros certificados que se descomponen completamente en 180 días.',
+    title: 'Compostable certificado',
+    description: 'Certificación OK Compost. Se degrada en 180 días sin dejar microplásticos.',
+    color: 'lime' as const,
   },
   {
     icon: Shield,
-    title: 'Resistentes y seguras',
-    description: 'Misma durabilidad que el plástico tradicional. Protegen tus productos durante el envío.',
+    title: 'Resistente de verdad',
+    description: 'Soporta peso, humedad y la logística real chilena sin romperse.',
+    color: 'sky' as const,
   },
   {
     icon: Truck,
-    title: 'Diseñadas para Chile',
-    description: 'Optimizadas para la logística nacional. Compatibles con todos los operadores.',
+    title: 'Diseñada para Chile',
+    description: 'Compatible con todos los operadores. Envíos a todo el país.',
+    color: 'forest' as const,
   },
 ];
 
+const colorClasses = {
+  lime: 'bg-primary text-primary-foreground',
+  sky: 'bg-sky text-white',
+  forest: 'bg-forest text-white',
+};
+
 const WhyOrbita = () => {
   return (
-    <section id="nosotros" className="py-24 md:py-32 bg-secondary/30 relative overflow-hidden">
-      <div className="deco-circle w-[400px] h-[400px] -bottom-40 left-1/2 -translate-x-1/2 opacity-30" />
-      
-      <div className="container mx-auto px-6 relative z-10">
+    <section id="beneficios" className="py-24 md:py-32 bg-muted/50">
+      <div className="container mx-auto px-6">
         <AnimatedSection>
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="tag-primary mb-4 inline-block">Por qué elegirnos</span>
+          <div className="max-w-2xl mb-16">
+            <span className="tag-outline mb-4 inline-block">Beneficios</span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6">
-              Impacto <span className="text-primary italic">real</span>
+              No es solo <span className="text-primary">sustentable</span>
             </h2>
+            <p className="text-lg text-muted-foreground">
+              Es una bolsa que funciona. Sin compromisos entre rendimiento y planeta.
+            </p>
           </div>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-5">
           {features.map((feature, index) => (
-            <AnimatedSection key={feature.title} delay={150 + index * 100}>
-              <div className="soft-card p-8 h-full group hover:-translate-y-2 transition-all duration-300">
-                <div className="w-16 h-16 rounded-2xl bg-accent/20 flex items-center justify-center mb-6">
-                  <feature.icon className="w-8 h-8 text-primary" />
+            <AnimatedSection key={feature.title} delay={100 + index * 100}>
+              <div className={`${colorClasses[feature.color]} rounded-3xl p-8 h-full group transition-transform duration-300 hover:-translate-y-1`}>
+                <div className="flex items-start justify-between mb-8">
+                  <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
+                    <feature.icon className="w-7 h-7" />
+                  </div>
+                  <ArrowUpRight className="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity" />
                 </div>
-                <h3 className="font-display font-semibold text-xl mb-4">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                
+                <h3 className="text-2xl font-display font-semibold mb-4">
+                  {feature.title}
+                </h3>
+                <p className="opacity-80 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
             </AnimatedSection>
           ))}
         </div>
+
+        {/* Trust badges */}
+        <AnimatedSection delay={400}>
+          <div className="mt-16 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+            {[
+              { label: 'Certificación', value: 'OK Compost' },
+              { label: 'Norma', value: 'EN 13432' },
+              { label: 'Origen', value: '100% Chile' },
+            ].map((badge, i) => (
+              <div key={i} className="text-center">
+                <p className="text-2xl md:text-3xl font-display font-bold text-foreground">{badge.value}</p>
+                <p className="text-sm text-muted-foreground">{badge.label}</p>
+              </div>
+            ))}
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );

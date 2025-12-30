@@ -1,31 +1,60 @@
-import { MessageCircle, Calendar, ArrowRight } from 'lucide-react';
+import { MessageCircle, Calendar, ArrowRight, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import AnimatedSection from './AnimatedSection';
 
 const ContactSection = () => {
   return (
-    <section id="contacto" className="py-24 md:py-32 bg-secondary/30 relative overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          <AnimatedSection>
-            <div className="soft-card p-8 md:p-12 lg:p-16 text-center">
-              <span className="tag mb-6 inline-block">Contacto</span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold mb-6">
-                ¿Necesitas ayuda para <span className="text-primary italic">elegir</span>?
+    <section id="contacto" className="py-24 md:py-32 bg-muted/50">
+      <div className="container mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Content */}
+          <div>
+            <AnimatedSection>
+              <span className="tag-outline mb-4 inline-block">Contacto</span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6">
+                ¿Dudas? <span className="text-primary">Hablemos</span>
               </h2>
-              <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-10">
-                Nuestro equipo te guiará para encontrar la solución perfecta.
+              <p className="text-lg text-muted-foreground mb-8 max-w-lg">
+                Te ayudamos a encontrar la bolsa perfecta para tu negocio. Sin compromiso.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="rounded-full px-8 btn-lift group">
+            </AnimatedSection>
+
+            <AnimatedSection delay={100}>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button size="lg" className="rounded-full px-8 btn-lift group bg-[#25D366] hover:bg-[#20BD5A]">
                   <MessageCircle className="mr-2 w-5 h-5" />
                   WhatsApp
                   <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Button>
-                <Button variant="outline" size="lg" className="rounded-full px-8 btn-lift">
+                <Button variant="outline" size="lg" className="rounded-full px-8">
                   <Calendar className="mr-2 w-5 h-5" />
                   Agendar llamada
                 </Button>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={200}>
+              <p className="mt-8 text-sm text-muted-foreground flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                Respondemos en menos de 2 horas
+              </p>
+            </AnimatedSection>
+          </div>
+
+          {/* Right: Visual cards */}
+          <AnimatedSection delay={150}>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="card-lime col-span-2">
+                <p className="text-5xl font-display font-bold text-primary-foreground mb-2">+500</p>
+                <p className="text-primary-foreground/80">empresas ya usan ORBITA</p>
+              </div>
+              <div className="bg-foreground text-background rounded-3xl p-6">
+                <p className="text-3xl font-display font-bold mb-1">2hrs</p>
+                <p className="text-sm opacity-70">tiempo de respuesta</p>
+              </div>
+              <div className="bg-muted rounded-3xl p-6">
+                <p className="text-3xl font-display font-bold text-foreground mb-1">24/7</p>
+                <p className="text-sm text-muted-foreground">WhatsApp activo</p>
               </div>
             </div>
           </AnimatedSection>
