@@ -3,62 +3,67 @@
 @tailwind utilities;
 
 /* ORBITA BAGS — Greenado-inspired Design System
-   Fresh, organic, nature-focused with elegant serif typography
-   Light backgrounds, natural green palette, soft rounded elements
+   Fresh lime + sky blue, modern & vibrant
+   Asymmetric layouts, colored card backgrounds, strong contrast
 */
 
 @layer base {
   :root {
-    /* Greenado-inspired: Fresh lime + sky blue, modern & vibrant */
-    --background: 60 15% 98%;
-    --foreground: 220 20% 18%;
+    /* Clean white/cream background */
+    --background: 0 0% 100%;
+    --foreground: 220 25% 12%;
 
-    --card: 60 10% 97%;
-    --card-foreground: 220 20% 18%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 12%;
 
-    --popover: 60 15% 98%;
-    --popover-foreground: 220 20% 18%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 12%;
 
-    /* Primary: Vibrant lime/chartreuse green */
-    --primary: 78 65% 48%;
-    --primary-foreground: 220 20% 15%;
+    /* Primary: Vibrant lime/chartreuse */
+    --primary: 78 70% 50%;
+    --primary-foreground: 220 25% 12%;
 
     /* Secondary: Light sky blue */
-    --secondary: 200 50% 94%;
-    --secondary-foreground: 200 40% 35%;
+    --secondary: 200 60% 95%;
+    --secondary-foreground: 200 50% 30%;
 
-    --muted: 60 10% 94%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 220 15% 95%;
+    --muted-foreground: 220 15% 45%;
 
     /* Accent: Sky blue */
-    --accent: 195 75% 55%;
+    --accent: 195 80% 50%;
     --accent-foreground: 0 0% 100%;
+
+    /* Feature colors for cards */
+    --lime: 78 70% 50%;
+    --sky: 195 80% 50%;
+    --forest: 155 50% 35%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 200 15% 88%;
-    --input: 200 15% 88%;
-    --ring: 78 65% 48%;
+    --border: 220 15% 90%;
+    --input: 220 15% 90%;
+    --ring: 78 70% 50%;
 
-    --radius: 1rem;
+    --radius: 1.25rem;
 
     /* Chart colors */
-    --chart-1: 78 65% 48%;
-    --chart-2: 195 75% 55%;
-    --chart-3: 160 50% 50%;
+    --chart-1: 78 70% 50%;
+    --chart-2: 195 80% 50%;
+    --chart-3: 155 50% 35%;
     --chart-4: 45 80% 60%;
     --chart-5: 280 60% 60%;
 
     /* Sidebar */
-    --sidebar-background: 60 10% 97%;
-    --sidebar-foreground: 220 20% 18%;
-    --sidebar-primary: 78 65% 48%;
-    --sidebar-primary-foreground: 220 20% 15%;
-    --sidebar-accent: 200 50% 94%;
-    --sidebar-accent-foreground: 200 40% 35%;
-    --sidebar-border: 200 15% 88%;
-    --sidebar-ring: 78 65% 48%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 25% 12%;
+    --sidebar-primary: 78 70% 50%;
+    --sidebar-primary-foreground: 220 25% 12%;
+    --sidebar-accent: 200 60% 95%;
+    --sidebar-accent-foreground: 200 50% 30%;
+    --sidebar-border: 220 15% 90%;
+    --sidebar-ring: 78 70% 50%;
   }
 }
 
@@ -79,10 +84,9 @@
     @apply font-display tracking-tight;
   }
 
-  /* Custom selection */
   ::selection {
-    background-color: hsl(78 65% 48% / 0.25);
-    color: hsl(220 20% 18%);
+    background-color: hsl(78 70% 50% / 0.3);
+    color: hsl(220 25% 12%);
   }
 }
 
@@ -91,40 +95,68 @@
     text-wrap: balance;
   }
 
-  /* Soft card with rounded corners */
+  /* Greenado-style colored cards */
+  .card-lime {
+    @apply bg-primary rounded-3xl p-8;
+  }
+
+  .card-sky {
+    background-color: hsl(var(--sky));
+    @apply rounded-3xl p-8 text-white;
+  }
+
+  .card-forest {
+    background-color: hsl(var(--forest));
+    @apply rounded-3xl p-8 text-white;
+  }
+
+  .card-light {
+    @apply bg-muted rounded-3xl p-8;
+  }
+
+  /* Soft card with shadow */
   .soft-card {
-    @apply bg-card rounded-3xl border border-border/50 shadow-sm;
+    @apply bg-card rounded-3xl border border-border shadow-sm;
   }
 
-  /* Tag/badge styles like Greenado */
+  /* Tags */
   .tag {
-    @apply inline-flex items-center px-4 py-1.5 rounded-full bg-secondary text-secondary-foreground text-sm font-medium;
+    @apply inline-flex items-center px-4 py-1.5 rounded-full bg-muted text-foreground text-sm font-medium;
   }
 
-  .tag-primary {
-    @apply inline-flex items-center px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-medium;
+  .tag-lime {
+    @apply inline-flex items-center px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-semibold;
   }
 
-  /* Button lift effect */
+  .tag-outline {
+    @apply inline-flex items-center px-4 py-1.5 rounded-full border-2 border-foreground/20 text-foreground text-sm font-medium;
+  }
+
+  /* Button effects */
   .btn-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
   }
 
-  /* Organic blob shapes */
-  .organic-blob {
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-  }
-
-  .organic-blob-alt {
-    border-radius: 40% 60% 70% 30% / 40% 50% 50% 60%;
-  }
-
-  /* Decorative circle */
+  /* Decorative elements */
   .deco-circle {
-    @apply absolute rounded-full bg-accent/20 blur-3xl pointer-events-none;
+    @apply absolute rounded-full pointer-events-none;
   }
 
-  /* Scroll-triggered animations */
+  /* Animated underline for links */
+  .link-underline {
+    @apply relative;
+  }
+  
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+  
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  /* Scroll animations */
   .animate-on-scroll {
     @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
   }
@@ -133,7 +165,6 @@
     @apply opacity-100 translate-y-0;
   }
 
-  /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .animate-on-scroll {
       @apply opacity-100 translate-y-0 transition-none;
