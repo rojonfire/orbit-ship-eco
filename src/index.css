@@ -2,85 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ORBITA BAGS Design System
-   - Primary: Electric Blue accent
-   - Background: White / very light
-   - Foreground: Near black
-   - Typography: Poppins (headings), Inter (body)
+/* ORBITA BAGS — Futuristic Dark Design System
+   Inspired by VEXO: Dark backgrounds, electric blue glows, premium typography
    All colors are HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 220 20% 10%;
+    /* Dark futuristic palette */
+    --background: 220 20% 4%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
+    --card: 220 20% 7%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
+    --popover: 220 20% 7%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Electric Blue as primary */
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
+    /* Electric Blue as primary - more vibrant */
+    --primary: 210 100% 56%;
+    --primary-foreground: 220 20% 4%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 20% 10%;
+    --secondary: 220 15% 12%;
+    --secondary-foreground: 0 0% 90%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 10% 55%;
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 210 100% 56%;
+    --accent-foreground: 220 20% 4%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 217 91% 60%;
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 210 100% 56%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    /* Custom tokens */
-    --electric-blue: 217 91% 60%;
-    --electric-blue-light: 217 91% 95%;
-    --electric-blue-dark: 217 91% 45%;
+    /* Custom glow tokens */
+    --glow-primary: 210 100% 56%;
+    --glow-secondary: 260 80% 60%;
+    --glow-cyan: 185 100% 50%;
+    
+    /* Gradient tokens */
+    --gradient-start: 210 100% 56%;
+    --gradient-end: 260 80% 60%;
   }
 
-  .dark {
-    --background: 220 20% 6%;
+  /* Light mode - keeping dark as primary */
+  .light {
+    --background: 220 20% 4%;
     --foreground: 0 0% 98%;
-
-    --card: 220 20% 8%;
+    --card: 220 20% 7%;
     --card-foreground: 0 0% 98%;
-
-    --popover: 220 20% 8%;
+    --popover: 220 20% 7%;
     --popover-foreground: 0 0% 98%;
-
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 220 14% 14%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 220 14% 14%;
-    --muted-foreground: 220 10% 60%;
-
-    --accent: 217 91% 60%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 220 14% 18%;
-    --input: 220 14% 18%;
-    --ring: 217 91% 60%;
-
-    --electric-blue: 217 91% 60%;
-    --electric-blue-light: 217 91% 20%;
-    --electric-blue-dark: 217 91% 70%;
+    --primary: 210 100% 56%;
+    --primary-foreground: 220 20% 4%;
+    --secondary: 220 15% 12%;
+    --secondary-foreground: 0 0% 90%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 10% 55%;
+    --accent: 210 100% 56%;
+    --accent-foreground: 220 20% 4%;
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 210 100% 56%;
   }
 }
 
@@ -100,11 +89,76 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-bold tracking-tight;
   }
+
+  /* Custom selection color */
+  ::selection {
+    @apply bg-primary/30 text-foreground;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Glow effects */
+  .glow-primary {
+    box-shadow: 0 0 40px hsl(var(--glow-primary) / 0.4),
+                0 0 80px hsl(var(--glow-primary) / 0.2),
+                0 0 120px hsl(var(--glow-primary) / 0.1);
+  }
+
+  .glow-primary-subtle {
+    box-shadow: 0 0 30px hsl(var(--glow-primary) / 0.25),
+                0 0 60px hsl(var(--glow-primary) / 0.1);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 40px hsl(var(--glow-primary) / 0.5),
+                 0 0 80px hsl(var(--glow-primary) / 0.3);
+  }
+
+  .glow-border {
+    box-shadow: inset 0 0 20px hsl(var(--glow-primary) / 0.1),
+                0 0 20px hsl(var(--glow-primary) / 0.2);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      hsl(var(--gradient-start)) 0%,
+      hsl(var(--gradient-end)) 50%,
+      hsl(var(--glow-cyan)) 100%
+    );
+  }
+
+  /* Glass morphism */
+  .glass {
+    @apply bg-card/40 backdrop-blur-xl border border-border/50;
+  }
+
+  .glass-strong {
+    @apply bg-card/60 backdrop-blur-2xl border border-border/60;
+  }
+
+  /* Grid pattern background */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
   }
 
   /* Scroll-triggered animation utilities */
@@ -120,6 +174,11 @@
   @media (prefers-reduced-motion: reduce) {
     .animate-on-scroll {
       @apply opacity-100 translate-y-0 transition-none;
+    }
+    
+    .glow-primary, .glow-primary-subtle, .glow-text, .glow-border {
+      box-shadow: none;
+      text-shadow: none;
     }
   }
 }
