@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -10,13 +10,24 @@ interface AnimatedSectionProps {
 
 const AnimatedSection = ({ children, className, delay = 0 }: AnimatedSectionProps) => {
   const { ref, isVisible } = useScrollAnimation();
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    // Force show after a short delay to ensure content is visible
+    const timer = setTimeout(() => {
+      setShow(true);
+    }, 50 + delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  const visible = isVisible || show;
 
   return (
     <div
       ref={ref}
       className={cn(
         "transition-all duration-700 ease-out",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
         className
       )}
       style={{ transitionDelay: `${delay}ms` }}

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export function useScrollAnimation(threshold = 0.1) {
+export function useScrollAnimation(threshold = 0.05) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -12,6 +12,15 @@ export function useScrollAnimation(threshold = 0.1) {
       return;
     }
 
+    // Check if element is already in view on mount
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.9) {
+        setIsVisible(true);
+        return;
+      }
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -19,7 +28,7 @@ export function useScrollAnimation(threshold = 0.1) {
           observer.unobserve(entry.target);
         }
       },
-      { threshold, rootMargin: "0px 0px -50px 0px" }
+      { threshold, rootMargin: "0px 0px -20px 0px" }
     );
 
     const currentRef = ref.current;
