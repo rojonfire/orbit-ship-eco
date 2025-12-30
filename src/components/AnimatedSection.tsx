@@ -8,7 +8,7 @@ interface AnimatedSectionProps {
   delay?: number;
 }
 
-export function AnimatedSection({ children, className, delay = 0 }: AnimatedSectionProps) {
+const AnimatedSection = ({ children, className, delay = 0 }: AnimatedSectionProps) => {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
@@ -24,4 +24,6 @@ export function AnimatedSection({ children, className, delay = 0 }: AnimatedSect
       {children}
     </div>
   );
-}
+};
+
+export default AnimatedSection;
