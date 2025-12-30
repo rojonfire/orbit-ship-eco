@@ -63,8 +63,8 @@ const HeroSection = () => {
             </AnimatedSection>
           </div>
 
-          {/* Right: Visual cards - Greenado style */}
-          <div className="order-1 lg:order-2 relative">
+          {/* Right: Visual cards - Greenado style - Hidden on mobile */}
+          <div className="hidden lg:block order-1 lg:order-2 relative">
             <AnimatedSection delay={200}>
               <div className="grid grid-cols-2 gap-4">
                 {/* Main lime card */}
