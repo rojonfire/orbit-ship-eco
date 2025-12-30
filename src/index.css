@@ -9,56 +9,56 @@
 
 @layer base {
   :root {
-    /* Greenado-inspired: Warm off-white, natural greens */
-    --background: 60 20% 98%;
-    --foreground: 150 10% 15%;
+    /* Greenado-inspired: Fresh lime + sky blue, modern & vibrant */
+    --background: 60 15% 98%;
+    --foreground: 220 20% 18%;
 
-    --card: 60 15% 97%;
-    --card-foreground: 150 10% 15%;
+    --card: 60 10% 97%;
+    --card-foreground: 220 20% 18%;
 
-    --popover: 60 20% 98%;
-    --popover-foreground: 150 10% 15%;
+    --popover: 60 15% 98%;
+    --popover-foreground: 220 20% 18%;
 
-    /* Primary: Deep forest green */
-    --primary: 152 45% 28%;
-    --primary-foreground: 60 20% 98%;
+    /* Primary: Vibrant lime/chartreuse green */
+    --primary: 78 65% 48%;
+    --primary-foreground: 220 20% 15%;
 
-    /* Secondary: Soft sage */
-    --secondary: 140 20% 92%;
-    --secondary-foreground: 150 10% 20%;
+    /* Secondary: Light sky blue */
+    --secondary: 200 50% 94%;
+    --secondary-foreground: 200 40% 35%;
 
-    --muted: 140 15% 94%;
-    --muted-foreground: 150 10% 45%;
+    --muted: 60 10% 94%;
+    --muted-foreground: 220 10% 50%;
 
-    /* Accent: Fresh lime/chartreuse */
-    --accent: 85 50% 55%;
-    --accent-foreground: 150 10% 15%;
+    /* Accent: Sky blue */
+    --accent: 195 75% 55%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 140 15% 88%;
-    --input: 140 15% 88%;
-    --ring: 152 45% 28%;
+    --border: 200 15% 88%;
+    --input: 200 15% 88%;
+    --ring: 78 65% 48%;
 
     --radius: 1rem;
 
     /* Chart colors */
-    --chart-1: 152 45% 28%;
-    --chart-2: 85 50% 55%;
-    --chart-3: 140 25% 70%;
+    --chart-1: 78 65% 48%;
+    --chart-2: 195 75% 55%;
+    --chart-3: 160 50% 50%;
     --chart-4: 45 80% 60%;
-    --chart-5: 200 60% 50%;
+    --chart-5: 280 60% 60%;
 
     /* Sidebar */
-    --sidebar-background: 60 15% 97%;
-    --sidebar-foreground: 150 10% 15%;
-    --sidebar-primary: 152 45% 28%;
-    --sidebar-primary-foreground: 60 20% 98%;
-    --sidebar-accent: 140 20% 92%;
-    --sidebar-accent-foreground: 150 10% 20%;
-    --sidebar-border: 140 15% 88%;
-    --sidebar-ring: 152 45% 28%;
+    --sidebar-background: 60 10% 97%;
+    --sidebar-foreground: 220 20% 18%;
+    --sidebar-primary: 78 65% 48%;
+    --sidebar-primary-foreground: 220 20% 15%;
+    --sidebar-accent: 200 50% 94%;
+    --sidebar-accent-foreground: 200 40% 35%;
+    --sidebar-border: 200 15% 88%;
+    --sidebar-ring: 78 65% 48%;
   }
 }
 
@@ -81,8 +81,8 @@
 
   /* Custom selection */
   ::selection {
-    background-color: hsl(152 45% 28% / 0.15);
-    color: hsl(150 10% 15%);
+    background-color: hsl(78 65% 48% / 0.25);
+    color: hsl(220 20% 18%);
   }
 }
 
