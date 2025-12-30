@@ -1,183 +1,137 @@
-import { AnimatedSection } from "./AnimatedSection";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { Check, Package, Paintbrush, Clock, Truck } from "lucide-react";
+import { useState } from 'react';
+import { Check, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import AnimatedSection from './AnimatedSection';
 
 const sizes = [
-  { id: "xs", name: "XS", dimensions: "20 × 30 cm", description: "Accesorios pequeños", price: "$2.500" },
-  { id: "s", name: "S", dimensions: "25 × 35 cm", description: "Ropa liviana", price: "$3.200" },
-  { id: "m", name: "M", dimensions: "30 × 40 cm", description: "El más versátil", price: "$4.100", popular: true },
-  { id: "l", name: "L", dimensions: "40 × 50 cm", description: "Productos grandes", price: "$5.400" },
+  { id: 'xs', name: 'XS', dimensions: '20 × 30 cm', use: 'Accesorios pequeños' },
+  { id: 's', name: 'S', dimensions: '30 × 40 cm', use: 'Ropa ligera' },
+  { id: 'm', name: 'M', dimensions: '40 × 50 cm', use: 'Ropa y zapatos' },
+  { id: 'l', name: 'L', dimensions: '50 × 60 cm', use: 'Paquetes grandes' },
 ];
 
-type ProductType = "basic" | "custom";
-
-export function ProductOverview() {
-  const [selectedSize, setSelectedSize] = useState("m");
-  const [productType, setProductType] = useState<ProductType>("basic");
-  const [selectedColor, setSelectedColor] = useState<"white" | "black">("white");
+const ProductOverview = () => {
+  const [selectedSize, setSelectedSize] = useState('m');
+  const [isCustom, setIsCustom] = useState(false);
 
   return (
-    <section id="productos" className="py-32 relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-primary/10 rounded-full blur-[200px]" />
-      </div>
-
+    <section id="productos" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="deco-circle w-[500px] h-[500px] top-0 right-0 opacity-20" />
+      
       <div className="container mx-auto px-6 relative z-10">
+        {/* Section header */}
         <AnimatedSection>
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-              <span className="text-foreground">Elige tu bolsa </span>
-              <span className="gradient-text">perfecta</span>
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="tag-primary mb-4 inline-block">Productos</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6">
+              Encuentra tu <span className="text-primary italic">tamaño</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              4 tamaños disponibles. Básicas listas para enviar o personalizadas con tu marca.
+            <p className="text-muted-foreground text-lg">
+              Cuatro tamaños diseñados para cubrir todas las necesidades de tu ecommerce.
             </p>
           </div>
         </AnimatedSection>
 
-        {/* Product Type Toggle */}
+        {/* Toggle Basic/Custom */}
         <AnimatedSection delay={100}>
           <div className="flex justify-center mb-12">
-            <div className="inline-flex glass rounded-full p-1.5 glow-border">
+            <div className="inline-flex bg-secondary rounded-full p-1.5">
               <button
-                onClick={() => setProductType("basic")}
-                className={cn(
-                  "flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold transition-all duration-300",
-                  productType === "basic"
-                    ? "bg-primary text-primary-foreground shadow-[0_0_20px_hsl(var(--glow-primary)/0.4)]"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
+                onClick={() => setIsCustom(false)}
+                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                  !isCustom
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
               >
-                <Package className="w-4 h-4" />
-                Básica
+                Estándar
               </button>
               <button
-                onClick={() => setProductType("custom")}
-                className={cn(
-                  "flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold transition-all duration-300",
-                  productType === "custom"
-                    ? "bg-primary text-primary-foreground shadow-[0_0_20px_hsl(var(--glow-primary)/0.4)]"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
+                onClick={() => setIsCustom(true)}
+                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                  isCustom
+                    ? 'bg-primary text-primary-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
               >
-                <Paintbrush className="w-4 h-4" />
-                Personalizada
+                Personalizado
               </button>
             </div>
           </div>
         </AnimatedSection>
 
-        {/* Product Info Banner */}
-        <AnimatedSection delay={150}>
-          <div className={cn(
-            "mb-12 p-5 rounded-2xl glass glow-border flex items-center justify-center gap-3",
-          )}>
-            {productType === "basic" ? (
-              <>
-                <Truck className="w-5 h-5 text-primary" />
-                <p className="text-foreground">
-                  <span className="font-semibold text-primary">Envío rápido</span>
-                  <span className="text-muted-foreground"> — Disponible en blanco o negro, lista para despachar</span>
-                </p>
-              </>
-            ) : (
-              <>
-                <Clock className="w-5 h-5 text-glow-secondary" />
-                <p className="text-foreground">
-                  <span className="font-semibold text-glow-secondary">30 días de producción</span>
-                  <span className="text-muted-foreground"> — Personalizada con tu logo y diseño</span>
-                </p>
-              </>
-            )}
-          </div>
-        </AnimatedSection>
-
-        {/* Size Grid */}
-        <AnimatedSection delay={200}>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-            {sizes.map((size) => (
-              <button
-                key={size.id}
+        {/* Product cards grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {sizes.map((size, index) => (
+            <AnimatedSection key={size.id} delay={150 + index * 100}>
+              <div
                 onClick={() => setSelectedSize(size.id)}
-                className={cn(
-                  "group relative p-6 rounded-2xl border transition-all duration-300 text-left overflow-hidden",
+                className={`soft-card p-6 cursor-pointer transition-all duration-300 hover:-translate-y-2 ${
                   selectedSize === size.id
-                    ? "border-primary bg-primary/10 glow-primary-subtle"
-                    : "border-border/50 glass hover:border-primary/50"
-                )}
+                    ? 'ring-2 ring-primary shadow-lg'
+                    : ''
+                }`}
               >
-                {size.popular && (
-                  <span className="absolute top-3 right-3 px-2 py-0.5 bg-primary text-primary-foreground text-xs font-semibold rounded-full">
-                    Popular
-                  </span>
-                )}
-                
-                <span className="font-display text-4xl font-bold gradient-text">{size.name}</span>
-                <p className="text-sm text-muted-foreground mt-2">{size.dimensions}</p>
-                <p className="text-sm text-foreground/70 mt-1">{size.description}</p>
-                <p className="text-lg font-bold text-primary mt-4">{size.price}</p>
-                
-                {selectedSize === size.id && (
-                  <div className="absolute bottom-3 right-3 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
-                    <Check className="w-4 h-4 text-primary-foreground" />
+                {/* Size indicator */}
+                <div className="flex justify-between items-start mb-6">
+                  <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center">
+                    <span className="text-xl font-display font-semibold text-primary">
+                      {size.name}
+                    </span>
+                  </div>
+                  {selectedSize === size.id && (
+                    <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+                      <Check className="w-4 h-4 text-primary-foreground" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Product illustration placeholder */}
+                <div className="aspect-square rounded-2xl bg-secondary/50 mb-6 flex items-center justify-center overflow-hidden">
+                  <div className="organic-blob w-3/4 h-3/4 bg-accent/30" />
+                </div>
+
+                {/* Info */}
+                <div className="space-y-2">
+                  <h3 className="font-display font-semibold text-lg">
+                    Bolsa {size.name}
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    {size.dimensions}
+                  </p>
+                  <p className="text-sm text-foreground/70">
+                    {size.use}
+                  </p>
+                </div>
+
+                {isCustom && (
+                  <div className="mt-4 pt-4 border-t border-border">
+                    <p className="text-xs text-muted-foreground">
+                      + Impresión personalizada
+                    </p>
+                    <p className="text-xs text-accent font-medium">
+                      30 días de producción
+                    </p>
                   </div>
                 )}
-              </button>
-            ))}
-          </div>
-        </AnimatedSection>
-
-        {/* Color Selection for Basic */}
-        {productType === "basic" && (
-          <AnimatedSection delay={250}>
-            <div className="flex justify-center gap-6 mb-12">
-              <button 
-                onClick={() => setSelectedColor("white")}
-                className={cn(
-                  "group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all duration-300",
-                  selectedColor === "white" ? "glass glow-border" : "hover:bg-card/30"
-                )}
-              >
-                <div className={cn(
-                  "w-16 h-16 rounded-full bg-foreground border-4 transition-all duration-300",
-                  selectedColor === "white" ? "border-primary shadow-[0_0_20px_hsl(var(--glow-primary)/0.5)]" : "border-transparent"
-                )} />
-                <span className="text-sm font-medium text-foreground">Blanco</span>
-              </button>
-              <button 
-                onClick={() => setSelectedColor("black")}
-                className={cn(
-                  "group flex flex-col items-center gap-3 p-4 rounded-2xl transition-all duration-300",
-                  selectedColor === "black" ? "glass glow-border" : "hover:bg-card/30"
-                )}
-              >
-                <div className={cn(
-                  "w-16 h-16 rounded-full bg-background border-4 border-foreground/30 transition-all duration-300",
-                  selectedColor === "black" ? "border-primary shadow-[0_0_20px_hsl(var(--glow-primary)/0.5)]" : ""
-                )} />
-                <span className="text-sm font-medium text-foreground">Negro</span>
-              </button>
-            </div>
-          </AnimatedSection>
-        )}
+              </div>
+            </AnimatedSection>
+          ))}
+        </div>
 
         {/* CTA */}
-        <AnimatedSection delay={300}>
-          <div className="text-center">
-            <a
-              href="#"
-              className="group relative inline-flex items-center gap-3 px-12 py-5 rounded-full text-lg font-semibold overflow-hidden transition-all duration-500"
-            >
-              <span className="absolute inset-0 bg-gradient-to-r from-primary via-glow-secondary to-glow-cyan bg-[length:200%_100%] animate-gradient-shift" />
-              <span className="relative text-primary-foreground">
-                {productType === "basic" ? "Comprar ahora" : "Cotizar personalización"}
-              </span>
-            </a>
+        <AnimatedSection delay={600}>
+          <div className="text-center mt-12">
+            <Button size="lg" className="rounded-full px-8 btn-lift group">
+              Ver catálogo completo
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Button>
           </div>
         </AnimatedSection>
       </div>
     </section>
   );
-}
+};
+
+export default ProductOverview;

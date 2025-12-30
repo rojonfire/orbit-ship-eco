@@ -1,43 +1,45 @@
-import logo from "@/assets/logo-orbita-bags.svg";
-import { Leaf } from "lucide-react";
+import { Instagram, Linkedin, Mail } from 'lucide-react';
+import logo from '@/assets/logo-orbita-bags.svg';
 
-export function Footer() {
+const Footer = () => {
   return (
-    <footer className="py-16 border-t border-border/30 relative overflow-hidden">
-      {/* Subtle glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[200px] bg-primary/5 rounded-full blur-[100px]" />
-
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-          <div className="flex flex-col items-center lg:items-start gap-4">
-            <img 
-              src={logo} 
-              alt="ORBITA BAGS" 
-              className="h-8 w-auto invert" 
-            />
-            <p className="text-sm text-muted-foreground flex items-center gap-2">
-              <Leaf className="w-4 h-4 text-primary" />
-              Bolsas compostables para un futuro mejor
+    <footer className="bg-secondary/50 pt-16 pb-8">
+      <div className="container mx-auto px-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          <div className="lg:col-span-2">
+            <img src={logo} alt="ORBITA BAGS" className="h-10 w-auto mb-6" />
+            <p className="text-muted-foreground max-w-sm mb-6">
+              Bolsas courier compostables para el ecommerce chileno.
             </p>
+            <div className="flex gap-4">
+              {[Instagram, Linkedin, Mail].map((Icon, i) => (
+                <a key={i} href="#" className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-colors">
+                  <Icon size={18} />
+                </a>
+              ))}
+            </div>
           </div>
-          
-          <nav className="flex flex-wrap items-center justify-center gap-8">
-            <a href="#productos" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Productos
-            </a>
-            <a href="#por-que-orbita" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Por qué ORBITA
-            </a>
-            <a href="#contacto" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Contacto
-            </a>
-          </nav>
-
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} ORBITA BAGS. Chile.
-          </p>
+          <div>
+            <h4 className="font-display font-semibold mb-4">Productos</h4>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li><a href="#" className="hover:text-primary transition-colors">Bolsas estándar</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">Personalizadas</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-display font-semibold mb-4">Empresa</h4>
+            <ul className="space-y-3 text-sm text-muted-foreground">
+              <li><a href="#" className="hover:text-primary transition-colors">Nosotros</a></li>
+              <li><a href="#" className="hover:text-primary transition-colors">Contacto</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
+          © {new Date().getFullYear()} ORBITA BAGS. Hecho con 💚 en Chile
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

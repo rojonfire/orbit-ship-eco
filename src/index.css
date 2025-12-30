@@ -2,74 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ORBITA BAGS — Futuristic Dark Design System
-   Inspired by VEXO: Dark backgrounds, electric blue glows, premium typography
-   All colors are HSL.
+/* ORBITA BAGS — Greenado-inspired Design System
+   Fresh, organic, nature-focused with elegant serif typography
+   Light backgrounds, natural green palette, soft rounded elements
 */
 
 @layer base {
   :root {
-    /* Dark futuristic palette */
-    --background: 220 20% 4%;
-    --foreground: 0 0% 98%;
+    /* Greenado-inspired: Warm off-white, natural greens */
+    --background: 60 20% 98%;
+    --foreground: 150 10% 15%;
 
-    --card: 220 20% 7%;
-    --card-foreground: 0 0% 98%;
+    --card: 60 15% 97%;
+    --card-foreground: 150 10% 15%;
 
-    --popover: 220 20% 7%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 60 20% 98%;
+    --popover-foreground: 150 10% 15%;
 
-    /* Electric Blue as primary - more vibrant */
-    --primary: 210 100% 56%;
-    --primary-foreground: 220 20% 4%;
+    /* Primary: Deep forest green */
+    --primary: 152 45% 28%;
+    --primary-foreground: 60 20% 98%;
 
-    --secondary: 220 15% 12%;
-    --secondary-foreground: 0 0% 90%;
+    /* Secondary: Soft sage */
+    --secondary: 140 20% 92%;
+    --secondary-foreground: 150 10% 20%;
 
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 140 15% 94%;
+    --muted-foreground: 150 10% 45%;
 
-    --accent: 210 100% 56%;
-    --accent-foreground: 220 20% 4%;
+    /* Accent: Fresh lime/chartreuse */
+    --accent: 85 50% 55%;
+    --accent-foreground: 150 10% 15%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 220 15% 18%;
-    --input: 220 15% 18%;
-    --ring: 210 100% 56%;
+    --border: 140 15% 88%;
+    --input: 140 15% 88%;
+    --ring: 152 45% 28%;
 
     --radius: 1rem;
 
-    /* Custom glow tokens */
-    --glow-primary: 210 100% 56%;
-    --glow-secondary: 260 80% 60%;
-    --glow-cyan: 185 100% 50%;
-    
-    /* Gradient tokens */
-    --gradient-start: 210 100% 56%;
-    --gradient-end: 260 80% 60%;
-  }
+    /* Chart colors */
+    --chart-1: 152 45% 28%;
+    --chart-2: 85 50% 55%;
+    --chart-3: 140 25% 70%;
+    --chart-4: 45 80% 60%;
+    --chart-5: 200 60% 50%;
 
-  /* Light mode - keeping dark as primary */
-  .light {
-    --background: 220 20% 4%;
-    --foreground: 0 0% 98%;
-    --card: 220 20% 7%;
-    --card-foreground: 0 0% 98%;
-    --popover: 220 20% 7%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 210 100% 56%;
-    --primary-foreground: 220 20% 4%;
-    --secondary: 220 15% 12%;
-    --secondary-foreground: 0 0% 90%;
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 55%;
-    --accent: 210 100% 56%;
-    --accent-foreground: 220 20% 4%;
-    --border: 220 15% 18%;
-    --input: 220 15% 18%;
-    --ring: 210 100% 56%;
+    /* Sidebar */
+    --sidebar-background: 60 15% 97%;
+    --sidebar-foreground: 150 10% 15%;
+    --sidebar-primary: 152 45% 28%;
+    --sidebar-primary-foreground: 60 20% 98%;
+    --sidebar-accent: 140 20% 92%;
+    --sidebar-accent-foreground: 150 10% 20%;
+    --sidebar-border: 140 15% 88%;
+    --sidebar-ring: 152 45% 28%;
   }
 }
 
@@ -87,12 +76,13 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-tight;
+    @apply font-display tracking-tight;
   }
 
-  /* Custom selection color */
+  /* Custom selection */
   ::selection {
-    @apply bg-primary/30 text-foreground;
+    background-color: hsl(152 45% 28% / 0.15);
+    color: hsl(150 10% 15%);
   }
 }
 
@@ -101,67 +91,40 @@
     text-wrap: balance;
   }
 
-  /* Glow effects */
-  .glow-primary {
-    box-shadow: 0 0 40px hsl(var(--glow-primary) / 0.4),
-                0 0 80px hsl(var(--glow-primary) / 0.2),
-                0 0 120px hsl(var(--glow-primary) / 0.1);
+  /* Soft card with rounded corners */
+  .soft-card {
+    @apply bg-card rounded-3xl border border-border/50 shadow-sm;
   }
 
-  .glow-primary-subtle {
-    box-shadow: 0 0 30px hsl(var(--glow-primary) / 0.25),
-                0 0 60px hsl(var(--glow-primary) / 0.1);
+  /* Tag/badge styles like Greenado */
+  .tag {
+    @apply inline-flex items-center px-4 py-1.5 rounded-full bg-secondary text-secondary-foreground text-sm font-medium;
   }
 
-  .glow-text {
-    text-shadow: 0 0 40px hsl(var(--glow-primary) / 0.5),
-                 0 0 80px hsl(var(--glow-primary) / 0.3);
+  .tag-primary {
+    @apply inline-flex items-center px-4 py-1.5 rounded-full bg-primary text-primary-foreground text-sm font-medium;
   }
 
-  .glow-border {
-    box-shadow: inset 0 0 20px hsl(var(--glow-primary) / 0.1),
-                0 0 20px hsl(var(--glow-primary) / 0.2);
+  /* Button lift effect */
+  .btn-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
   }
 
-  /* Gradient text */
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      135deg,
-      hsl(var(--gradient-start)) 0%,
-      hsl(var(--gradient-end)) 50%,
-      hsl(var(--glow-cyan)) 100%
-    );
+  /* Organic blob shapes */
+  .organic-blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
 
-  /* Glass morphism */
-  .glass {
-    @apply bg-card/40 backdrop-blur-xl border border-border/50;
+  .organic-blob-alt {
+    border-radius: 40% 60% 70% 30% / 40% 50% 50% 60%;
   }
 
-  .glass-strong {
-    @apply bg-card/60 backdrop-blur-2xl border border-border/60;
+  /* Decorative circle */
+  .deco-circle {
+    @apply absolute rounded-full bg-accent/20 blur-3xl pointer-events-none;
   }
 
-  /* Grid pattern background */
-  .grid-pattern {
-    background-image: 
-      linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-
-  /* Noise texture overlay */
-  .noise-overlay::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: 0.03;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
-  }
-
-  /* Scroll-triggered animation utilities */
+  /* Scroll-triggered animations */
   .animate-on-scroll {
     @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
   }
@@ -176,9 +139,10 @@
       @apply opacity-100 translate-y-0 transition-none;
     }
     
-    .glow-primary, .glow-primary-subtle, .glow-text, .glow-border {
-      box-shadow: none;
-      text-shadow: none;
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
   }
 }
