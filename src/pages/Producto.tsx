@@ -92,7 +92,7 @@ const Producto = () => {
   };
 
   const handleCustomContact = () => {
-    const message = `¡Hola! Me interesa personalizar bolsas Orbita con mi propio diseño. ¿Podrían darme más información sobre opciones de personalización?`;
+    const message = `Estoy interesado en tener bolsas personalizadas para mi empresa, me cuentas un poco mas?`;
     window.open(
       `https://wa.me/56954244951?text=${encodeURIComponent(message)}`,
       "_blank"
