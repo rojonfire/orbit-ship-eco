@@ -10,9 +10,11 @@ import bolsaBlancaPlain from "@/assets/bolsa-blanca-plain.png";
 import bolsaNegraPlain from "@/assets/bolsa-negra-plain.png";
 
 const SIZES = [
-  { id: "small", name: "Pequeña", dimensions: "25cm x 35cm", capacity: "5kg" },
-  { id: "medium", name: "Mediana", dimensions: "40cm x 50cm", capacity: "10kg" },
-  { id: "large", name: "Grande", dimensions: "50cm x 60cm", capacity: "15kg" },
+  { id: "xs", name: "Extra Pequeña", dimensions: "15cm x 20cm (+5cm solapa)" },
+  { id: "small", name: "Pequeña", dimensions: "20cm x 30cm (+5cm solapa)" },
+  { id: "medium", name: "Mediana", dimensions: "30cm x 40cm (+5cm solapa)" },
+  { id: "large", name: "Grande", dimensions: "40cm x 50cm (+5cm solapa)" },
+  { id: "xl", name: "Extra Grande", dimensions: "50cm x 60cm (+5cm solapa)" },
 ];
 
 const QUANTITIES = [100, 500, 1000];
@@ -225,9 +227,6 @@ const Producto = () => {
                           <span className="font-medium text-foreground">{size.name}</span>
                           <p className="text-sm text-muted-foreground">{size.dimensions}</p>
                         </div>
-                        <span className="text-sm text-muted-foreground">
-                          Hasta {size.capacity}
-                        </span>
                       </div>
                     </button>
                   ))}

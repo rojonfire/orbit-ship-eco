@@ -8,24 +8,33 @@ import bolsaNegra from "@/assets/bolsa-negra.png";
 
 const SIZES = [
   { 
+    id: "xs", 
+    name: "Extra Pequeña", 
+    dimensions: "15cm x 20cm (+5cm solapa)", 
+    description: "Ideal para accesorios pequeños y joyería"
+  },
+  { 
     id: "small", 
     name: "Pequeña", 
-    dimensions: "25cm x 35cm", 
-    capacity: "5kg",
-    description: "Ideal para artículos pequeños y accesorios"
+    dimensions: "20cm x 30cm (+5cm solapa)", 
+    description: "Perfecta para ropa interior y accesorios"
   },
   { 
     id: "medium", 
     name: "Mediana", 
-    dimensions: "40cm x 50cm", 
-    capacity: "10kg",
-    description: "Perfecta para ropa y productos medianos"
+    dimensions: "30cm x 40cm (+5cm solapa)", 
+    description: "Ideal para camisetas y ropa liviana"
   },
   { 
     id: "large", 
     name: "Grande", 
-    dimensions: "50cm x 60cm", 
-    capacity: "15kg",
+    dimensions: "40cm x 50cm (+5cm solapa)", 
+    description: "Para ropa, zapatos y productos medianos"
+  },
+  { 
+    id: "xl", 
+    name: "Extra Grande", 
+    dimensions: "50cm x 60cm (+5cm solapa)", 
     description: "Para envíos voluminosos y paquetes grandes"
   },
 ];
@@ -82,7 +91,7 @@ const Catalogo = () => {
                         Bolsa {size.name}
                       </h2>
                       <p className="text-muted-foreground">
-                        {size.dimensions} • Hasta {size.capacity}
+                        {size.dimensions}
                       </p>
                     </div>
                   </div>
