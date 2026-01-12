@@ -2,7 +2,7 @@ import { ArrowRight, Leaf, Recycle, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import AnimatedSection from './AnimatedSection';
-import bolsaBlanca from '@/assets/bolsa-blanca.png';
+import bolsasDuo from '@/assets/bolsas-duo.png';
 
 const ProductOverview = () => {
   return (
@@ -23,10 +23,10 @@ const ProductOverview = () => {
         <AnimatedSection delay={200}>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Product Image */}
-            <div className="aspect-square bg-secondary/30 rounded-3xl overflow-hidden border border-border flex items-center justify-center p-8">
+            <div className="aspect-square rounded-3xl overflow-hidden flex items-center justify-center p-4">
               <img
-                src={bolsaBlanca}
-                alt="Bolsa Orbita Biodegradable"
+                src={bolsasDuo}
+                alt="Bolsas Orbita Biodegradables - Blanca y Negra"
                 className="w-full h-full object-contain hover-scale"
               />
             </div>
