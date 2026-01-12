@@ -39,8 +39,8 @@ const HeroSection = () => {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="rounded-full px-8 text-base">
-                  <Link to="/catalogo">
-                    Ver catálogo
+                  <Link to="/tienda">
+                    Ver tienda
                   </Link>
                 </Button>
               </div>
