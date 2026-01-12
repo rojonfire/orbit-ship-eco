@@ -3,6 +3,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logo from '@/assets/logo-orbita-bags.svg';
+import { CartDrawer } from '@/components/CartDrawer';
 
 interface NavItem {
   label: string;
@@ -85,13 +86,13 @@ const Header = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="ghost" className="rounded-full">
-            Iniciar sesión
-          </Button>
-          <Button className="rounded-full px-6 btn-lift group">
-            Cotizar
-            <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+          <CartDrawer />
+          <Link to="/catalogo">
+            <Button className="rounded-full px-6 btn-lift group">
+              Comprar
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </div>
 
         <button
@@ -115,7 +116,12 @@ const Header = () => {
                 {item.label}
               </button>
             ))}
-            <Button className="rounded-full mt-4">Cotizar ahora</Button>
+            <div className="flex items-center gap-3 mt-4">
+              <CartDrawer />
+              <Link to="/catalogo" className="flex-1">
+                <Button className="rounded-full w-full">Comprar ahora</Button>
+              </Link>
+            </div>
           </nav>
         </div>
       )}
