@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Minus, Plus, Leaf, Recycle, Package } from "lucide-react";
+import { ArrowLeft, Minus, Plus, Leaf, Recycle, Package, MessageCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import bolsaBlanca from "@/assets/bolsa-blanca.png";
@@ -9,23 +9,35 @@ import bolsaNegra from "@/assets/bolsa-negra.png";
 import bolsaBlancaPlain from "@/assets/bolsa-blanca-plain.png";
 import bolsaNegraPlain from "@/assets/bolsa-negra-plain.png";
 
+const SIZES = [
+  { id: "small", name: "Pequeña", dimensions: "25cm x 35cm", capacity: "5kg" },
+  { id: "medium", name: "Mediana", dimensions: "40cm x 50cm", capacity: "10kg" },
+  { id: "large", name: "Grande", dimensions: "50cm x 60cm", capacity: "15kg" },
+];
+
 const QUANTITIES = [100, 500, 1000];
 const PRICE_PER_UNIT = 0.85;
 
-const productImages = [
-  bolsaBlanca,
-  bolsaNegra,
-  bolsaBlancaPlain,
-  bolsaNegraPlain,
-];
+type Color = "blanca" | "negra";
+type CustomType = "con-diseño" | "personalizada";
 
 const Producto = () => {
-  const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedColor, setSelectedColor] = useState<Color>("blanca");
+  const [selectedSize, setSelectedSize] = useState(SIZES[1].id);
+  const [customType, setCustomType] = useState<CustomType>("con-diseño");
   const [selections, setSelections] = useState<Record<number, number>>({
     100: 0,
     500: 0,
     1000: 0,
   });
+
+  const getProductImage = () => {
+    if (customType === "con-diseño") {
+      return selectedColor === "blanca" ? bolsaBlanca : bolsaNegra;
+    } else {
+      return selectedColor === "blanca" ? bolsaBlancaPlain : bolsaNegraPlain;
+    }
+  };
 
   const updateQuantity = (qty: number, delta: number) => {
     setSelections((prev) => ({
@@ -41,13 +53,27 @@ const Producto = () => {
 
   const totalPrice = totalUnits * PRICE_PER_UNIT;
 
+  const selectedSizeData = SIZES.find((s) => s.id === selectedSize);
+
   const handleWhatsApp = () => {
     const orderDetails = Object.entries(selections)
       .filter(([, count]) => count > 0)
       .map(([qty, count]) => `${count}x packs de ${qty} unidades`)
       .join(", ");
 
-    const message = `¡Hola! Quiero hacer un pedido de bolsas Orbita:\n${orderDetails}\nTotal: ${totalUnits} unidades - $${totalPrice.toFixed(2)} USD`;
+    const colorText = selectedColor === "blanca" ? "Blanca" : "Negra";
+    const sizeText = selectedSizeData?.name || "";
+    const typeText = customType === "con-diseño" ? "Con diseño Orbita" : "Para personalizar";
+
+    const message = `¡Hola! Quiero hacer un pedido de bolsas Orbita:\n\n📦 Pedido: ${orderDetails}\n🎨 Color: ${colorText}\n📐 Tamaño: ${sizeText} (${selectedSizeData?.dimensions})\n✨ Tipo: ${typeText}\n\n💰 Total: ${totalUnits} unidades - $${totalPrice.toFixed(2)} USD`;
+    window.open(
+      `https://wa.me/5491123456789?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+  };
+
+  const handleCustomContact = () => {
+    const message = `¡Hola! Me interesa personalizar bolsas Orbita con mi propio diseño. ¿Podrían darme más información sobre opciones de personalización?`;
     window.open(
       `https://wa.me/5491123456789?text=${encodeURIComponent(message)}`,
       "_blank"
@@ -70,38 +96,24 @@ const Producto = () => {
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Product Images */}
+            {/* Product Image */}
             <div className="space-y-4">
               <div className="aspect-square bg-secondary/30 rounded-2xl overflow-hidden border border-border">
                 <img
-                  src={productImages[selectedImage]}
-                  alt="Bolsa Orbita"
-                  className="w-full h-full object-cover"
+                  src={getProductImage()}
+                  alt={`Bolsa Orbita ${selectedColor}`}
+                  className="w-full h-full object-cover transition-all duration-300"
                 />
               </div>
-              <div className="flex gap-3">
-                {productImages.map((img, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
-                      selectedImage === index
-                        ? "border-primary"
-                        : "border-border hover:border-primary/50"
-                    }`}
-                  >
-                    <img
-                      src={img}
-                      alt={`Vista ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
+              <p className="text-sm text-muted-foreground text-center">
+                {customType === "con-diseño" 
+                  ? "Bolsa con diseño Orbita incluido" 
+                  : "Bolsa lisa para personalizar"}
+              </p>
             </div>
 
             {/* Product Info */}
-            <div className="space-y-8">
+            <div className="space-y-6">
               <div>
                 <span className="text-primary text-sm font-medium uppercase tracking-wider">
                   Producto Estrella
@@ -117,9 +129,7 @@ const Producto = () => {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 Nuestra bolsa insignia combina resistencia y sostenibilidad.
                 Fabricada con materiales 100% biodegradables que se descomponen
-                en 180 días, sin dejar microplásticos. Perfecta para retail,
-                supermercados y comercios que buscan reducir su huella
-                ambiental.
+                en 180 días, sin dejar microplásticos.
               </p>
 
               {/* Features */}
@@ -133,7 +143,7 @@ const Producto = () => {
                 <div className="bg-secondary/30 rounded-xl p-4 text-center border border-border">
                   <Recycle className="w-8 h-8 text-accent mx-auto mb-2" />
                   <span className="text-sm text-muted-foreground">
-                    180 días descomposición
+                    180 días
                   </span>
                 </div>
                 <div className="bg-secondary/30 rounded-xl p-4 text-center border border-border">
@@ -144,110 +154,201 @@ const Producto = () => {
                 </div>
               </div>
 
-              {/* Specifications */}
-              <div className="bg-secondary/20 rounded-xl p-6 border border-border">
-                <h3 className="font-semibold text-foreground mb-4">
-                  Especificaciones
-                </h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex justify-between">
-                    <span>Material:</span>
-                    <span className="text-foreground">
-                      Almidón de maíz + PBAT
-                    </span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Tamaño:</span>
-                    <span className="text-foreground">40cm x 50cm</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Capacidad:</span>
-                    <span className="text-foreground">Hasta 10kg</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span>Personalización:</span>
-                    <span className="text-foreground">Logo incluido</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Quantity Selector */}
+              {/* Color Selector */}
               <div className="bg-card rounded-2xl p-6 border border-border">
                 <h3 className="font-semibold text-foreground mb-4">
-                  Selecciona tu pedido
+                  1. Elige el color
                 </h3>
-                <p className="text-sm text-muted-foreground mb-6">
-                  Elige cuántos packs de cada cantidad necesitas
-                </p>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => setSelectedColor("blanca")}
+                    className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+                      selectedColor === "blanca"
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-white border border-gray-300 mx-auto mb-2" />
+                    <span className="text-foreground font-medium">Blanca</span>
+                  </button>
+                  <button
+                    onClick={() => setSelectedColor("negra")}
+                    className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+                      selectedColor === "negra"
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <div className="w-12 h-12 rounded-full bg-gray-900 mx-auto mb-2" />
+                    <span className="text-foreground font-medium">Negra</span>
+                  </button>
+                </div>
+              </div>
 
-                <div className="space-y-4">
-                  {QUANTITIES.map((qty) => (
-                    <div
-                      key={qty}
-                      className="flex items-center justify-between bg-secondary/30 rounded-xl p-4 border border-border"
+              {/* Size Selector */}
+              <div className="bg-card rounded-2xl p-6 border border-border">
+                <h3 className="font-semibold text-foreground mb-4">
+                  2. Elige el tamaño
+                </h3>
+                <div className="space-y-3">
+                  {SIZES.map((size) => (
+                    <button
+                      key={size.id}
+                      onClick={() => setSelectedSize(size.id)}
+                      className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
+                        selectedSize === size.id
+                          ? "border-primary bg-primary/10"
+                          : "border-border hover:border-primary/50"
+                      }`}
                     >
-                      <div>
-                        <span className="font-medium text-foreground">
-                          {qty} unidades
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <span className="font-medium text-foreground">{size.name}</span>
+                          <p className="text-sm text-muted-foreground">{size.dimensions}</p>
+                        </div>
+                        <span className="text-sm text-muted-foreground">
+                          Hasta {size.capacity}
                         </span>
-                        <p className="text-sm text-muted-foreground">
-                          ${(qty * PRICE_PER_UNIT).toFixed(2)} USD
-                        </p>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={() => updateQuantity(qty, -1)}
-                          disabled={selections[qty] === 0}
-                          className="h-10 w-10 rounded-full"
-                        >
-                          <Minus className="w-4 h-4" />
-                        </Button>
-                        <span className="w-8 text-center font-semibold text-foreground">
-                          {selections[qty]}
-                        </span>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          onClick={() => updateQuantity(qty, 1)}
-                          className="h-10 w-10 rounded-full"
-                        >
-                          <Plus className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
+              </div>
 
-                {/* Total */}
-                {totalUnits > 0 && (
-                  <div className="mt-6 pt-6 border-t border-border">
-                    <div className="flex justify-between items-center mb-4">
-                      <span className="text-muted-foreground">
-                        Total unidades:
-                      </span>
-                      <span className="text-xl font-bold text-primary">
-                        {totalUnits.toLocaleString()}
-                      </span>
+              {/* Custom Type Selector */}
+              <div className="bg-card rounded-2xl p-6 border border-border">
+                <h3 className="font-semibold text-foreground mb-4">
+                  3. Tipo de bolsa
+                </h3>
+                <div className="space-y-3">
+                  <button
+                    onClick={() => setCustomType("con-diseño")}
+                    className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
+                      customType === "con-diseño"
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <span className="font-medium text-foreground">Con diseño Orbita</span>
+                        <p className="text-sm text-muted-foreground">Incluye nuestro diseño impreso</p>
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center mb-6">
-                      <span className="text-muted-foreground">
-                        Precio total:
-                      </span>
-                      <span className="text-2xl font-bold text-foreground">
-                        ${totalPrice.toFixed(2)} USD
-                      </span>
+                  </button>
+                  <button
+                    onClick={() => setCustomType("personalizada")}
+                    className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
+                      customType === "personalizada"
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <span className="font-medium text-foreground">Personalizada</span>
+                        <p className="text-sm text-muted-foreground">Tu logo o diseño propio</p>
+                      </div>
                     </div>
+                  </button>
+                </div>
+
+                {customType === "personalizada" && (
+                  <div className="mt-4 p-4 bg-accent/20 rounded-xl border border-accent/30">
+                    <p className="text-sm text-foreground mb-3">
+                      Para bolsas personalizadas con tu diseño, contáctanos directamente para cotización y detalles.
+                    </p>
                     <Button
-                      onClick={handleWhatsApp}
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-lg"
+                      onClick={handleCustomContact}
+                      variant="outline"
+                      className="w-full border-accent text-accent hover:bg-accent hover:text-accent-foreground"
                     >
-                      Enviar pedido por WhatsApp
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      Consultar por personalización
                     </Button>
                   </div>
                 )}
               </div>
+
+              {/* Quantity Selector - Only show for non-custom */}
+              {customType === "con-diseño" && (
+                <div className="bg-card rounded-2xl p-6 border border-border">
+                  <h3 className="font-semibold text-foreground mb-4">
+                    4. Selecciona cantidad
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-6">
+                    Elige cuántos packs de cada cantidad necesitas
+                  </p>
+
+                  <div className="space-y-4">
+                    {QUANTITIES.map((qty) => (
+                      <div
+                        key={qty}
+                        className="flex items-center justify-between bg-secondary/30 rounded-xl p-4 border border-border"
+                      >
+                        <div>
+                          <span className="font-medium text-foreground">
+                            {qty} unidades
+                          </span>
+                          <p className="text-sm text-muted-foreground">
+                            ${(qty * PRICE_PER_UNIT).toFixed(2)} USD
+                          </p>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={() => updateQuantity(qty, -1)}
+                            disabled={selections[qty] === 0}
+                            className="h-10 w-10 rounded-full"
+                          >
+                            <Minus className="w-4 h-4" />
+                          </Button>
+                          <span className="w-8 text-center font-semibold text-foreground">
+                            {selections[qty]}
+                          </span>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={() => updateQuantity(qty, 1)}
+                            className="h-10 w-10 rounded-full"
+                          >
+                            <Plus className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Total */}
+                  {totalUnits > 0 && (
+                    <div className="mt-6 pt-6 border-t border-border">
+                      <div className="flex justify-between items-center mb-4">
+                        <span className="text-muted-foreground">
+                          Total unidades:
+                        </span>
+                        <span className="text-xl font-bold text-primary">
+                          {totalUnits.toLocaleString()}
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center mb-6">
+                        <span className="text-muted-foreground">
+                          Precio total:
+                        </span>
+                        <span className="text-2xl font-bold text-foreground">
+                          ${totalPrice.toFixed(2)} USD
+                        </span>
+                      </div>
+                      <Button
+                        onClick={handleWhatsApp}
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-lg"
+                      >
+                        Enviar pedido por WhatsApp
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
