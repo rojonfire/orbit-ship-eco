@@ -1,4 +1,5 @@
 import { ArrowRight, Leaf } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import AnimatedSection from './AnimatedSection';
 
@@ -21,12 +22,15 @@ const FinalCTA = () => {
             </p>
 
             <Button
+              asChild
               size="lg"
               variant="secondary"
               className="rounded-full px-10 py-7 text-lg btn-lift group bg-foreground text-background hover:bg-foreground/90"
             >
-              Comenzar ahora
-              <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <Link to="/catalogo" onClick={() => window.scrollTo({ top: 0 })}>
+                Comenzar ahora
+                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </Link>
             </Button>
           </div>
         </AnimatedSection>
