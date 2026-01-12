@@ -35,13 +35,22 @@ const Header = () => {
     setIsMobileMenuOpen(false);
     
     if (item.type === 'link') {
+      // Navigate to the page and scroll to top
       navigate(item.href);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      // If we're not on the home page, navigate there first
+      // If we're not on the home page, navigate there first then scroll
       if (location.pathname !== '/') {
-        navigate(`/#${item.href}`);
+        navigate('/');
+        // Wait for navigation to complete then scroll
+        setTimeout(() => {
+          const element = document.getElementById(item.href);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
       } else {
-        // Scroll to section
+        // Already on home page, scroll to section
         const element = document.getElementById(item.href);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
