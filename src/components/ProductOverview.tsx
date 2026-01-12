@@ -23,7 +23,7 @@ const ProductOverview = () => {
         <AnimatedSection delay={200}>
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Product Image */}
-            <div className="aspect-square rounded-3xl overflow-hidden flex items-center justify-center p-4">
+            <div className="aspect-square rounded-3xl overflow-hidden flex items-center justify-center p-4 bg-white">
               <img
                 src={bolsasDuo}
                 alt="Bolsas Orbita Biodegradables - Blanca y Negra"
