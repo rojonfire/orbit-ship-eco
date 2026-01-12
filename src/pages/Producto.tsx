@@ -86,7 +86,7 @@ const Producto = () => {
 
     const message = `¡Hola! Quiero hacer un pedido de bolsas Orbita:\n\n📦 Pedido: ${orderDetails}\n🎨 Color: ${colorText}\n📐 Tamaño: ${sizeText} (${selectedSizeData?.dimensions})\n✨ Tipo: ${typeText}\n\n💰 Total: ${totalUnits} unidades - $${totalPrice.toFixed(2)} USD`;
     window.open(
-      `https://wa.me/5491123456789?text=${encodeURIComponent(message)}`,
+      `https://wa.me/56954244951?text=${encodeURIComponent(message)}`,
       "_blank"
     );
   };
@@ -94,7 +94,7 @@ const Producto = () => {
   const handleCustomContact = () => {
     const message = `¡Hola! Me interesa personalizar bolsas Orbita con mi propio diseño. ¿Podrían darme más información sobre opciones de personalización?`;
     window.open(
-      `https://wa.me/5491123456789?text=${encodeURIComponent(message)}`,
+      `https://wa.me/56954244951?text=${encodeURIComponent(message)}`,
       "_blank"
     );
   };
