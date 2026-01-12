@@ -17,8 +17,40 @@ const SIZES = [
   { id: "xl", name: "Extra Grande", dimensions: "50cm x 60cm" },
 ];
 
-const QUANTITIES = [100, 500, 1000];
-const PRICE_PER_UNIT = 0.85;
+const QUANTITIES = [100, 500, 1000] as const;
+
+// Precios en CLP por tamaño y cantidad de pack (redondeados hacia arriba)
+const PRICES: Record<string, Record<number, { packPrice: number; unitPrice: number }>> = {
+  xs: {
+    100: { packPrice: 7490, unitPrice: 75 },
+    500: { packPrice: 33900, unitPrice: 68 },
+    1000: { packPrice: 62900, unitPrice: 63 },
+  },
+  small: {
+    100: { packPrice: 9996, unitPrice: 100 },
+    500: { packPrice: 39865, unitPrice: 80 },
+    1000: { packPrice: 74970, unitPrice: 75 },
+  },
+  medium: {
+    100: { packPrice: 15946, unitPrice: 160 },
+    500: { packPrice: 70210, unitPrice: 141 },
+    1000: { packPrice: 129710, unitPrice: 130 },
+  },
+  large: {
+    100: { packPrice: 27965, unitPrice: 280 },
+    500: { packPrice: 120190, unitPrice: 241 },
+    1000: { packPrice: 224910, unitPrice: 225 },
+  },
+  xl: {
+    100: { packPrice: 49028, unitPrice: 491 },
+    500: { packPrice: 230265, unitPrice: 461 },
+    1000: { packPrice: 440300, unitPrice: 441 },
+  },
+};
+
+const formatCLP = (amount: number) => {
+  return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(amount);
+};
 
 type Color = "blanca" | "negra";
 type CustomType = "con-diseño" | "personalizada";
@@ -67,14 +99,22 @@ const Producto = () => {
     }));
   };
 
+  const totalPrice = Object.entries(selections).reduce(
+    (acc, [qty, count]) => {
+      const qtyNum = Number(qty);
+      const priceData = PRICES[selectedSize]?.[qtyNum];
+      return acc + (priceData?.packPrice || 0) * count;
+    },
+    0
+  );
+
   const totalUnits = Object.entries(selections).reduce(
     (acc, [qty, count]) => acc + Number(qty) * count,
     0
   );
 
-  const totalPrice = totalUnits * PRICE_PER_UNIT;
-
   const selectedSizeData = SIZES.find((s) => s.id === selectedSize);
+  const lowestUnitPrice = PRICES[selectedSize]?.[1000]?.unitPrice || 0;
 
   const handleWhatsApp = () => {
     const orderDetails = Object.entries(selections)
@@ -86,7 +126,7 @@ const Producto = () => {
     const sizeText = selectedSizeData?.name || "";
     const typeText = customType === "con-diseño" ? "Con diseño Orbita" : "Para personalizar";
 
-    const message = `¡Hola! Quiero hacer un pedido de bolsas Orbita:\n\n📦 Pedido: ${orderDetails}\n🎨 Color: ${colorText}\n📐 Tamaño: ${sizeText} (${selectedSizeData?.dimensions})\n✨ Tipo: ${typeText}\n\n💰 Total: ${totalUnits} unidades - $${totalPrice.toFixed(2)} USD`;
+    const message = `¡Hola! Quiero hacer un pedido de bolsas Orbita:\n\n📦 Pedido: ${orderDetails}\n🎨 Color: ${colorText}\n📐 Tamaño: ${sizeText} (${selectedSizeData?.dimensions})\n✨ Tipo: ${typeText}\n\n💰 Total: ${totalUnits} unidades - ${formatCLP(totalPrice)}`;
     window.open(
       `https://wa.me/56954244951?text=${encodeURIComponent(message)}`,
       "_blank"
@@ -143,7 +183,7 @@ const Producto = () => {
                   Bolsa Orbita Biodegradable
                 </h1>
                 <p className="text-2xl text-primary font-semibold mt-4">
-                  ${PRICE_PER_UNIT.toFixed(2)} USD / unidad
+                  Desde {formatCLP(lowestUnitPrice)} / unidad
                 </p>
               </div>
 
@@ -306,10 +346,10 @@ const Producto = () => {
                       >
                         <div>
                           <span className="font-medium text-foreground">
-                            {qty} unidades
+                            Pack {qty} unidades
                           </span>
                           <p className="text-sm text-muted-foreground">
-                            ${(qty * PRICE_PER_UNIT).toFixed(2)} USD
+                            {formatCLP(PRICES[selectedSize]?.[qty]?.packPrice || 0)} ({formatCLP(PRICES[selectedSize]?.[qty]?.unitPrice || 0)}/u)
                           </p>
                         </div>
                         <div className="flex items-center gap-3">
@@ -354,7 +394,7 @@ const Producto = () => {
                           Precio total:
                         </span>
                         <span className="text-2xl font-bold text-foreground">
-                          ${totalPrice.toFixed(2)} USD
+                          {formatCLP(totalPrice)}
                         </span>
                       </div>
                       <Button

@@ -11,33 +11,42 @@ const SIZES = [
     id: "xs", 
     name: "Extra Pequeña", 
     dimensions: "15cm x 20cm", 
-    description: "Ideal para accesorios pequeños y joyería"
+    description: "Ideal para accesorios pequeños y joyería",
+    priceFrom: 63
   },
   { 
     id: "small", 
     name: "Pequeña", 
     dimensions: "20cm x 30cm", 
-    description: "Perfecta para ropa interior y accesorios"
+    description: "Perfecta para ropa interior y accesorios",
+    priceFrom: 75
   },
   { 
     id: "medium", 
     name: "Mediana", 
     dimensions: "30cm x 40cm", 
-    description: "Ideal para camisetas y ropa liviana"
+    description: "Ideal para camisetas y ropa liviana",
+    priceFrom: 130
   },
   { 
     id: "large", 
     name: "Grande", 
     dimensions: "40cm x 50cm", 
-    description: "Para ropa, zapatos y productos medianos"
+    description: "Para ropa, zapatos y productos medianos",
+    priceFrom: 225
   },
   { 
     id: "xl", 
     name: "Extra Grande", 
     dimensions: "50cm x 60cm", 
-    description: "Para envíos voluminosos y paquetes grandes"
+    description: "Para envíos voluminosos y paquetes grandes",
+    priceFrom: 441
   },
 ];
+
+const formatCLP = (amount: number) => {
+  return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(amount);
+};
 
 const COLORS = [
   { id: "blanca", name: "Blanca", image: bolsaBlanca },
@@ -91,7 +100,7 @@ const Catalogo = () => {
                         Bolsa {size.name}
                       </h2>
                       <p className="text-muted-foreground">
-                        {size.dimensions}
+                        {size.dimensions} • <span className="text-primary font-medium">Desde {formatCLP(size.priceFrom)}/u</span>
                       </p>
                     </div>
                   </div>
@@ -118,8 +127,8 @@ const Catalogo = () => {
                             <h3 className="font-semibold text-foreground">
                               {size.name} - {color.name}
                             </h3>
-                            <p className="text-sm text-muted-foreground">
-                              {size.dimensions}
+                            <p className="text-sm text-primary font-medium">
+                              Desde {formatCLP(size.priceFrom)}/u
                             </p>
                           </div>
                           <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
