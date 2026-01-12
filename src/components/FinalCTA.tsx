@@ -27,7 +27,7 @@ const FinalCTA = () => {
               variant="secondary"
               className="rounded-full px-10 py-7 text-lg btn-lift group bg-foreground text-background hover:bg-foreground/90"
             >
-              <Link to="/catalogo" onClick={() => window.scrollTo({ top: 0 })}>
+              <Link to="/tienda" onClick={() => window.scrollTo({ top: 0 })}>
                 Comenzar ahora
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>

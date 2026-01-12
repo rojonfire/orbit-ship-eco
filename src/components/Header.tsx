@@ -12,7 +12,7 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Productos', href: '/catalogo', type: 'link' },
+  { label: 'Tienda', href: '/tienda', type: 'link' },
   { label: 'Equipo', href: '/equipo', type: 'link' },
   { label: 'Proceso', href: 'proceso', type: 'scroll' },
   { label: 'Contacto', href: 'contacto', type: 'scroll' },
@@ -87,7 +87,7 @@ const Header = () => {
 
         <div className="hidden md:flex items-center gap-3">
           <CartDrawer />
-          <Link to="/catalogo">
+          <Link to="/tienda">
             <Button className="rounded-full px-6 btn-lift group">
               Comprar
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -118,7 +118,7 @@ const Header = () => {
             ))}
             <div className="flex items-center gap-3 mt-4">
               <CartDrawer />
-              <Link to="/catalogo" className="flex-1">
+              <Link to="/tienda" className="flex-1">
                 <Button className="rounded-full w-full">Comprar ahora</Button>
               </Link>
             </div>
