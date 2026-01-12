@@ -2,10 +2,8 @@ import { ArrowRight, Leaf, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import AnimatedSection from './AnimatedSection';
-
 const HeroSection = () => {
-  return (
-    <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+  return <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text content */}
@@ -51,14 +49,9 @@ const HeroSection = () => {
             <AnimatedSection delay={400}>
               <div className="mt-12 flex items-center gap-8">
                 <div className="flex -space-x-3">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="w-10 h-10 rounded-full bg-muted border-2 border-background flex items-center justify-center text-xs font-medium"
-                    >
+                  {[1, 2, 3, 4].map(i => <div key={i} className="w-10 h-10 rounded-full bg-muted border-2 border-background flex items-center justify-center text-xs font-medium">
                       {i}
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">+500 empresas</p>
@@ -90,7 +83,8 @@ const HeroSection = () => {
 
                 {/* Forest green card */}
                 <div className="card-forest">
-                  <p className="text-3xl md:text-4xl font-display font-bold mb-2">4</p>
+                  <p className="text-3xl md:text-4xl font-display font-bold mb-2">​5
+                </p>
                   <p className="text-sm text-white/80">tamaños disponibles</p>
                 </div>
               </div>
@@ -98,8 +92,6 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
