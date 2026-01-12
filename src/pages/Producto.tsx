@@ -10,11 +10,11 @@ import bolsaBlancaPlain from "@/assets/bolsa-blanca-plain.png";
 import bolsaNegraPlain from "@/assets/bolsa-negra-plain.png";
 
 const SIZES = [
-  { id: "xs", name: "Extra Pequeña", dimensions: "15cm x 20cm (+5cm solapa)" },
-  { id: "small", name: "Pequeña", dimensions: "20cm x 30cm (+5cm solapa)" },
-  { id: "medium", name: "Mediana", dimensions: "30cm x 40cm (+5cm solapa)" },
-  { id: "large", name: "Grande", dimensions: "40cm x 50cm (+5cm solapa)" },
-  { id: "xl", name: "Extra Grande", dimensions: "50cm x 60cm (+5cm solapa)" },
+  { id: "xs", name: "Extra Pequeña", dimensions: "15cm x 20cm" },
+  { id: "small", name: "Pequeña", dimensions: "20cm x 30cm" },
+  { id: "medium", name: "Mediana", dimensions: "30cm x 40cm" },
+  { id: "large", name: "Grande", dimensions: "40cm x 50cm" },
+  { id: "xl", name: "Extra Grande", dimensions: "50cm x 60cm" },
 ];
 
 const QUANTITIES = [100, 500, 1000];

@@ -10,31 +10,31 @@ const SIZES = [
   { 
     id: "xs", 
     name: "Extra Pequeña", 
-    dimensions: "15cm x 20cm (+5cm solapa)", 
+    dimensions: "15cm x 20cm", 
     description: "Ideal para accesorios pequeños y joyería"
   },
   { 
     id: "small", 
     name: "Pequeña", 
-    dimensions: "20cm x 30cm (+5cm solapa)", 
+    dimensions: "20cm x 30cm", 
     description: "Perfecta para ropa interior y accesorios"
   },
   { 
     id: "medium", 
     name: "Mediana", 
-    dimensions: "30cm x 40cm (+5cm solapa)", 
+    dimensions: "30cm x 40cm", 
     description: "Ideal para camisetas y ropa liviana"
   },
   { 
     id: "large", 
     name: "Grande", 
-    dimensions: "40cm x 50cm (+5cm solapa)", 
+    dimensions: "40cm x 50cm", 
     description: "Para ropa, zapatos y productos medianos"
   },
   { 
     id: "xl", 
     name: "Extra Grande", 
-    dimensions: "50cm x 60cm (+5cm solapa)", 
+    dimensions: "50cm x 60cm", 
     description: "Para envíos voluminosos y paquetes grandes"
   },
 ];
