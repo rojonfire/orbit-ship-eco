@@ -4,14 +4,15 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Minus, Plus, Leaf, Recycle, Package } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import bolsaBlanca from "@/assets/bolsa-blanca.png";
+import bolsaNegra from "@/assets/bolsa-negra.png";
 
 const QUANTITIES = [100, 500, 1000];
 const PRICE_PER_UNIT = 0.85;
 
 const productImages = [
-  "/placeholder.svg",
-  "/placeholder.svg",
-  "/placeholder.svg",
+  bolsaBlanca,
+  bolsaNegra,
 ];
 
 const Producto = () => {
