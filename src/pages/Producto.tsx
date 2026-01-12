@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import bolsaBlanca from "@/assets/bolsa-blanca.png";
 import bolsaNegra from "@/assets/bolsa-negra.png";
+import bolsaBlancaPlain from "@/assets/bolsa-blanca-plain.png";
+import bolsaNegraPlain from "@/assets/bolsa-negra-plain.png";
 
 const QUANTITIES = [100, 500, 1000];
 const PRICE_PER_UNIT = 0.85;
@@ -13,6 +15,8 @@ const PRICE_PER_UNIT = 0.85;
 const productImages = [
   bolsaBlanca,
   bolsaNegra,
+  bolsaBlancaPlain,
+  bolsaNegraPlain,
 ];
 
 const Producto = () => {
