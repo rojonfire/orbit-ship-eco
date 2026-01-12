@@ -21,11 +21,17 @@ const ContactSection = () => {
 
             <AnimatedSection delay={100}>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="rounded-full px-8 btn-lift group bg-[#25D366] hover:bg-[#20BD5A]">
-                  <MessageCircle className="mr-2 w-5 h-5" />
-                  WhatsApp
-                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Button>
+                <a 
+                  href="https://wa.me/56954244951?text=¡Hola! Me interesa conocer más sobre las bolsas Orbita."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button size="lg" className="rounded-full px-8 btn-lift group bg-[#25D366] hover:bg-[#20BD5A]">
+                    <MessageCircle className="mr-2 w-5 h-5" />
+                    WhatsApp
+                    <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </a>
                 <Button variant="outline" size="lg" className="rounded-full px-8">
                   <Calendar className="mr-2 w-5 h-5" />
                   Agendar llamada
