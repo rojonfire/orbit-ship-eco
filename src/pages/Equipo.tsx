@@ -3,8 +3,9 @@ import { ArrowLeft, Linkedin, Instagram, Twitter } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
+import teamRaimundo from "@/assets/team-raimundo.png";
 
-interface CoFounder {
+interface TeamMember {
   name: string;
   role: string;
   description: string;
@@ -16,46 +17,14 @@ interface CoFounder {
   };
 }
 
-const CO_FOUNDERS: CoFounder[] = [
+const TEAM_MEMBERS: TeamMember[] = [
   {
-    name: "Nombre Fundador 1",
-    role: "CEO & Co-Fundador",
-    description: "Apasionado por la sustentabilidad y el emprendimiento. Con más de 10 años de experiencia en el sector de packaging, lidera la visión de Orbita hacia un futuro más verde.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    name: "Raimundo Vives",
+    role: "CSO (Chief Sales Officer)",
+    description: "Ingeniero Civil Industrial con mención en Medio Ambiente. Lidera la estrategia comercial de Orbita, conectando a empresas con soluciones de packaging sustentable.",
+    image: teamRaimundo,
     socials: {
-      linkedin: "https://linkedin.com",
-      instagram: "https://instagram.com",
-    },
-  },
-  {
-    name: "Nombre Fundador 2",
-    role: "COO & Co-Fundadora",
-    description: "Experta en operaciones y cadena de suministro sostenible. Se encarga de que cada bolsa llegue a tiempo y con el menor impacto ambiental posible.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face",
-    socials: {
-      linkedin: "https://linkedin.com",
-      twitter: "https://twitter.com",
-    },
-  },
-  {
-    name: "Nombre Fundador 3",
-    role: "CTO & Co-Fundador",
-    description: "Ingeniero de materiales especializado en biopolímeros. Desarrolló la fórmula única que hace que nuestras bolsas se degraden en solo 180 días.",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-    socials: {
-      linkedin: "https://linkedin.com",
-      instagram: "https://instagram.com",
-      twitter: "https://twitter.com",
-    },
-  },
-  {
-    name: "Nombre Fundador 4",
-    role: "CMO & Co-Fundadora",
-    description: "Estratega de marca con experiencia en startups de impacto. Conecta a Orbita con empresas que quieren hacer la diferencia en el mundo.",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
-    socials: {
-      linkedin: "https://linkedin.com",
-      instagram: "https://instagram.com",
+      linkedin: "https://www.linkedin.com/in/raimundo-vives/",
     },
   },
 ];
@@ -83,7 +52,7 @@ const Equipo = () => {
                 Conoce al equipo
               </span>
               <h1 className="text-4xl lg:text-5xl font-display font-bold text-foreground mt-2 mb-4">
-                Los Co-Fundadores
+                Nuestro Equipo
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Somos un equipo apasionado por crear soluciones de empaque que cuiden el planeta. 
@@ -108,17 +77,17 @@ const Equipo = () => {
             </div>
           </AnimatedSection>
 
-          {/* Co-Founders Grid */}
+          {/* Team Grid */}
           <div className="grid md:grid-cols-2 gap-8">
-            {CO_FOUNDERS.map((founder, index) => (
-              <AnimatedSection key={founder.name} delay={150 + index * 100}>
+            {TEAM_MEMBERS.map((member, index) => (
+              <AnimatedSection key={member.name} delay={150 + index * 100}>
                 <div className="bg-card rounded-3xl border border-border p-8 hover:border-primary/30 transition-colors">
                   <div className="flex flex-col sm:flex-row gap-6">
                     {/* Image */}
                     <div className="shrink-0">
                       <img
-                        src={founder.image}
-                        alt={founder.name}
+                        src={member.image}
+                        alt={member.name}
                         className="w-32 h-32 rounded-2xl object-cover mx-auto sm:mx-0"
                       />
                     </div>
@@ -126,20 +95,20 @@ const Equipo = () => {
                     {/* Info */}
                     <div className="flex-1 text-center sm:text-left">
                       <h3 className="text-xl font-display font-bold text-foreground">
-                        {founder.name}
+                        {member.name}
                       </h3>
                       <p className="text-primary font-medium mb-3">
-                        {founder.role}
+                        {member.role}
                       </p>
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                        {founder.description}
+                        {member.description}
                       </p>
 
                       {/* Social Links */}
                       <div className="flex gap-3 justify-center sm:justify-start">
-                        {founder.socials.linkedin && (
+                        {member.socials.linkedin && (
                           <a
-                            href={founder.socials.linkedin}
+                            href={member.socials.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
@@ -147,9 +116,9 @@ const Equipo = () => {
                             <Linkedin className="w-5 h-5" />
                           </a>
                         )}
-                        {founder.socials.instagram && (
+                        {member.socials.instagram && (
                           <a
-                            href={founder.socials.instagram}
+                            href={member.socials.instagram}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
@@ -157,9 +126,9 @@ const Equipo = () => {
                             <Instagram className="w-5 h-5" />
                           </a>
                         )}
-                        {founder.socials.twitter && (
+                        {member.socials.twitter && (
                           <a
-                            href={founder.socials.twitter}
+                            href={member.socials.twitter}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
