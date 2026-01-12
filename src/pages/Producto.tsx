@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Minus, Plus, Leaf, Recycle, Package, MessageCircle } from "lucide-react";
 import Header from "@/components/Header";
@@ -22,6 +22,8 @@ type Color = "blanca" | "negra";
 type CustomType = "con-diseño" | "personalizada";
 
 const Producto = () => {
+  const [searchParams] = useSearchParams();
+  
   const [selectedColor, setSelectedColor] = useState<Color>("blanca");
   const [selectedSize, setSelectedSize] = useState(SIZES[1].id);
   const [customType, setCustomType] = useState<CustomType>("con-diseño");
@@ -30,6 +32,23 @@ const Producto = () => {
     500: 0,
     1000: 0,
   });
+
+  // Read URL params and pre-select options
+  useEffect(() => {
+    const sizeParam = searchParams.get("size");
+    const colorParam = searchParams.get("color");
+    const customParam = searchParams.get("custom");
+
+    if (sizeParam && SIZES.some(s => s.id === sizeParam)) {
+      setSelectedSize(sizeParam);
+    }
+    if (colorParam === "blanca" || colorParam === "negra") {
+      setSelectedColor(colorParam);
+    }
+    if (customParam === "personalizada" || customParam === "con-diseño") {
+      setCustomType(customParam);
+    }
+  }, [searchParams]);
 
   const getProductImage = () => {
     if (customType === "con-diseño") {
