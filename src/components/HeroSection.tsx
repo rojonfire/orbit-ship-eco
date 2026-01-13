@@ -33,7 +33,7 @@ const HeroSection = () => {
             <AnimatedSection delay={300}>
               <Button asChild size="lg" className="rounded-full px-10 py-6 text-base font-medium btn-lift group shadow-lg hover:shadow-xl transition-all">
                 <Link to="/tienda">
-                  Explorar bolsas
+                  Comprar ahora
                   <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
