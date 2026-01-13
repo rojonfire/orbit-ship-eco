@@ -54,8 +54,8 @@ const ContactSection = () => {
           <AnimatedSection delay={150}>
             <div className="grid grid-cols-2 gap-4">
               <div className="card-lime col-span-2">
-                <p className="text-5xl font-display font-bold text-primary-foreground mb-2">+500</p>
-                <p className="text-primary-foreground/80">empresas ya usan ORBITA</p>
+                <p className="text-5xl font-display font-bold text-primary-foreground mb-2">🇨🇱</p>
+                <p className="text-primary-foreground/80">Envío a todo Chile</p>
               </div>
               <div className="bg-foreground text-background rounded-3xl p-6">
                 <p className="text-3xl font-display font-bold mb-1">2hrs</p>
