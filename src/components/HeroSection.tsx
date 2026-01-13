@@ -31,19 +31,12 @@ const HeroSection = () => {
             </AnimatedSection>
 
             <AnimatedSection delay={300}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="rounded-full px-8 text-base btn-lift group">
-                  <Link to="/tienda">
-                    Comprar bolsas
-                    <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="rounded-full px-8 text-base">
-                  <Link to="/tienda">
-                    Ver tienda
-                  </Link>
-                </Button>
-              </div>
+              <Button asChild size="lg" className="rounded-full px-10 py-6 text-base font-medium btn-lift group shadow-lg hover:shadow-xl transition-all">
+                <Link to="/tienda">
+                  Explorar bolsas
+                  <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
             </AnimatedSection>
 
           </div>
