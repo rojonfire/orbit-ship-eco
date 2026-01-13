@@ -46,9 +46,6 @@ const HeroSection = () => {
               </div>
             </AnimatedSection>
 
-            <AnimatedSection delay={400}>
-              
-            </AnimatedSection>
           </div>
 
           {/* Right: Visual cards - Greenado style - Hidden on mobile */}
