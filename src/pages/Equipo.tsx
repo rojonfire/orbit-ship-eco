@@ -154,12 +154,12 @@ const Equipo = () => {
                 Siempre estamos buscando personas apasionadas por la sustentabilidad. 
                 Contáctanos si quieres ser parte del cambio.
               </p>
-              <Link
-                to="/#contacto"
+              <a
+                href="mailto:orbitabagscontacto@gmail.com"
                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors"
               >
                 Contáctanos
-              </Link>
+              </a>
             </div>
           </AnimatedSection>
         </div>
