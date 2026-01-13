@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, ShoppingCart, Loader2, Leaf, Recycle, Package } from "lucide-react";
+import { ArrowLeft, ShoppingCart, Loader2, Leaf, Recycle, Package, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -14,6 +14,7 @@ const ShopProduct = () => {
   const [loading, setLoading] = useState(true);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedPack, setSelectedPack] = useState<string>("");
+  const [wantsCustom, setWantsCustom] = useState(false);
   const addItem = useCartStore(state => state.addItem);
 
   useEffect(() => {
@@ -66,6 +67,15 @@ const ShopProduct = () => {
       description: `${product.node.title} - ${selectedVariant.title}`,
       position: "top-center",
     });
+  };
+
+  const handleWhatsAppCustom = () => {
+    if (!product) return;
+    const message = `¡Hola! Estoy interesado en bolsas personalizadas con mi logo:\n\n📦 Producto: ${product.node.title}\n🎨 Color: ${selectedColor}\n\n¿Me pueden dar más información sobre personalización?`;
+    window.open(
+      `https://wa.me/56954244951?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
   };
 
   if (loading) {
@@ -137,7 +147,7 @@ const ShopProduct = () => {
                 <h1 className="text-3xl lg:text-4xl font-display font-bold text-foreground mt-2">
                   {product.node.title}
                 </h1>
-                {selectedVariant && (
+                {selectedVariant && !wantsCustom && (
                   <p className="text-2xl text-primary font-semibold mt-4">
                     {formatCLP(selectedVariant.price.amount)}
                   </p>
@@ -189,10 +199,39 @@ const ShopProduct = () => {
                 </div>
               )}
 
-              {/* Pack Selector */}
-              {packOptions.length > 0 && (
+              {/* Customization Toggle */}
+              <div className="bg-card rounded-2xl p-6 border border-border">
+                <h3 className="font-semibold text-foreground mb-4">2. ¿Quieres personalización?</h3>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => setWantsCustom(false)}
+                    className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+                      !wantsCustom
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <span className="text-foreground font-medium text-sm">Con diseño Orbita</span>
+                    <p className="text-xs text-muted-foreground mt-1">Listas para usar</p>
+                  </button>
+                  <button
+                    onClick={() => setWantsCustom(true)}
+                    className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+                      wantsCustom
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <span className="text-foreground font-medium text-sm">Personalizada</span>
+                    <p className="text-xs text-muted-foreground mt-1">Tu logo o diseño</p>
+                  </button>
+                </div>
+              </div>
+
+              {/* Pack Selector - Only for non-custom */}
+              {!wantsCustom && packOptions.length > 0 && (
                 <div className="bg-card rounded-2xl p-6 border border-border">
-                  <h3 className="font-semibold text-foreground mb-4">2. Elige el pack</h3>
+                  <h3 className="font-semibold text-foreground mb-4">3. Elige el pack</h3>
                   <div className="space-y-3">
                     {packOptions.map((pack) => {
                       const variant = product.node.variants.edges.find(v => {
@@ -226,15 +265,34 @@ const ShopProduct = () => {
                 </div>
               )}
 
-              {/* Add to Cart Button */}
-              <Button 
-                onClick={handleAddToCart}
-                className="w-full py-6 text-lg"
-                disabled={!selectedVariant}
-              >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Agregar al carrito
-              </Button>
+              {/* WhatsApp for Custom Orders */}
+              {wantsCustom && (
+                <div className="bg-accent/20 rounded-2xl p-6 border border-accent/30">
+                  <h3 className="font-semibold text-foreground mb-2">Personalización</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Para bolsas personalizadas con tu logo o diseño, contáctanos por WhatsApp para cotización y detalles.
+                  </p>
+                  <Button
+                    onClick={handleWhatsAppCustom}
+                    className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white"
+                  >
+                    <MessageCircle className="w-5 h-5 mr-2" />
+                    Consultar por WhatsApp
+                  </Button>
+                </div>
+              )}
+
+              {/* Add to Cart Button - Only for non-custom */}
+              {!wantsCustom && (
+                <Button 
+                  onClick={handleAddToCart}
+                  className="w-full py-6 text-lg"
+                  disabled={!selectedVariant}
+                >
+                  <ShoppingCart className="w-5 h-5 mr-2" />
+                  Agregar al carrito
+                </Button>
+              )}
             </div>
           </div>
         </div>
