@@ -65,7 +65,7 @@ const ProductOverview = () => {
               </div>
 
               {/* CTA */}
-              <Link to="/producto" className="mt-4 inline-block" onClick={() => window.scrollTo({ top: 0 })}>
+              <Link to="/tienda" className="mt-4 inline-block" onClick={() => window.scrollTo({ top: 0 })}>
                 <Button size="lg" className="rounded-full px-8 btn-lift group w-full sm:w-auto">
                   Arma tu pedido
                   <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
