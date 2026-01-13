@@ -38,7 +38,7 @@ const ProductOverview = () => {
                   Bolsa Biodegradable Premium
                 </h3>
                 <p className="text-2xl text-primary font-semibold mt-2">
-                  Desde $0.85 USD / unidad
+                  Desde $850 CLP / unidad
                 </p>
               </div>
 
