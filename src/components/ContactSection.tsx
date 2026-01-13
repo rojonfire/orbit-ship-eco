@@ -33,9 +33,11 @@ const ContactSection = () => {
                   </a>
                 </Button>
 
-                <Button variant="outline" size="lg" className="rounded-full px-8">
-                  <Calendar className="mr-2 w-5 h-5" />
-                  Agendar llamada
+                <Button asChild variant="outline" size="lg" className="rounded-full px-8">
+                  <a href="https://calendar.app.google/3F1aqa9tBhpuFS5H7" target="_blank" rel="noopener noreferrer">
+                    <Calendar className="mr-2 w-5 h-5" />
+                    Agendar llamada
+                  </a>
                 </Button>
               </div>
             </AnimatedSection>
