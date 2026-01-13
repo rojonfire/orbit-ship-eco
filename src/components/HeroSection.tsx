@@ -47,17 +47,7 @@ const HeroSection = () => {
             </AnimatedSection>
 
             <AnimatedSection delay={400}>
-              <div className="mt-12 flex items-center gap-8">
-                <div className="flex -space-x-3">
-                  {[1, 2, 3, 4].map(i => <div key={i} className="w-10 h-10 rounded-full bg-muted border-2 border-background flex items-center justify-center text-xs font-medium">
-                      {i}
-                    </div>)}
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">+500 empresas</p>
-                  <p className="text-sm text-muted-foreground">confían en ORBITA</p>
-                </div>
-              </div>
+              
             </AnimatedSection>
           </div>
 
