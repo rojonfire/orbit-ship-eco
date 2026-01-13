@@ -21,7 +21,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-3">
               <a
-                href="https://instagram.com/orbitabags"
+                href="https://instagram.com/orbitabags.cl"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
