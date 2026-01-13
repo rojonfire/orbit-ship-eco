@@ -20,15 +20,28 @@ const Footer = () => {
               Comprometidos con un futuro sin plástico.
             </p>
             <div className="flex gap-3">
-              {[Instagram, Linkedin, Mail].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                >
-                  <Icon size={18} />
-                </a>
-              ))}
+              <a
+                href="https://instagram.com/orbitabags"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                <Instagram size={18} />
+              </a>
+              <a
+                href="https://linkedin.com/company/orbitabags"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                <Linkedin size={18} />
+              </a>
+              <a
+                href="mailto:orbitabagscontacto@gmail.com"
+                className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+              >
+                <Mail size={18} />
+              </a>
             </div>
           </div>
 
