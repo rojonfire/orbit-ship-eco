@@ -3,6 +3,7 @@ import { ArrowLeft, Linkedin, Instagram, Twitter } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
+import SEOHead from "@/components/SEOHead";
 import teamRaimundo from "@/assets/team-raimundo.png";
 
 interface TeamMember {
@@ -32,11 +33,15 @@ const TEAM_MEMBERS: TeamMember[] = [
 const Equipo = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Nuestro Equipo | ORBITA BAGS - Packaging sustentable en Chile"
+        description="Conoce al equipo detrás de ORBITA BAGS. Profesionales apasionados por la sustentabilidad y el packaging ecológico para ecommerce en Chile."
+        path="/equipo"
+      />
       <Header />
 
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
-          {/* Back button */}
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
@@ -45,7 +50,6 @@ const Equipo = () => {
             Volver al inicio
           </Link>
 
-          {/* Header */}
           <AnimatedSection>
             <div className="text-center mb-12">
               <span className="text-primary text-sm font-medium uppercase tracking-wider">
@@ -61,7 +65,6 @@ const Equipo = () => {
             </div>
           </AnimatedSection>
 
-          {/* Team Photo */}
           <AnimatedSection delay={100}>
             <div className="mb-16 rounded-3xl overflow-hidden border border-border">
               <div className="aspect-[21/9] bg-secondary/30 flex items-center justify-center">
@@ -77,22 +80,21 @@ const Equipo = () => {
             </div>
           </AnimatedSection>
 
-          {/* Team Grid */}
           <div className="grid md:grid-cols-2 gap-8">
             {TEAM_MEMBERS.map((member, index) => (
               <AnimatedSection key={member.name} delay={150 + index * 100}>
                 <div className="bg-card rounded-3xl border border-border p-8 hover:border-primary/30 transition-colors">
                   <div className="flex flex-col sm:flex-row gap-6">
-                    {/* Image */}
                     <div className="shrink-0">
                       <img
                         src={member.image}
                         alt={member.name}
                         className="w-32 h-32 rounded-2xl object-cover mx-auto sm:mx-0"
+                        loading="lazy"
+                        width={128}
+                        height={128}
                       />
                     </div>
-
-                    {/* Info */}
                     <div className="flex-1 text-center sm:text-left">
                       <h3 className="text-xl font-display font-bold text-foreground">
                         {member.name}
@@ -103,36 +105,19 @@ const Equipo = () => {
                       <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                         {member.description}
                       </p>
-
-                      {/* Social Links */}
                       <div className="flex gap-3 justify-center sm:justify-start">
                         {member.socials.linkedin && (
-                          <a
-                            href={member.socials.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                          >
+                          <a href={member.socials.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
                             <Linkedin className="w-5 h-5" />
                           </a>
                         )}
                         {member.socials.instagram && (
-                          <a
-                            href={member.socials.instagram}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                          >
+                          <a href={member.socials.instagram} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
                             <Instagram className="w-5 h-5" />
                           </a>
                         )}
                         {member.socials.twitter && (
-                          <a
-                            href={member.socials.twitter}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
-                          >
+                          <a href={member.socials.twitter} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-secondary/50 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
                             <Twitter className="w-5 h-5" />
                           </a>
                         )}
@@ -144,7 +129,6 @@ const Equipo = () => {
             ))}
           </div>
 
-          {/* CTA */}
           <AnimatedSection delay={600}>
             <div className="mt-16 text-center bg-primary/10 rounded-3xl p-12 border border-primary/20">
               <h2 className="text-2xl font-display font-bold text-foreground mb-4">
