@@ -58,9 +58,14 @@ const BlogPost = () => {
             <article
               className="prose prose-lg max-w-none
                 prose-headings:text-foreground prose-headings:font-semibold
-                prose-p:text-muted-foreground prose-p:leading-relaxed
+                prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-border prose-h2:pb-3
+                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+                prose-p:text-muted-foreground prose-p:leading-[1.8] prose-p:mb-6
                 prose-strong:text-foreground
-                prose-a:text-primary hover:prose-a:text-primary/80"
+                prose-a:text-primary prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-primary/80
+                prose-ul:my-6 prose-ul:space-y-2
+                prose-li:text-muted-foreground prose-li:leading-relaxed
+                prose-em:text-muted-foreground/80"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </AnimatedSection>
