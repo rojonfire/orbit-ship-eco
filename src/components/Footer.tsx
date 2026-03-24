@@ -78,7 +78,7 @@ const Footer = () => {
           <p>© {new Date().getFullYear()} ORBITA BAGS. Todos los derechos reservados.</p>
           <p className="flex items-center gap-2">
             <Leaf className="w-4 h-4 text-primary" />
-            Packaging compostable hecho en Chile
+            Packaging compostable diseñado en Chile
           </p>
         </div>
       </div>
