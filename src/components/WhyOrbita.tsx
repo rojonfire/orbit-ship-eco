@@ -30,7 +30,7 @@ const colorClasses = {
 
 const WhyOrbita = () => {
   return (
-    <section id="beneficios" className="py-12 md:py-16 lg:py-24 bg-muted/50">
+    <section id="beneficios" className="py-12 md:py-16 lg:py-24">
       <div className="container mx-auto px-6">
         <AnimatedSection>
           <div className="max-w-2xl mb-16">

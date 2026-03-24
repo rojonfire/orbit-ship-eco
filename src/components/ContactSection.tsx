@@ -8,7 +8,7 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
 
 const ContactSection = () => {
   return (
-    <section id="contacto" className="py-12 md:py-16 lg:py-24 bg-muted/50">
+    <section id="contacto" className="py-12 md:py-16 lg:py-24">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Content */}
