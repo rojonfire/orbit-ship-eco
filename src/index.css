@@ -80,33 +80,6 @@
     @apply bg-background text-foreground font-sans antialiased;
   }
 
-  .organic-paper {
-    background-color: hsl(var(--background));
-    background-image:
-      /* Top zone */
-      radial-gradient(ellipse 70% 18% at 5% 4%, hsl(var(--primary) / 0.09) 0, transparent 100%),
-      radial-gradient(ellipse 40% 12% at 85% 8%, hsl(var(--foreground) / 0.045) 0, transparent 100%),
-      /* Upper-mid zone */
-      radial-gradient(ellipse 55% 10% at 70% 18%, hsl(var(--primary) / 0.06) 0, transparent 100%),
-      radial-gradient(ellipse 45% 8% at 15% 25%, hsl(var(--foreground) / 0.035) 0, transparent 100%),
-      /* Mid zone */
-      radial-gradient(ellipse 60% 12% at 40% 38%, hsl(var(--primary) / 0.055) 0, transparent 100%),
-      radial-gradient(ellipse 35% 9% at 90% 45%, hsl(var(--foreground) / 0.04) 0, transparent 100%),
-      /* Lower-mid zone */
-      radial-gradient(ellipse 50% 10% at 20% 58%, hsl(var(--primary) / 0.07) 0, transparent 100%),
-      radial-gradient(ellipse 45% 11% at 75% 65%, hsl(var(--foreground) / 0.035) 0, transparent 100%),
-      /* Lower zone */
-      radial-gradient(ellipse 55% 9% at 55% 78%, hsl(var(--primary) / 0.06) 0, transparent 100%),
-      radial-gradient(ellipse 40% 10% at 10% 85%, hsl(var(--foreground) / 0.04) 0, transparent 100%),
-      /* Bottom zone */
-      radial-gradient(ellipse 60% 12% at 80% 92%, hsl(var(--primary) / 0.08) 0, transparent 100%),
-      /* Full-page organic vein artwork — single non-repeating SVG */
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1440' height='5000' viewBox='0 0 1440 5000'%3E%3Cdefs%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.025'/%3E%3Cg fill='none' stroke='%231a2433' stroke-linecap='round'%3E%3Cpath d='M120 80C200 40 380 60 500 140C620 220 700 180 820 120C940 60 1100 100 1280 180' stroke-opacity='0.08' stroke-width='2'/%3E%3Cpath d='M60 320C180 260 320 300 480 380C640 460 760 420 900 340C1020 270 1180 290 1360 360' stroke-opacity='0.06' stroke-width='1.5'/%3E%3Cpath d='M200 600C340 540 460 580 600 660C740 740 880 700 1020 620C1140 550 1260 570 1400 640' stroke-opacity='0.07' stroke-width='1.8'/%3E%3Cpath d='M40 900C160 840 340 860 500 940C680 1030 820 980 960 900C1100 820 1240 850 1380 920' stroke-opacity='0.06' stroke-width='1.5'/%3E%3Cpath d='M280 1200C400 1140 540 1170 680 1250C820 1330 960 1290 1100 1210C1220 1140 1340 1160 1440 1220' stroke-opacity='0.07' stroke-width='2'/%3E%3Cpath d='M0 1500C140 1440 300 1470 460 1540C620 1610 780 1580 940 1500C1080 1430 1220 1450 1380 1520' stroke-opacity='0.055' stroke-width='1.5'/%3E%3Cpath d='M100 1820C260 1760 420 1790 580 1870C740 1950 880 1910 1040 1830C1180 1760 1320 1780 1440 1850' stroke-opacity='0.065' stroke-width='1.8'/%3E%3Cpath d='M20 2140C180 2080 360 2110 520 2190C680 2270 840 2230 1000 2150C1140 2080 1300 2100 1420 2170' stroke-opacity='0.06' stroke-width='1.5'/%3E%3Cpath d='M240 2460C380 2400 520 2430 660 2510C800 2590 960 2550 1100 2470C1240 2390 1360 2420 1440 2480' stroke-opacity='0.07' stroke-width='2'/%3E%3Cpath d='M60 2780C200 2720 380 2750 540 2830C700 2910 840 2870 1000 2790C1140 2720 1280 2740 1400 2810' stroke-opacity='0.055' stroke-width='1.5'/%3E%3Cpath d='M180 3100C320 3040 460 3070 620 3150C780 3230 920 3190 1060 3110C1200 3030 1340 3060 1440 3120' stroke-opacity='0.065' stroke-width='1.8'/%3E%3Cpath d='M0 3420C160 3360 320 3390 480 3470C640 3550 800 3510 960 3430C1100 3360 1260 3380 1400 3450' stroke-opacity='0.06' stroke-width='1.5'/%3E%3Cpath d='M120 3740C280 3680 440 3710 600 3790C760 3870 900 3830 1060 3750C1200 3680 1340 3700 1440 3760' stroke-opacity='0.07' stroke-width='2'/%3E%3Cpath d='M40 4060C200 4000 380 4030 540 4110C700 4190 860 4150 1020 4070C1160 4000 1300 4020 1420 4090' stroke-opacity='0.055' stroke-width='1.5'/%3E%3Cpath d='M260 4380C400 4320 540 4350 680 4430C820 4510 960 4470 1100 4390C1240 4310 1360 4340 1440 4400' stroke-opacity='0.065' stroke-width='1.8'/%3E%3Cpath d='M80 4700C220 4640 400 4670 560 4750C720 4830 880 4790 1040 4710C1180 4640 1320 4660 1440 4730' stroke-opacity='0.06' stroke-width='1.5'/%3E%3C/g%3E%3Cg fill='%237ac529'%3E%3Cpath d='M300 120C340 95 385 102 410 135C370 145 335 150 290 148C280 138 284 128 300 120Z' fill-opacity='0.045'/%3E%3Cpath d='M900 350C940 325 985 332 1010 365C970 375 935 380 890 378C880 368 884 358 900 350Z' fill-opacity='0.04'/%3E%3Cpath d='M550 720C590 695 635 702 660 735C620 745 585 750 540 748C530 738 534 728 550 720Z' fill-opacity='0.045'/%3E%3Cpath d='M1100 980C1140 955 1185 962 1210 995C1170 1005 1135 1010 1090 1008C1080 998 1084 988 1100 980Z' fill-opacity='0.04'/%3E%3Cpath d='M200 1350C240 1325 285 1332 310 1365C270 1375 235 1380 190 1378C180 1368 184 1358 200 1350Z' fill-opacity='0.045'/%3E%3Cpath d='M800 1680C840 1655 885 1662 910 1695C870 1705 835 1710 790 1708C780 1698 784 1688 800 1680Z' fill-opacity='0.04'/%3E%3Cpath d='M400 2050C440 2025 485 2032 510 2065C470 2075 435 2080 390 2078C380 2068 384 2058 400 2050Z' fill-opacity='0.045'/%3E%3Cpath d='M1050 2400C1090 2375 1135 2382 1160 2415C1120 2425 1085 2430 1040 2428C1030 2418 1034 2408 1050 2400Z' fill-opacity='0.04'/%3E%3Cpath d='M250 2800C290 2775 335 2782 360 2815C320 2825 285 2830 240 2828C230 2818 234 2808 250 2800Z' fill-opacity='0.045'/%3E%3Cpath d='M700 3200C740 3175 785 3182 810 3215C770 3225 735 3230 690 3228C680 3218 684 3208 700 3200Z' fill-opacity='0.04'/%3E%3Cpath d='M1200 3600C1240 3575 1285 3582 1310 3615C1270 3625 1235 3630 1190 3628C1180 3618 1184 3608 1200 3600Z' fill-opacity='0.045'/%3E%3Cpath d='M350 4100C390 4075 435 4082 460 4115C420 4125 385 4130 340 4128C330 4118 334 4108 350 4100Z' fill-opacity='0.04'/%3E%3Cpath d='M950 4550C990 4525 1035 4532 1060 4565C1020 4575 985 4580 940 4578C930 4568 934 4558 950 4550Z' fill-opacity='0.045'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 100%, 100%, 100%, 100%, 100%, 100%, 100%, 100%, 100%, 100%, 100%, 100% 5000px;
-    background-repeat: no-repeat;
-    background-position: top;
-  }
-
   h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-tight;
   }
