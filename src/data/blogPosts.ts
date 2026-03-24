@@ -7,7 +7,7 @@ export interface BlogPost {
   coverImage: string;
   content: string;
 }
-
+ 
 export const blogPosts: BlogPost[] = [
   {
     id: "1",
@@ -16,54 +16,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Biodegradable y compostable no son lo mismo — y confundirlos puede costarte caro. Te explicamos la diferencia real con datos y normas concretas para que elijas bien el packaging de tu ecommerce.",
     date: "2026-03-24",
     coverImage: "https://images.unsplash.com/photo-1542601906897-ecd27d1f87b1?w=1200&q=80",
-    content: `
-<p>Si tienes un ecommerce y alguna vez buscaste packaging más sustentable, probablemente te topaste con estos dos términos en el mismo pasillo: <strong>biodegradable</strong> y <strong>compostable</strong>. Suenan parecido. A veces los usan como sinónimos. Pero no son lo mismo — y confundirlos puede costarte caro, tanto en plata como en credibilidad frente a tus clientes.</p>
-
-<p>En esta guía te explicamos la diferencia real, con datos concretos, para que tomes decisiones informadas cuando elijas el packaging de tu tienda.</p>
-
-<h2>El problema con "biodegradable"</h2>
-
-<p>Técnicamente, casi todo es biodegradable. Una bolsa de plástico convencional puede degradarse en 400 años. Una colilla de cigarro, en 10 años. Bajo esa definición, el término no dice mucho.</p>
-
-<p>El problema es que <strong>"biodegradable" no tiene una norma estándar obligatoria</strong> que defina en cuánto tiempo debe degradarse un material ni en qué condiciones. Esto abre la puerta al <em>greenwashing</em>: cualquier empresa puede imprimir "biodegradable" en su packaging sin que eso signifique gran cosa para el medioambiente.</p>
-
-<h2>Qué significa realmente "compostable"</h2>
-
-<p>El packaging compostable sí está regulado. La norma internacional de referencia es la <strong>EN 13432</strong>, estándar europeo que especifica que un material compostable debe:</p>
-
-<ul>
-  <li>Biodegradarse en al menos un <strong>90% en 6 meses</strong> bajo condiciones aeróbicas controladas</li>
-  <li>Desintegrarse físicamente en menos de <strong>12 semanas</strong>, sin dejar fragmentos mayores a 2 mm</li>
-  <li>No liberar metales pesados ni sustancias tóxicas que contaminen el compost resultante</li>
-  <li>No afectar negativamente la calidad del compost generado</li>
-</ul>
-
-<p>Si un packaging cumple estos criterios y lo certifica un organismo independiente como TÜV Austria, puede llevar el sello <strong>OK Compost</strong> — una garantía verificable, no una promesa de marketing.</p>
-
-<h2>Industrial vs. en casa: la diferencia que más importa</h2>
-
-<p>Aquí viene el detalle que casi nadie te explica: <strong>no todo lo compostable es igual</strong>.</p>
-
-<h3>OK Compost INDUSTRIAL</h3>
-<p>Significa que el material se degrada en plantas de compostaje industrial, donde las condiciones son controladas: temperaturas de entre 55 y 60°C, humedad y ventilación reguladas. El problema es que <strong>en Chile no existe una infraestructura masiva de compostaje industrial</strong>. Si tu cliente tira esa bolsa en el basurero o en su compostera casera, el material probablemente no se degrada como debería.</p>
-
-<h3>OK Compost HOME</h3>
-<p>Es la certificación más exigente técnicamente, porque el material debe degradarse <strong>en condiciones domésticas</strong>: temperaturas ambientes, sin maquinaria especializada, en una compostera de jardín común. El estándar exige al menos 90% de degradación en 12 meses a temperatura ambiente.</p>
-
-<p>Esta distinción importa muchísimo si tu marca quiere comunicar sustentabilidad de forma honesta. Decirle a tu cliente que tu packaging es "compostable" cuando en realidad requiere una planta industrial para degradarse es, en la práctica, casi lo mismo que no serlo.</p>
-
-<h2>Por qué esto importa para tu ecommerce</h2>
-
-<p>Tus clientes cada vez preguntan más sobre el impacto ambiental de los productos que compran. Elegir un packaging con certificación <strong>OK Compost HOME</strong> te permite comunicar algo concreto y verificable: <em>"nuestra bolsa se degrada en una compostera casera, no necesita infraestructura industrial"</em>.</p>
-
-<p>Eso es una diferencia real que tus clientes pueden entender y valorar.</p>
-
-<h2>Lo que buscamos en Orbitabags</h2>
-
-<p>Cuando diseñamos nuestras bolsas courier, esta distinción fue lo primero que pusimos sobre la mesa. No queríamos un packaging que dijera "sustentable" sin serlo de verdad. Por eso trabajamos con materiales que cumplen los criterios de compostabilidad doméstica — porque sabemos que la mayoría de tus clientes no tiene acceso a una planta de compostaje industrial, pero sí puede compostar en casa.</p>
-
-<p>El packaging de tu tienda puede ser parte genuina de un ciclo más limpio. Solo hay que saber qué buscar.</p>
-    `
+    content: `<p>Si tienes un ecommerce y alguna vez buscaste packaging más sustentable, probablemente te topaste con estos dos términos en el mismo pasillo: <strong>biodegradable</strong> y <strong>compostable</strong>. Suenan parecido. A veces los usan como sinónimos. Pero no son lo mismo — y confundirlos puede costarte caro, tanto en plata como en credibilidad frente a tus clientes.</p> <p>En esta guía te explicamos la diferencia real, con datos concretos, para que tomes decisiones informadas cuando elijas el packaging de tu tienda.</p> <h2>El problema con "biodegradable"</h2> <p>Técnicamente, casi todo es biodegradable. Una bolsa de plástico convencional puede degradarse en 400 años. Una colilla de cigarro, en 10 años. Bajo esa definición, el término no dice mucho.</p> <p>El problema es que <strong>"biodegradable" no tiene una norma estándar obligatoria</strong> que defina en cuánto tiempo debe degradarse un material ni en qué condiciones. Esto abre la puerta al <em>greenwashing</em>: cualquier empresa puede imprimir "biodegradable" en su packaging sin que eso signifique gran cosa para el medioambiente.</p> <h2>Qué significa realmente "compostable"</h2> <p>El packaging compostable sí está regulado. La norma internacional de referencia es la <strong>EN 13432</strong>, estándar europeo que especifica que un material compostable debe:</p> <ul> <li>Biodegradarse en al menos un <strong>90% en 6 meses</strong> bajo condiciones aeróbicas controladas</li> <li>Desintegrarse físicamente en menos de <strong>12 semanas</strong>, sin dejar fragmentos mayores a 2 mm</li> <li>No liberar metales pesados ni sustancias tóxicas que contaminen el compost resultante</li> <li>No afectar negativamente la calidad del compost generado</li> </ul> <p>Si un packaging cumple estos criterios y lo certifica un organismo independiente como TÜV Austria, puede llevar el sello <strong>OK Compost</strong> — una garantía verificable, no una promesa de marketing.</p> <h2>Industrial vs. en casa: la diferencia que más importa</h2> <p>Aquí viene el detalle que casi nadie te explica: <strong>no todo lo compostable es igual</strong>.</p> <h3>OK Compost INDUSTRIAL</h3> <p>Significa que el material se degrada en plantas de compostaje industrial, donde las condiciones son controladas: temperaturas de entre 55 y 60°C, humedad y ventilación reguladas. El problema es que <strong>en Chile no existe una infraestructura masiva de compostaje industrial</strong>. Si tu cliente tira esa bolsa en el basurero o en su compostera casera, el material probablemente no se degrada como debería.</p> <h3>OK Compost HOME</h3> <p>Es la certificación más exigente técnicamente, porque el material debe degradarse <strong>en condiciones domésticas</strong>: temperaturas ambientes, sin maquinaria especializada, en una compostera de jardín común. El estándar exige al menos 90% de degradación en 12 meses a temperatura ambiente.</p> <p>Esta distinción importa muchísimo si tu marca quiere comunicar sustentabilidad de forma honesta. Decirle a tu cliente que tu packaging es "compostable" cuando en realidad requiere una planta industrial para degradarse es, en la práctica, casi lo mismo que no serlo.</p> <h2>Por qué esto importa para tu ecommerce</h2> <p>Tus clientes cada vez preguntan más sobre el impacto ambiental de los productos que compran. Elegir un packaging con certificación <strong>OK Compost HOME</strong> te permite comunicar algo concreto y verificable: <em>"nuestra bolsa se degrada en una compostera casera, no necesita infraestructura industrial"</em>.</p> <p>Eso es una diferencia real que tus clientes pueden entender y valorar.</p> <h2>Lo que buscamos en Orbitabags</h2> <p>Cuando diseñamos nuestras bolsas courier, esta distinción fue lo primero que pusimos sobre la mesa. No queríamos un packaging que dijera "sustentable" sin serlo de verdad. Por eso trabajamos con materiales que cumplen los criterios de compostabilidad doméstica — porque sabemos que la mayoría de tus clientes no tiene acceso a una planta de compostaje industrial, pero sí puede compostar en casa.</p> <p>El packaging de tu tienda puede ser parte genuina de un ciclo más limpio. Solo hay que saber qué buscar.</p>`
   },
   {
     id: "2",
@@ -72,49 +25,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Medidas, gramaje, tipo de cierre, sustentabilidad — hay muchas variables al elegir packaging. Te explicamos cómo decidir bien sin complicarte ni pasarte del presupuesto.",
     date: "2026-03-26",
     coverImage: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&q=80",
-    content: `
-<p>Cuando empiezas a despachar pedidos, la primera compra de bolsas courier parece simple. Llegas a MercadoLibre o a algún proveedor y ves decenas de opciones: distintos tamaños, distintos materiales, distintos precios. Y sin un criterio claro, terminas comprando lo más barato o lo que se ve más profesional — sin saber si es lo correcto para tu negocio.</p>
-
-<p>Esta guía es para que eso no te pase.</p>
-
-<h2>Lo primero: el tamaño sí importa</h2>
-
-<p>Usar una bolsa demasiado grande para tu producto no solo se ve poco profesional — también le da más espacio al contenido para moverse y dañarse durante el envío. Una bolsa demasiado pequeña obliga a doblar o comprimir el producto innecesariamente.</p>
-
-<p>La regla general es dejar <strong>entre 3 y 5 cm de margen</strong> en cada dimensión respecto al tamaño del producto embalado. Si vendes ropa doblada, necesitas ese espacio para que la bolsa cierre bien con el adhesivo sin tensión.</p>
-
-<h2>El gramaje: cuándo importa y cuándo no</h2>
-
-<p>El gramaje (medido en micrones o g/m²) determina qué tan resistente es la bolsa. Para envíos nacionales con productos livianos, un gramaje estándar de <strong>50-60 micrones</strong> es suficiente. Si envías productos más pesados o con bordes que puedan perforar, sube a 70-90 micrones.</p>
-
-<p>No pagues por gramaje extra si no lo necesitas — ese costo se multiplica por cada pedido que despachas.</p>
-
-<h2>El cierre adhesivo: el detalle que más afecta la experiencia</h2>
-
-<p>Una bolsa con cierre adhesivo de mala calidad se abre durante el transporte — y eso genera devoluciones, mala experiencia y pérdida de confianza. Busca bolsas con <strong>doble adhesivo</strong>: uno para cerrar el envío y otro para que tu cliente pueda devolver el producto sin necesidad de nuevo packaging.</p>
-
-<p>Este detalle parece menor pero es muy valorado por compradores frecuentes de ecommerce.</p>
-
-<h2>Sustentabilidad: ¿vale la pena el costo extra?</h2>
-
-<p>Las bolsas compostables cuestan un poco más que las de polietileno convencional. La pregunta es si ese costo extra se justifica para tu negocio.</p>
-
-<p>Considera esto: cada vez más consumidores chilenos declaran preferir marcas con compromiso ambiental. Si tu cliente objetivo es urbano, millennial o Z, el packaging sustentable no es un lujo — es una señal de que entiendes sus valores.</p>
-
-<p>El costo adicional por bolsa generalmente es de <strong>$20 a $50 pesos chilenos</strong> dependiendo del tamaño. Traducido al precio de venta de tu producto, ese margen es casi siempre absorbible.</p>
-
-<h2>Checklist antes de hacer tu próxima compra</h2>
-
-<ul>
-  <li>¿Medí el tamaño real de mis productos embalados?</li>
-  <li>¿Sé cuánto pesan mis envíos promedio?</li>
-  <li>¿La bolsa tiene doble adhesivo?</li>
-  <li>¿El material tiene certificación de compostabilidad (no solo dice "biodegradable")?</li>
-  <li>¿Compré una cantidad que me permite probar antes de hacer un pedido grande?</li>
-</ul>
-
-<p>Con estos criterios claros, la próxima compra va a ser mucho más fácil — y vas a terminar con packaging que realmente funciona para tu tienda.</p>
-    `
+    content: `<p>Cuando empiezas a despachar pedidos, la primera compra de bolsas courier parece simple. Llegas a MercadoLibre o a algún proveedor y ves decenas de opciones: distintos tamaños, distintos materiales, distintos precios. Y sin un criterio claro, terminas comprando lo más barato o lo que se ve más profesional — sin saber si es lo correcto para tu negocio.</p> <p>Esta guía es para que eso no te pase.</p> <h2>Lo primero: el tamaño sí importa</h2> <p>Usar una bolsa demasiado grande para tu producto no solo se ve poco profesional — también le da más espacio al contenido para moverse y dañarse durante el envío. Una bolsa demasiado pequeña obliga a doblar o comprimir el producto innecesariamente.</p> <p>La regla general es dejar <strong>entre 3 y 5 cm de margen</strong> en cada dimensión respecto al tamaño del producto embalado. Si vendes ropa doblada, necesitas ese espacio para que la bolsa cierre bien con el adhesivo sin tensión.</p> <h2>El gramaje: cuándo importa y cuándo no</h2> <p>El gramaje (medido en micrones o g/m²) determina qué tan resistente es la bolsa. Para envíos nacionales con productos livianos, un gramaje estándar de <strong>50-60 micrones</strong> es suficiente. Si envías productos más pesados o con bordes que puedan perforar, sube a 70-90 micrones.</p> <p>No pagues por gramaje extra si no lo necesitas — ese costo se multiplica por cada pedido que despachas.</p> <h2>El cierre adhesivo: el detalle que más afecta la experiencia</h2> <p>Una bolsa con cierre adhesivo de mala calidad se abre durante el transporte — y eso genera devoluciones, mala experiencia y pérdida de confianza. Busca bolsas con <strong>doble adhesivo</strong>: uno para cerrar el envío y otro para que tu cliente pueda devolver el producto sin necesidad de nuevo packaging.</p> <p>Este detalle parece menor pero es muy valorado por compradores frecuentes de ecommerce.</p> <h2>Sustentabilidad: ¿vale la pena el costo extra?</h2> <p>Las bolsas compostables cuestan un poco más que las de polietileno convencional. La pregunta es si ese costo extra se justifica para tu negocio.</p> <p>Considera esto: cada vez más consumidores chilenos declaran preferir marcas con compromiso ambiental. Si tu cliente objetivo es urbano, millennial o Z, el packaging sustentable no es un lujo — es una señal de que entiendes sus valores.</p> <p>El costo adicional por bolsa generalmente es de <strong>$20 a $50 pesos chilenos</strong> dependiendo del tamaño. Traducido al precio de venta de tu producto, ese margen es casi siempre absorbible.</p> <h2>Checklist antes de hacer tu próxima compra</h2> <ul> <li>¿Medí el tamaño real de mis productos embalados?</li> <li>¿Sé cuánto pesan mis envíos promedio?</li> <li>¿La bolsa tiene doble adhesivo?</li> <li>¿El material tiene certificación de compostabilidad (no solo dice "biodegradable")?</li> <li>¿Compré una cantidad que me permite probar antes de hacer un pedido grande?</li> </ul> <p>Con estos criterios claros, la próxima compra va a ser mucho más fácil — y vas a terminar con packaging que realmente funciona para tu tienda.</p>`
   },
   {
     id: "3",
@@ -122,44 +33,8 @@ export const blogPosts: BlogPost[] = [
     title: "El packaging que recibes dice más de tu marca que lo que vendes",
     excerpt: "La experiencia de unboxing es el último contacto que tienes con tu cliente antes de que deje una reseña. Aquí te contamos por qué el packaging es inversión, no gasto.",
     date: "2026-03-28",
-    coverImage: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
-    content: `
-<p>Piénsalo desde el lado del comprador: hiciste un pedido online, esperaste 2 o 3 días, y por fin llega el paquete. Lo primero que ves — antes de ver el producto — es la bolsa.</p>
-
-<p>Esa bolsa está comunicando algo sobre la marca que te vendió. Y ese mensaje llega antes de que abras nada.</p>
-
-<h2>El unboxing como momento de marca</h2>
-
-<p>El "unboxing" — ese momento de abrir un paquete — se ha convertido en uno de los momentos más influyentes del ecommerce. No por las marcas grandes con cajas de lujo, sino porque <strong>cualquier tienda puede hacerlo bien o mal</strong>.</p>
-
-<p>Una bolsa courier limpia, resistente y con buen cierre comunica: esta tienda se preocupa por los detalles. Una bolsa arrugada, con cinta scotch para reforzar un cierre que no funcionó, comunica lo contrario.</p>
-
-<h2>Lo que tus clientes piensan pero no te dicen</h2>
-
-<p>Cuando un cliente recibe un paquete mal embalado, rara vez te lo escribe en una reseña directamente. Pero sí afecta su percepción de la marca y su decisión de volver a comprar. En el ecommerce chileno, donde la competencia entre tiendas similares es alta, <strong>estos detalles marcan la diferencia entre el cliente que recompra y el que no vuelve</strong>.</p>
-
-<h2>El packaging sustentable como diferenciador</h2>
-
-<p>Cada vez más consumidores, especialmente en Santiago, prestan atención al packaging desde una perspectiva ambiental. Recibir una bolsa que dice "compostable en casa" genera una reacción positiva concreta: la marca tomó una decisión consciente.</p>
-
-<p>No necesitas explicarlo con un inserto largo. La bolsa habla sola.</p>
-
-<h2>¿Cuánto cuesta mejorar tu packaging?</h2>
-
-<p>Menos de lo que crees. La diferencia entre una bolsa plástica genérica y una bolsa courier compostable de buena calidad es de pocos pesos por unidad. Pero el impacto en percepción de marca es desproporcionadamente mayor.</p>
-
-<p>Piénsalo como una inversión en marketing que ocurre en cada despacho — sin pagar por clics ni por impresiones.</p>
-
-<h2>Tres cosas que puedes cambiar hoy</h2>
-
-<ul>
-  <li>Elige una bolsa que tenga buen tacto y resistencia — no tiene que ser cara, tiene que sentirse bien</li>
-  <li>Asegúrate de que el cierre adhesivo funcione correctamente y no requiera cinta adicional</li>
-  <li>Si puedes, elige packaging con certificación compostable — es un diferenciador que tus clientes van a notar</li>
-</ul>
-
-<p>Tu producto puede ser excelente. Pero si llega en una bolsa que da mala impresión, eso es lo que tu cliente recuerda.</p>
-    `
+    coverImage: "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=1200&q=80",
+    content: `<p>Piénsalo desde el lado del comprador: hiciste un pedido online, esperaste 2 o 3 días, y por fin llega el paquete. Lo primero que ves — antes de ver el producto — es la bolsa.</p> <p>Esa bolsa está comunicando algo sobre la marca que te vendió. Y ese mensaje llega antes de que abras nada.</p> <h2>El unboxing como momento de marca</h2> <p>El "unboxing" — ese momento de abrir un paquete — se ha convertido en uno de los momentos más influyentes del ecommerce. No por las marcas grandes con cajas de lujo, sino porque <strong>cualquier tienda puede hacerlo bien o mal</strong>.</p> <p>Una bolsa courier limpia, resistente y con buen cierre comunica: esta tienda se preocupa por los detalles. Una bolsa arrugada, con cinta scotch para reforzar un cierre que no funcionó, comunica lo contrario.</p> <h2>Lo que tus clientes piensan pero no te dicen</h2> <p>Cuando un cliente recibe un paquete mal embalado, rara vez te lo escribe en una reseña directamente. Pero sí afecta su percepción de la marca y su decisión de volver a comprar. En el ecommerce chileno, donde la competencia entre tiendas similares es alta, <strong>estos detalles marcan la diferencia entre el cliente que recompra y el que no vuelve</strong>.</p> <h2>El packaging sustentable como diferenciador</h2> <p>Cada vez más consumidores, especialmente en Santiago, prestan atención al packaging desde una perspectiva ambiental. Recibir una bolsa que dice "compostable en casa" genera una reacción positiva concreta: la marca tomó una decisión consciente.</p> <p>No necesitas explicarlo con un inserto largo. La bolsa habla sola.</p> <h2>¿Cuánto cuesta mejorar tu packaging?</h2> <p>Menos de lo que crees. La diferencia entre una bolsa plástica genérica y una bolsa courier compostable de buena calidad es de pocos pesos por unidad. Pero el impacto en percepción de marca es desproporcionadamente mayor.</p> <p>Piénsalo como una inversión en marketing que ocurre en cada despacho — sin pagar por clics ni por impresiones.</p> <h2>Tres cosas que puedes cambiar hoy</h2> <ul> <li>Elige una bolsa que tenga buen tacto y resistencia — no tiene que ser cara, tiene que sentirse bien</li> <li>Asegúrate de que el cierre adhesivo funcione correctamente y no requiera cinta adicional</li> <li>Si puedes, elige packaging con certificación compostable — es un diferenciador que tus clientes van a notar</li> </ul> <p>Tu producto puede ser excelente. Pero si llega en una bolsa que da mala impresión, eso es lo que tu cliente recuerda.</p>`
   },
   {
     id: "4",
@@ -168,41 +43,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "La sustentabilidad ya no es opcional para muchas marcas. Pero tampoco tiene que ser cara. Te mostramos cómo hacer el cambio de forma inteligente.",
     date: "2026-03-30",
     coverImage: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=1200&q=80",
-    content: `
-<p>Si tienes una tienda online y tu audiencia es relativamente joven y urbana, es probable que ya hayas recibido alguna versión de esta pregunta: <em>"¿el packaging es reciclable?"</em> o <em>"¿usan materiales sustentables?"</em>.</p>
-
-<p>Ya no es una pregunta de nicho. Es una pregunta cada vez más común — y la respuesta que des importa.</p>
-
-<h2>El costo real del packaging sustentable</h2>
-
-<p>La objeción más frecuente es el precio. Y tiene sentido: si estás mirando el margen por pedido, cualquier costo extra se siente.</p>
-
-<p>Pero hagamos el cálculo real. Si despachas 100 pedidos al mes y la diferencia entre una bolsa plástica y una compostable es de $40 pesos por unidad, estás hablando de <strong>$4.000 pesos mensuales adicionales</strong>. Menos que un café al mes.</p>
-
-<p>Para la mayoría de las tiendas en etapa de crecimiento, ese costo es completamente absorbible — especialmente si se considera como inversión en percepción de marca.</p>
-
-<h2>Cómo comunicarlo sin exagerar</h2>
-
-<p>El error más común es el extremo opuesto: exagerar el impacto ambiental para parecer más "verde" de lo que realmente eres. Los consumidores cada vez detectan mejor el greenwashing, y el efecto negativo de ser descubierto es mucho peor que no haber hecho nada.</p>
-
-<p>La clave es ser específico y honesto:</p>
-
-<ul>
-  <li>Di exactamente qué certificación tiene tu packaging (ej: "compostable en casa, certificación OK Compost HOME")</li>
-  <li>Explica qué significa en términos prácticos para el cliente ("puedes tirarla en tu compostera o en puntos de compostaje")</li>
-  <li>No digas que "salvas el planeta" — di que tomaste una decisión consciente con el packaging</li>
-</ul>
-
-<h2>El efecto en recompra</h2>
-
-<p>Las tiendas que hacen cambios visibles hacia la sustentabilidad tienden a ver un efecto positivo en recompra, especialmente entre clientes que ya compartían esos valores. No es un efecto masivo inmediato — es un efecto acumulativo que se construye con cada pedido despachado.</p>
-
-<h2>Por dónde empezar</h2>
-
-<p>No necesitas cambiar todo de golpe. El packaging de envío es el punto de entrada más simple: alta visibilidad, bajo costo por unidad, y es el primer contacto físico que tu cliente tiene con tu marca.</p>
-
-<p>Cambia las bolsas courier primero. Mide la reacción. Ajusta desde ahí.</p>
-    `
+    content: `<p>Si tienes una tienda online y tu audiencia es relativamente joven y urbana, es probable que ya hayas recibido alguna versión de esta pregunta: <em>"¿el packaging es reciclable?"</em> o <em>"¿usan materiales sustentables?"</em>.</p> <p>Ya no es una pregunta de nicho. Es una pregunta cada vez más común — y la respuesta que des importa.</p> <h2>El costo real del packaging sustentable</h2> <p>La objeción más frecuente es el precio. Y tiene sentido: si estás mirando el margen por pedido, cualquier costo extra se siente.</p> <p>Pero hagamos el cálculo real. Si despachas 100 pedidos al mes y la diferencia entre una bolsa plástica y una compostable es de $40 pesos por unidad, estás hablando de <strong>$4.000 pesos mensuales adicionales</strong>. Menos que un café al mes.</p> <p>Para la mayoría de las tiendas en etapa de crecimiento, ese costo es completamente absorbible — especialmente si se considera como inversión en percepción de marca.</p> <h2>Cómo comunicarlo sin exagerar</h2> <p>El error más común es el extremo opuesto: exagerar el impacto ambiental para parecer más "verde" de lo que realmente eres. Los consumidores cada vez detectan mejor el greenwashing, y el efecto negativo de ser descubierto es mucho peor que no haber hecho nada.</p> <p>La clave es ser específico y honesto:</p> <ul> <li>Di exactamente qué certificación tiene tu packaging (ej: "compostable en casa, certificación OK Compost HOME")</li> <li>Explica qué significa en términos prácticos para el cliente ("puedes tirarla en tu compostera o en puntos de compostaje")</li> <li>No digas que "salvas el planeta" — di que tomaste una decisión consciente con el packaging</li> </ul> <h2>El efecto en recompra</h2> <p>Las tiendas que hacen cambios visibles hacia la sustentabilidad tienden a ver un efecto positivo en recompra, especialmente entre clientes que ya compartían esos valores. No es un efecto masivo inmediato — es un efecto acumulativo que se construye con cada pedido despachado.</p> <h2>Por dónde empezar</h2> <p>No necesitas cambiar todo de golpe. El packaging de envío es el punto de entrada más simple: alta visibilidad, bajo costo por unidad, y es el primer contacto físico que tu cliente tiene con tu marca.</p> <p>Cambia las bolsas courier primero. Mide la reacción. Ajusta desde ahí.</p>`
   },
   {
     id: "5",
@@ -211,38 +52,7 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Ropa, accesorios, libros, cosmética — cada producto tiene una medida ideal. Esta guía práctica te ahorra el ensayo y error.",
     date: "2026-04-01",
     coverImage: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1200&q=80",
-    content: `
-<p>Una de las preguntas más frecuentes cuando alguien empieza a despachar pedidos es: <em>"¿qué medida de bolsa necesito?"</em>. Y la respuesta depende directamente de lo que vendas.</p>
-
-<p>Esta guía práctica te da las medidas recomendadas según el tipo de producto, para que no compres de más ni de menos.</p>
-
-<h2>Cómo se miden las bolsas courier</h2>
-
-<p>Las bolsas courier se miden en <strong>ancho x alto</strong>, sin incluir el solapa del cierre adhesivo. Cuando veas una bolsa de 30x40 cm, eso es el área útil para tu producto. Considera siempre dejar 3-5 cm de margen en cada dimensión para que el cierre quede limpio.</p>
-
-<h2>Por tipo de producto</h2>
-
-<h3>Ropa (poleras, pantalones, vestidos)</h3>
-<p>La ropa doblada normalmente cabe bien en bolsas de <strong>35x45 cm o 40x50 cm</strong>. Si vendes prendas más voluminosas como chaquetas o sweaters, considera <strong>45x55 cm</strong>. La clave es doblar la prenda de forma compacta antes de medir.</p>
-
-<h3>Accesorios (carteras, cinturones, joyería)</h3>
-<p>Para accesorios pequeños, una bolsa de <strong>20x30 cm</strong> suele ser suficiente. Carteras medianas caben bien en <strong>30x40 cm</strong>. Si el accesorio tiene volumen (mochilas, bolsos grandes), ve a <strong>40x50 cm o más</strong>.</p>
-
-<h3>Libros y cuadernos</h3>
-<p>Un libro estándar (formato A5 o similar) entra cómodamente en una bolsa de <strong>25x35 cm</strong>. Para libros grandes o varios libros juntos, usa <strong>35x45 cm</strong>.</p>
-
-<h3>Cosmética y skincare</h3>
-<p>Depende del embalaje secundario. Si los productos van en caja, mide la caja y agrega el margen. Para frascos sueltos protegidos con bubble wrap, considera bolsas de <strong>25x35 cm o 30x40 cm</strong> como punto de partida.</p>
-
-<h3>Tecnología y accesorios electrónicos</h3>
-<p>Cables, cargadores y accesorios pequeños: <strong>20x30 cm</strong>. Productos en caja (audífonos, teclados, etc.): mide la caja y agrega margen generoso. Recuerda que estos productos necesitan ir bien protegidos internamente — la bolsa es el último nivel de protección, no el único.</p>
-
-<h2>Consejo práctico</h2>
-
-<p>Antes de hacer tu primer pedido grande, compra una muestra de 10-20 unidades del tamaño que crees que necesitas y prueba con tus productos reales. Es mucho mejor invertir en una prueba pequeña que descubrir que compraste 500 bolsas del tamaño equivocado.</p>
-
-<p>Si tienes dudas sobre qué medida necesitas para tu producto específico, escríbenos — con gusto te ayudamos a elegir.</p>
-    `
+    content: `<p>Una de las preguntas más frecuentes cuando alguien empieza a despachar pedidos es: <em>"¿qué medida de bolsa necesito?"</em>. Y la respuesta depende directamente de lo que vendas.</p> <p>Esta guía práctica te da las medidas recomendadas según el tipo de producto, para que no compres de más ni de menos.</p> <h2>Cómo se miden las bolsas courier</h2> <p>Las bolsas courier se miden en <strong>ancho x alto</strong>, sin incluir el solapa del cierre adhesivo. Cuando veas una bolsa de 30x40 cm, eso es el área útil para tu producto. Considera siempre dejar 3-5 cm de margen en cada dimensión para que el cierre quede limpio.</p> <h2>Por tipo de producto</h2> <h3>Ropa (poleras, pantalones, vestidos)</h3> <p>La ropa doblada normalmente cabe bien en bolsas de <strong>35x45 cm o 40x50 cm</strong>. Si vendes prendas más voluminosas como chaquetas o sweaters, considera <strong>45x55 cm</strong>. La clave es doblar la prenda de forma compacta antes de medir.</p> <h3>Accesorios (carteras, cinturones, joyería)</h3> <p>Para accesorios pequeños, una bolsa de <strong>20x30 cm</strong> suele ser suficiente. Carteras medianas caben bien en <strong>30x40 cm</strong>. Si el accesorio tiene volumen (mochilas, bolsos grandes), ve a <strong>40x50 cm o más</strong>.</p> <h3>Libros y cuadernos</h3> <p>Un libro estándar (formato A5 o similar) entra cómodamente en una bolsa de <strong>25x35 cm</strong>. Para libros grandes o varios libros juntos, usa <strong>35x45 cm</strong>.</p> <h3>Cosmética y skincare</h3> <p>Depende del embalaje secundario. Si los productos van en caja, mide la caja y agrega el margen. Para frascos sueltos protegidos con bubble wrap, considera bolsas de <strong>25x35 cm o 30x40 cm</strong> como punto de partida.</p> <h3>Tecnología y accesorios electrónicos</h3> <p>Cables, cargadores y accesorios pequeños: <strong>20x30 cm</strong>. Productos en caja (audífonos, teclados, etc.): mide la caja y agrega margen generoso. Recuerda que estos productos necesitan ir bien protegidos internamente — la bolsa es el último nivel de protección, no el único.</p> <h2>Consejo práctico</h2> <p>Antes de hacer tu primer pedido grande, compra una muestra de 10-20 unidades del tamaño que crees que necesitas y prueba con tus productos reales. Es mucho mejor invertir en una prueba pequeña que descubrir que compraste 500 bolsas del tamaño equivocado.</p> <p>Si tienes dudas sobre qué medida necesitas para tu producto específico, escríbenos — con gusto te ayudamos a elegir.</p>`
   },
   {
     id: "6",
@@ -251,55 +61,78 @@ export const blogPosts: BlogPost[] = [
     excerpt: "Desde el packaging hasta la etiqueta, pasando por el proceso de empaque. Esta lista te evita los errores más comunes al empezar a despachar.",
     date: "2026-04-03",
     coverImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80",
-    content: `
-<p>Los primeros 100 pedidos de cualquier ecommerce son los más caóticos — y también los más importantes. Son los que definen si tu operación logística escala bien o si cada despacho se convierte en un dolor de cabeza.</p>
-
-<p>Esta checklist es para que llegues a ese número (y más allá) con un proceso ordenado desde el principio.</p>
-
-<h2>El packaging</h2>
-
-<ul>
-  <li>Bolsas courier del tamaño correcto para tus productos (ver guía de medidas)</li>
-  <li>Cinta adhesiva de respaldo por si algo lo requiere</li>
-  <li>Papel de seda o relleno si tus productos son frágiles o requieren presentación especial</li>
-  <li>Tarjetas de agradecimiento o insertos (opcional pero muy recomendado)</li>
-</ul>
-
-<h2>La etiqueta de envío</h2>
-
-<ul>
-  <li>Define si imprimirás etiquetas (más profesional) o escribirás a mano (más simple al inicio)</li>
-  <li>Si imprimes, ten papel adhesivo o etiquetas de hoja A4 cortadas</li>
-  <li>Verifica siempre la dirección antes de pegar — un error de dirección es caro y frustrante para ambos lados</li>
-</ul>
-
-<h2>El proceso de empaque</h2>
-
-<ul>
-  <li>Establece un orden fijo: revisar el pedido → proteger el producto → empacar → etiquetar → registrar</li>
-  <li>Revisa el producto antes de empacarlo — descubrir un defecto antes del despacho es mucho mejor que gestionarlo como devolución</li>
-  <li>Toma foto del pedido empacado antes de cerrarlo, al menos al principio — es evidencia valiosa si hay reclamos</li>
-</ul>
-
-<h2>La coordinación con el courier</h2>
-
-<ul>
-  <li>Define un día o horario fijo de despacho — la consistencia reduce el estrés operacional</li>
-  <li>Ten claro el peso máximo por bolsa de tu courier (generalmente entre 3 y 5 kg para envíos nacionales)</li>
-  <li>Guarda los números de seguimiento — son tu primera línea de defensa ante reclamos de "no me llegó"</li>
-</ul>
-
-<h2>La comunicación con el cliente</h2>
-
-<ul>
-  <li>Envía el número de seguimiento apenas despaches — reduce los mensajes de "¿cuándo llega?"</li>
-  <li>Si algo se retrasa, comunícalo proactivamente — siempre es mejor que el cliente lo sepa por ti y no por el rastreo</li>
-  <li>Considera pedir feedback después de la entrega — los primeros 100 clientes son tu mejor fuente de aprendizaje</li>
-</ul>
-
-<h2>Un último consejo</h2>
-
-<p>No intentes optimizar todo desde el día uno. Primero haz que funcione, luego hazlo eficiente. Los primeros 100 pedidos son para aprender — sobre tu producto, sobre tus clientes, sobre tu proceso. Toma notas, ajusta, y para cuando llegues al pedido 101, ya vas a saber exactamente qué mejorar.</p>
-    `
+    content: `<p>Los primeros 100 pedidos de cualquier ecommerce son los más caóticos — y también los más importantes. Son los que definen si tu operación logística escala bien o si cada despacho se convierte en un dolor de cabeza.</p> <p>Esta checklist es para que llegues a ese número (y más allá) con un proceso ordenado desde el principio.</p> <h2>El packaging</h2> <ul> <li>Bolsas courier del tamaño correcto para tus productos (ver guía de medidas)</li> <li>Cinta adhesiva de respaldo por si algo lo requiere</li> <li>Papel de seda o relleno si tus productos son frágiles o requieren presentación especial</li> <li>Tarjetas de agradecimiento o insertos (opcional pero muy recomendado)</li> </ul> <h2>La etiqueta de envío</h2> <ul> <li>Define si imprimirás etiquetas (más profesional) o escribirás a mano (más simple al inicio)</li> <li>Si imprimes, ten papel adhesivo o etiquetas de hoja A4 cortadas</li> <li>Verifica siempre la dirección antes de pegar — un error de dirección es caro y frustrante para ambos lados</li> </ul> <h2>El proceso de empaque</h2> <ul> <li>Establece un orden fijo: revisar el pedido → proteger el producto → empacar → etiquetar → registrar</li> <li>Revisa el producto antes de empacarlo — descubrir un defecto antes del despacho es mucho mejor que gestionarlo como devolución</li> <li>Toma foto del pedido empacado antes de cerrarlo, al menos al principio — es evidencia valiosa si hay reclamos</li> </ul> <h2>La coordinación con el courier</h2> <ul> <li>Define un día o horario fijo de despacho — la consistencia reduce el estrés operacional</li> <li>Ten claro el peso máximo por bolsa de tu courier (generalmente entre 3 y 5 kg para envíos nacionales)</li> <li>Guarda los números de seguimiento — son tu primera línea de defensa ante reclamos de "no me llegó"</li> </ul> <h2>La comunicación con el cliente</h2> <ul> <li>Envía el número de seguimiento apenas despaches — reduce los mensajes de "¿cuándo llega?"</li> <li>Si algo se retrasa, comunícalo proactivamente — siempre es mejor que el cliente lo sepa por ti y no por el rastreo</li> <li>Considera pedir feedback después de la entrega — los primeros 100 clientes son tu mejor fuente de aprendizaje</li> </ul> <h2>Un último consejo</h2> <p>No intentes optimizar todo desde el día uno. Primero haz que funcione, luego hazlo eficiente. Los primeros 100 pedidos son para aprender — sobre tu producto, sobre tus clientes, sobre tu proceso. Toma notas, ajusta, y para cuando llegues al pedido 101, ya vas a saber exactamente qué mejorar.</p>`
+  },
+  {
+    id: "7",
+    slug: "tendencias-packaging-sustentable-2026",
+    title: "Tendencias en packaging sustentable para ecommerce 2026: qué viene y cómo prepararte",
+    excerpt: "El mercado del packaging está cambiando rápido. Materiales nuevos, consumidores más exigentes y regulaciones más estrictas. Te contamos qué tendencias están marcando el 2026 y qué significa para tu tienda.",
+    date: "2026-04-05",
+    coverImage: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&q=80",
+    content: `<p>El packaging de ecommerce no es lo que era hace cinco años. Los consumidores saben leer etiquetas, detectan el greenwashing y comparten en redes cuando una marca los defrauda — o cuando los sorprende positivamente. En 2026, el packaging sustentable dejó de ser una ventaja competitiva para convertirse en una expectativa base.</p> <p>Pero "sustentable" ya no significa lo mismo que antes. El estándar sube. Te contamos qué está pasando y qué puedes hacer desde hoy.</p> <h2>1. El fin del "biodegradable" como argumento de venta</h2> <p>Durante años, la etiqueta "biodegradable" fue suficiente para diferenciarse. En 2026, los consumidores más informados ya saben que casi todo es biodegradable en algún sentido — y que ese término sin certificación no garantiza nada.</p> <p>La tendencia clara es hacia <strong>certificaciones verificables</strong>: OK Compost HOME, OK Compost INDUSTRIAL, normas EN 13432, y etiquetas que incluyen información concreta sobre condiciones de degradación. El packaging sin sello específico cada vez genera más desconfianza.</p> <h2>2. Materiales derivados de plantas: más allá del plástico bio</h2> <p>Los materiales de origen vegetal están ganando terreno. El almidón de maíz, la fécula de papa, el PLA (ácido poliláctico) y las fibras de celulosa de fuentes renovables son cada vez más accesibles para tiendas medianas y pequeñas.</p> <p>Lo importante es entender sus limitaciones: no todos estos materiales son compostables en casa, y algunos requieren condiciones industriales para degradarse correctamente. La elección depende del ciclo de vida completo que quieras ofrecer a tus clientes.</p> <h2>3. Packaging mínimo como declaración de valores</h2> <p>La tendencia del "menos es más" se consolida. Las marcas que envían sus productos en bolsas sobredimensionadas con tres capas de plástico burbuja están cada vez más fuera de sintonía con lo que el mercado espera.</p> <p>El packaging mínimo — justo lo necesario para proteger el producto, sin exceso — comunica eficiencia, conciencia y respeto por el cliente. Y además, generalmente es más barato.</p> <h2>4. Trazabilidad y transparencia</h2> <p>Algunas marcas ya están incluyendo QR codes en su packaging que llevan a páginas donde se explica de dónde viene el material, cómo se fabrica y cómo descartarlo correctamente. No es solo marketing — es educación al cliente que construye confianza a largo plazo.</p> <h2>5. La presión regulatoria aumenta en Chile</h2> <p>La Ley REP (Responsabilidad Extendida del Productor) está redefiniendo las obligaciones de las empresas respecto al packaging. Aunque actualmente las obligaciones más estrictas aplican a empresas grandes, la tendencia regulatoria es clara: el packaging plástico de un solo uso está bajo presión creciente.</p> <p>Adaptarse ahora, antes de que sea obligatorio, posiciona a tu marca un paso adelante — y evita tener que hacer cambios costosos bajo presión.</p> <h2>Qué puedes hacer desde hoy</h2> <p>No necesitas rediseñar todo tu packaging de golpe. El primer paso es simple: asegúrate de que lo que usas hoy tenga una certificación real y comunicable. Si no la tiene, es hora de evaluar el cambio.</p> <p>El packaging es una decisión que tomas cada vez que haces un pedido de insumos. La próxima vez que lo hagas, ese es tu momento de actualizar.</p>`
+  },
+  {
+    id: "8",
+    slug: "plastico-en-el-ecommerce",
+    title: "Cuánto plástico genera un envío de ecommerce (y qué alternativas reales existen)",
+    excerpt: "Cada bolsa plástica que usas para despachar tiene un ciclo de vida que va mucho más allá del momento en que tu cliente la abre. Aquí están los números — y las alternativas que ya existen.",
+    date: "2026-04-07",
+    coverImage: "https://images.unsplash.com/photo-1618477461853-cf6ed80faba5?w=1200&q=80",
+    content: `<p>Es fácil no pensar en el packaging una vez que el pedido salió por la puerta. Pero esa bolsa que usaste para despachar tiene una historia que continúa mucho después de que tu cliente la abre y la tira.</p> <p>Hagamos el ejercicio de pensar en los números reales.</p> <h2>El ciclo de vida de una bolsa courier plástica</h2> <p>Una bolsa courier de polietileno estándar pesa entre 15 y 30 gramos. Su vida útil como packaging es de minutos a horas — el tiempo que tarda tu cliente en abrirla. Después de eso, entra en un ciclo de vida que puede durar <strong>entre 100 y 400 años</strong>.</p> <p>En ese tiempo, la bolsa no desaparece: se fragmenta en microplásticos que contaminan suelos, napas de agua y océanos. Los microplásticos ya se encuentran en el agua de lluvia, en la sal de mesa, en la sangre humana.</p> <h2>¿Cuánto plástico genera un ecommerce mediano?</h2> <p>Pensemos en una tienda que despacha 200 pedidos mensuales con bolsas courier plásticas de 25 gramos promedio. Eso son <strong>5 kilos de plástico al mes</strong>, 60 kilos al año. En cinco años de operación: 300 kilos de plástico en circulación.</p> <p>No es una cifra enorme en términos industriales. Pero es tuya — y es evitable.</p> <h2>El problema del reciclaje como solución</h2> <p>La mayoría del plástico flexible (como las bolsas courier) no se recicla en Chile. Los sistemas de reciclaje municipales están diseñados principalmente para plásticos rígidos (botellas PET, envases). Las bolsas y films plásticos se van casi siempre al relleno sanitario.</p> <p>Dicho de otra manera: poner "reciclable" en una bolsa plástica flexible, en el contexto chileno actual, es en gran medida marketing. El reciclaje real de ese material es marginal.</p> <h2>Las alternativas que sí funcionan</h2> <h3>Bolsas compostables certificadas</h3> <p>La alternativa más directa y escalable para ecommerce. Una bolsa compostable con certificación OK Compost HOME puede procesarse en una compostera doméstica en condiciones normales. Sin infraestructura especial, sin depender del sistema de reciclaje municipal.</p> <h3>Papel kraft y sobres de papel</h3> <p>Para productos planos o que no requieren impermeabilidad, los sobres de papel kraft son una opción válida y reciclable en el sistema convencional. Su limitación es la resistencia al agua — en condiciones de lluvia o manejo brusco, el papel ofrece menos protección que un material plástico o compostable similar.</p> <h3>Packaging reutilizable</h3> <p>Algunas marcas están explorando modelos de packaging retornable, donde el cliente devuelve el packaging en el siguiente pedido. Es una tendencia interesante, pero aún logísticamente compleja para la mayoría de los ecommerce chilenos.</p> <h2>El argumento económico</h2> <p>Las bolsas compostables tienen un costo unitario mayor que las plásticas convencionales — pero la diferencia se ha reducido significativamente en los últimos años a medida que la demanda creció y la producción escala. Para la mayoría de las tiendas, el costo adicional por pedido es de entre $20 y $60 pesos.</p> <p>Frente al impacto ambiental y el valor de comunicación hacia tus clientes, esa diferencia es cada vez más difícil de justificar hacia el lado del plástico.</p>`
+  },
+  {
+    id: "9",
+    slug: "packaging-personalizado-vale-la-pena",
+    title: "¿Vale la pena el packaging personalizado si tu tienda es pequeña?",
+    excerpt: "Bolsas con tu logo, colores de marca, mensajes propios. Suena bien, pero ¿tiene sentido para una tienda que despacha 50 pedidos al mes? Te ayudamos a decidir.",
+    date: "2026-04-09",
+    coverImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
+    content: `<p>Una de las preguntas más comunes de emprendedores que llevan algunos meses con su tienda es: <em>"¿cuándo tiene sentido invertir en packaging personalizado?"</em>. Y la respuesta honesta es: depende de varias cosas que vale la pena analizar antes de hacer el pedido.</p> <h2>Qué significa "packaging personalizado" en la práctica</h2> <p>Personalizar packaging puede ir desde algo muy simple — como agregar una pegatina con tu logo en la bolsa courier — hasta algo más complejo, como bolsas con impresión personalizada de toda la superficie. Entre esos dos extremos hay muchas opciones intermedias.</p> <p>En términos de inversión:</p> <ul> <li><strong>Stickers o sellos:</strong> costo mínimo, se aplican sobre cualquier bolsa estándar, sin mínimo de cantidad</li> <li><strong>Tarjetas de agradecimiento o insertos:</strong> bajo costo, impacto alto, requieren diseño básico</li> <li><strong>Bolsas con impresión personalizada:</strong> costo mayor, generalmente requieren pedidos mínimos de 500-1000 unidades</li> <li><strong>Bolsas con diseño de marca completo:</strong> inversión significativa, requieren volumen para amortizar</li> </ul> <h2>El umbral de volumen que cambia el cálculo</h2> <p>Para bolsas con impresión personalizada, el costo unitario baja considerablemente con el volumen. Un pedido de 200 unidades puede costar el doble por unidad que uno de 1.000 unidades.</p> <p>Como regla general: si despachas menos de <strong>100 pedidos mensuales</strong>, las opciones de bajo costo (stickers, tarjetas, insertos) ofrecen mejor retorno que la inversión en bolsas impresas. Si estás por encima de 200-300 pedidos al mes, las bolsas personalizadas empiezan a tener sentido económico.</p> <h2>El impacto real en la experiencia del cliente</h2> <p>Hay una pregunta más importante que el costo: ¿qué valora más tu cliente?</p> <p>Para muchos compradores, una bolsa compostable de buena calidad con una tarjeta escrita a mano o impresa con un mensaje personalizado tiene más impacto que una bolsa con logo impreso pero de material genérico. La autenticidad y el cuidado percibido importan más que el nivel de personalización visual.</p> <h2>Un modelo de implementación por etapas</h2> <p>Si recién estás empezando o tu volumen es bajo, considera este orden:</p> <ol> <li><strong>Etapa 1:</strong> Bolsas courier de buena calidad (compostables si es posible) + tarjeta de agradecimiento impresa o escrita a mano</li> <li><strong>Etapa 2:</strong> Sticker con logo y sitio web en la bolsa courier estándar</li> <li><strong>Etapa 3:</strong> Cuando el volumen lo justifique, bolsas con impresión simple (una tinta, diseño mínimo)</li> <li><strong>Etapa 4:</strong> Packaging de marca completo con diseño y materiales premium</li> </ol> <p>No hay que llegar a la etapa 4 para tener una buena experiencia de unboxing. Con una tarjeta bien pensada y una bolsa de calidad puedes diferenciarte hoy, sin esperar a tener presupuesto para packaging personalizado completo.</p> <h2>Lo que no deberías sacrificar por personalizar</h2> <p>Un error que vemos con frecuencia: marcas que invierten en packaging impreso pero de mala calidad para mantener el costo total bajo. El resultado es una bolsa con logo bonito que se rompe durante el envío — o cuyo cierre no funciona bien.</p> <p>La calidad del material va antes que la personalización visual. Siempre.</p>`
+  },
+  {
+    id: "10",
+    slug: "como-reducir-devoluciones-con-packaging",
+    title: "Cómo reducir tus devoluciones con un mejor packaging (sin gastar de más)",
+    excerpt: "Muchas devoluciones tienen un origen que no es el producto en sí, sino cómo llegó. Un packaging bien elegido puede reducir significativamente tus tasas de devolución.",
+    date: "2026-04-11",
+    coverImage: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=1200&q=80",
+    content: `<p>Las devoluciones son uno de los mayores dolores de cabeza del ecommerce — y uno de los más costosos. Cada devolución implica costo de logística reversa, tiempo de gestión, y a veces un producto que ya no puede venderse como nuevo.</p> <p>Lo que muchos ecommerce no analizan es cuántas de sus devoluciones son evitables con un packaging mejor. La respuesta, en muchos casos, es sorprendente.</p> <h2>Las causas de devolución que el packaging puede resolver</h2> <p>Cuando se analiza el motivo real de las devoluciones en ecommerce, aparecen algunas categorías recurrentes que tienen relación directa con el packaging:</p> <ul> <li><strong>Producto dañado en tránsito:</strong> bolsas demasiado holgadas que permiten movimiento, o con gramaje insuficiente para el peso del producto</li> <li><strong>Producto llegó "distinto a lo esperado":</strong> a veces esto se origina en una foto de producto tomada mal, pero otras veces en que el producto llegó arrugado o deformado por un embalaje que no lo sostenía</li> <li><strong>Apertura accidental del paquete:</strong> cierres adhesivos de mala calidad que se abren en tránsito, lo que puede resultar en pérdida de contenido o en producto expuesto a humedad o suciedad</li> </ul> <h2>El gramaje correcto para el peso de tu producto</h2> <p>Si tus productos pesan más de 500 gramos o tienen bordes, esquinas o partes que puedan ejercer presión sobre la bolsa, el gramaje estándar de 50 micrones puede no ser suficiente.</p> <p>Una bolsa que se rompe en tránsito no solo genera una devolución — genera un cliente frustrado que probablemente no vuelve. Sube a 70 o 90 micrones para productos más exigentes. El costo adicional es mínimo comparado con el de una devolución.</p> <h2>El doble adhesivo como seguro de calidad</h2> <p>Las bolsas courier con <strong>doble adhesivo</strong> tienen dos tiras: una para el envío original y otra para que el cliente pueda devolver el producto usando la misma bolsa. Pero más allá del uso en devoluciones, el doble adhesivo tiene otro beneficio: indica que la bolsa fue diseñada con atención al detalle del cierre.</p> <p>Generalmente, las bolsas con doble adhesivo tienen mejor calidad general en el cierre — lo que reduce el riesgo de apertura accidental en tránsito.</p> <h2>El tamaño de la bolsa y la integridad del producto</h2> <p>Una bolsa demasiado grande para el producto permite que éste se mueva durante el transporte. Para productos textiles esto puede significar arrugas severas. Para productos frágiles como cosmética o tecnología, el movimiento aumenta el riesgo de daño incluso cuando el producto tiene protección interna.</p> <p>El packaging correcto abraza el producto — no lo ahoga, pero tampoco le da espacio de más.</p> <h2>El protocolo de empaque como herramienta de control</h2> <p>Más allá del tipo de bolsa, el proceso de empaque también importa. Tener un protocolo claro — revisar el producto antes de empacar, documentar con foto, verificar el cierre — reduce errores que después se convierten en devoluciones.</p> <p>Un cliente que recibe su pedido en perfectas condiciones no tiene motivo para devolverlo. Ese es el objetivo.</p>`
+  },
+  {
+    id: "11",
+    slug: "ley-rep-chile-ecommerce-packaging",
+    title: "La Ley REP y el ecommerce en Chile: lo que debes saber sobre el packaging en 2026",
+    excerpt: "La Responsabilidad Extendida del Productor ya está redefiniendo las reglas del packaging en Chile. ¿Afecta a tu tienda? ¿Qué debes considerar? Te lo explicamos sin tecnicismos.",
+    date: "2026-04-13",
+    coverImage: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80",
+    content: `<p>En Chile, la Ley 20.920 — conocida como la Ley REP (Responsabilidad Extendida del Productor) — está transformando de forma progresiva cómo las empresas deben pensar en el ciclo de vida de sus envases y packaging. Si tienes un ecommerce y usas packaging para despachar productos, esto te afecta — aunque quizás todavía no de forma directa.</p> <h2>¿Qué es la Ley REP y qué establece?</h2> <p>La Ley REP establece que quienes ponen productos en el mercado son responsables de gestionar los residuos que esos productos generan al final de su vida útil. Incluye envases y embalajes como una de las categorías prioritarias.</p> <p>En términos prácticos, las empresas que superan ciertos umbrales de facturación deben financiar sistemas de recolección y valorización de los residuos de packaging que generan, ya sea directamente o a través de sistemas colectivos.</p> <h2>¿Afecta a las tiendas pequeñas y medianas?</h2> <p>Actualmente, las obligaciones más estrictas de la Ley REP aplican a empresas de mayor tamaño. Sin embargo, hay dos razones por las que los ecommerce pequeños y medianos deben estar atentos:</p> <ul> <li><strong>Los umbrales se ajustan progresivamente.</strong> Las metas y alcances de la ley se amplían cada año. Lo que hoy es obligatorio solo para grandes empresas puede alcanzar a empresas medianas en los próximos años.</li> <li><strong>Las exigencias de los clientes van adelante de la regulación.</strong> Los consumidores no esperan a que la ley obligue a algo para pedírselo a las marcas. Si tus clientes valoran la sustentabilidad, ya te están pidiendo cuentas.</li> </ul> <h2>Qué tipo de packaging facilita el cumplimiento</h2> <p>Desde la perspectiva de la Ley REP, el packaging ideal es aquel que puede:</p> <ul> <li>Reciclarse en los sistemas convencionales disponibles en Chile</li> <li>Compostarse de forma doméstica o industrial</li> <li>Reutilizarse sin perder funcionalidad</li> </ul> <p>El plástico flexible de un solo uso — como las bolsas courier plásticas estándar — es el más difícil de gestionar bajo este marco, porque no entra fácilmente en los sistemas de reciclaje existentes.</p> <h2>El packaging compostable como respuesta regulatoria y de mercado</h2> <p>El packaging compostable con certificación cumple simultáneamente con las expectativas regulatorias de fin de vida útil y con las expectativas de los consumidores. No requiere depender de sistemas de reciclaje que todavía son incipientes en Chile.</p> <p>En ese sentido, es una solución que funciona hoy — sin esperar infraestructura futura.</p> <h2>Lo que puedes hacer como ecommerce ahora</h2> <p>Aunque todavía no seas sujeto directo de obligaciones bajo la Ley REP, hay pasos concretos que puedes dar:</p> <ul> <li>Documentar qué tipo de packaging usas y sus características de fin de vida</li> <li>Priorizar materiales con certificación de compostabilidad o reciclabilidad verificable</li> <li>Comunicar a tus clientes cómo descartar correctamente el packaging</li> <li>Mantenerte informado sobre las actualizaciones de la ley y sus plazos</li> </ul> <p>Adaptarse de forma progresiva es siempre más fácil que hacerlo bajo presión regulatoria de golpe.</p>`
+  },
+  {
+    id: "12",
+    slug: "5-errores-packaging-ecommerce",
+    title: "5 errores de packaging que están costándote clientes (y cómo corregirlos)",
+    excerpt: "Errores en el packaging generan devoluciones, malas reseñas y clientes que no regresan. Estos son los cinco más comunes — y lo que puedes hacer para evitarlos desde hoy.",
+    date: "2026-04-15",
+    coverImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&q=80",
+    content: `<p>El packaging es uno de esos elementos del ecommerce que cuando funciona bien, pasa inadvertido. Cuando funciona mal, es lo único que el cliente recuerda. Estos son los cinco errores más comunes que vemos en tiendas online chilenas — y cómo corregirlos.</p> <h2>Error 1: Bolsa demasiado grande para el producto</h2> <p>Es tentador comprar un solo tamaño de bolsa para simplificar el inventario. El problema es que una bolsa muy grande para el producto genera movimiento interno durante el transporte — y eso puede resultar en producto dañado, arrugado o desordenado.</p> <p><strong>La corrección:</strong> Mide tus productos embalados y elige una bolsa que deje entre 3 y 5 cm de margen en cada dimensión. Si tienes productos de tamaños muy distintos, vale la pena tener dos o tres tamaños de bolsa.</p> <h2>Error 2: Elegir por precio sin considerar calidad del cierre</h2> <p>La bolsa más barata del mercado generalmente tiene el cierre más débil. Un cierre que se abre en tránsito es un problema enorme: el producto puede perderse, dañarse por exposición o llegar visiblemente comprometido. Ningún descuento por unidad compensa ese costo.</p> <p><strong>La corrección:</strong> Antes de hacer un pedido grande, prueba el cierre con el peso real de tu producto. Ciérrala, agítala, ponla bajo algo pesado unos minutos. Si aguanta, es una buena señal.</p> <h2>Error 3: No proteger adecuadamente los productos frágiles</h2> <p>Una bolsa courier no es protección suficiente para productos frágiles. La bolsa protege del ambiente (humedad, suciedad), pero no de los golpes. Los productos frágiles necesitan amortiguación interna: papel de seda, papel arrugado, bubble wrap o espuma.</p> <p><strong>La corrección:</strong> Define un estándar de embalaje interno para cada tipo de producto. Sí, toma más tiempo y cuesta más — pero el costo de gestionar una devolución por producto dañado es mucho mayor.</p> <h2>Error 4: Usar plástico de un solo uso cuando hay alternativas disponibles</h2> <p>Muchos ecommerce siguen usando bolsas de polietileno convencional por inercia — porque "siempre lo hicieron así" o porque no han evaluado las alternativas. En 2026, con opciones compostables accesibles y con clientes cada vez más atentos a estos temas, mantener el plástico convencional sin justificación es un error de posicionamiento.</p> <p><strong>La corrección:</strong> Evalúa las alternativas compostables para tu volumen actual. El costo adicional por unidad suele ser menor de lo que se asume.</p> <h2>Error 5: No comunicar nada sobre el packaging</h2> <p>Si usas packaging sustentable pero no lo dices en ningún lado, estás dejando valor sobre la mesa. Y si usas packaging convencional pero tus clientes esperan otra cosa, estás perdiendo una oportunidad de diferenciarte.</p> <p><strong>La corrección:</strong> En la ficha de tu producto, en tus redes, o con un pequeño inserto en el paquete, comunica algo concreto sobre tu packaging. No tiene que ser un manifiesto — una frase específica es suficiente: <em>"Enviamos en bolsas compostables en casa"</em>.</p> <h2>El común denominador de todos estos errores</h2> <p>Todos estos errores vienen del mismo lugar: no tratar el packaging como una decisión estratégica. Es un insumo operativo, sí — pero también es el último punto de contacto entre tu marca y tu cliente. Merece el mismo cuidado que el producto mismo.</p>`
+  },
+  {
+    id: "13",
+    slug: "unboxing-redes-sociales-ecommerce",
+    title: "Unboxing en redes sociales: cómo lograr que tus clientes filmen y compartan tu packaging",
+    excerpt: "Cada pedido que sale de tu tienda es una oportunidad de contenido orgánico en redes. ¿Cómo diseñar una experiencia de unboxing que tu cliente quiera mostrar? Aquí están los factores clave.",
+    date: "2026-04-17",
+    coverImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80",
+    content: `<p>En los últimos años, el "unboxing" — ese momento de abrir un paquete — se convirtió en un género propio en redes sociales. Marcas grandes lo aprovechan con packaging elaborado y experiencias cuidadosamente diseñadas. Pero las tiendas pequeñas también pueden hacerlo — con presupuesto limitado y mucho más criterio.</p> <h2>Por qué el unboxing en redes importa para tu tienda</h2> <p>Cuando un cliente filma el momento de abrir tu paquete y lo comparte, está haciendo algo que ningún anuncio puede replicar: una recomendación auténtica, en tiempo real, a su red de contactos. Ese contenido tiene más credibilidad que cualquier cosa que tú publiques sobre tu propio producto.</p> <p>Y lo mejor: no te cuesta nada adicional si ya tienes un packaging bien pensado.</p> <h2>Los elementos que generan reacción genuina</h2> <h3>La sorpresa del detalle inesperado</h3> <p>No tiene que ser caro. Una tarjeta escrita a mano con el nombre del cliente, un sticker de regalo, un mensaje gracioso o inesperado en el interior de la bolsa — cualquier elemento que el cliente no esperaba genera una reacción positiva que quiere compartir.</p> <h3>La coherencia visual</h3> <p>Un packaging donde todos los elementos — bolsa, tarjeta, inserto, producto — tienen una coherencia visual transmite profesionalismo. No necesitas impresión a todo color en cada pieza. Alcanza con que todo "combine" en paleta de colores, tipografía o estética general.</p> <h3>El packaging sustentable como conversación</h3> <p>Un packaging compostable con un pequeño mensaje que explique cómo descartarlo genera comentarios. <em>"¡Qué bueno que usan embalaje compostable!"</em> es el tipo de comentario que genera conversación en redes y posiciona a tu marca de una forma que ningún anuncio logra.</p> <h2>Qué puedes implementar con bajo presupuesto</h2> <ul> <li><strong>Tarjeta de agradecimiento:</strong> diseño simple impreso en papel de calidad. El texto importa más que el diseño — algo personalizado ("gracias por confiar en nosotros desde [ciudad del cliente]") tiene más impacto que un agradecimiento genérico.</li> <li><strong>Sticker de marca:</strong> uno o dos stickers con tu logo que el cliente puede poner en su computador, cuaderno o donde quiera. Son baratos, tienen altísima visibilidad orgánica y los clientes los aprecian.</li> <li><strong>Mensaje en la bolsa:</strong> si usas bolsas compostables, un pequeño texto impreso en la bolsa sobre cómo descartarla es información útil que también comunica valores.</li> </ul> <h2>Lo que NO funciona en unboxing</h2> <p>Más embalaje no es mejor unboxing. Recibir un producto pequeño en una caja grande llena de papel burbuja puede verse generoso, pero comunica exceso — y en 2026, el exceso de packaging es más probable que genere un comentario negativo que positivo.</p> <p>Lo que funciona es lo opuesto: precisión, cuidado y detalles inesperados. Que cada elemento tenga una razón de estar ahí.</p> <h2>Cómo medir si está funcionando</h2> <p>Busca tu nombre de marca en Instagram y TikTok periódicamente. Revisa si hay menciones o etiquetas en publicaciones de clientes. Cuando veas contenido de unboxing orgánico, interactúa — un comentario tuyo en ese video o post amplifica el alcance y fomenta que otros hagan lo mismo.</p>`
+  },
+  {
+    id: "14",
+    slug: "calcular-cuantas-bolsas-courier-necesitas",
+    title: "Cómo calcular cuántas bolsas courier comprar (sin quedarte corto ni pasarte)",
+    excerpt: "Comprar de más inmoviliza capital. Comprar de menos te deja sin stock en el peor momento. Aquí está la fórmula simple para calcular tu pedido óptimo de packaging.",
+    date: "2026-04-19",
+    coverImage: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200&q=80",
+    content: `<p>Es un problema clásico de operaciones: quedarse sin bolsas justo cuando hay más pedidos. O comprar 500 unidades de un tamaño que no resulta ser el correcto y tenerlas guardadas por meses.</p> <p>Ninguna de las dos situaciones es ideal. Y ambas son evitables con un poco de planificación.</p> <h2>La fórmula básica</h2> <p>Para calcular tu stock óptimo de bolsas courier necesitas tres números:</p> <ul> <li><strong>Tu volumen mensual de pedidos:</strong> cuántos despachos haces en promedio por mes</li> <li><strong>Tu lead time de reposición:</strong> cuánto tiempo demora en llegarte un pedido de bolsas desde que lo haces (generalmente entre 3 y 7 días hábiles)</li> <li><strong>Tu stock de seguridad:</strong> cuántas bolsas extras quieres tener como margen ante imprevistos</li> </ul> <p>La fórmula es: <strong>(Pedidos diarios promedio × lead time en días) + stock de seguridad</strong>.</p> <p>Ejemplo: si despachas 10 pedidos por día, tu proveedor demora 5 días hábiles en entregarte y quieres un stock de seguridad de 3 días: (10 × 5) + 30 = <strong>80 bolsas mínimas en stock</strong>.</p> <h2>Cuándo conviene comprar más</h2> <p>Los pedidos por volumen generalmente tienen precios mejores por unidad. Tiene sentido comprar más cuando:</p> <ul> <li>Tienes certeza de que ese tamaño de bolsa es el correcto para tus productos</li> <li>Tienes espacio para almacenar sin que las bolsas se dañen (deben guardarse en lugar seco y protegido de la luz directa)</li> <li>Hay descuentos significativos en pedidos mayores (evalúa si el ahorro justifica el capital inmovilizado)</li> </ul> <h2>Cuándo conviene comprar menos y más seguido</h2> <p>Para tiendas que están creciendo rápido, comprar lotes pequeños y frecuentes puede ser más inteligente que comprometerse con cantidades grandes. Si tus pedidos crecen mes a mes, las bolsas que compraste para cubrir 3 meses de ventas pueden quedarte pequeñas (en medida o en cantidad) antes de lo esperado.</p> <h2>El stock de temporada alta</h2> <p>Si tu tienda tiene temporadas altas marcadas (Navidad, Día de la Madre, CyberDay), necesitas proyectar ese aumento y ajustar tu stock de packaging con anticipación. Lo ideal es tener el stock de temporada alta comprado y listo <strong>al menos 2-3 semanas antes</strong> del inicio de la campaña.</p> <p>Quedarse sin packaging en pleno CyberDay no es solo un problema operacional — es potencialmente perder ventas que no se recuperan.</p> <h2>Primer pedido: la regla del test pequeño</h2> <p>Si es la primera vez que compras un tamaño o tipo de bolsa específico, compra una cantidad pequeña primero — 20 a 50 unidades — y prueba con tus productos reales antes de hacer el pedido grande. Confirma que la medida es correcta, que el cierre funciona bien y que el material se siente bien antes de comprometerte con 500 o 1.000 unidades.</p>`
   }
 ];
