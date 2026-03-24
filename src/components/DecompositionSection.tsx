@@ -3,10 +3,10 @@ import AnimatedSection from './AnimatedSection';
 import { Sprout } from 'lucide-react';
 
 const stages = [
-  { day: 0, label: 'Día 0', title: 'Lista para enviar', desc: 'Tu bolsa ORBITA nueva' },
-  { day: 30, label: 'Día 30', title: 'Comienza el proceso', desc: 'Fragmentación inicial' },
-  { day: 90, label: 'Día 90', title: 'Degradación activa', desc: 'Se integra al compost' },
-  { day: 180, label: 'Día 180', title: 'Solo nutrientes', desc: 'Vuelve a la tierra' },
+  { day: 0, label: 'Día 0', title: 'Lista para enviar', desc: 'Tu bolsa ORBITA nueva, con doble sello' },
+  { day: 30, label: 'Día 30', title: 'Comienza el proceso', desc: 'Fragmentación inicial en tu compost' },
+  { day: 90, label: 'Día 90', title: 'Degradación activa', desc: 'Se integra al compost de tu jardín' },
+  { day: 180, label: 'Día 180', title: 'Solo nutrientes', desc: 'Vuelve a la tierra, sin planta industrial' },
 ];
 
 const DecompositionSection = () => {
@@ -38,12 +38,13 @@ const DecompositionSection = () => {
           {/* Left: Content */}
           <div>
             <AnimatedSection>
-              <span className="tag-outline mb-4 inline-block">Proceso</span>
+              <span className="tag-outline mb-4 inline-block">Compostaje domiciliario</span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6">
-                De bolsa a <span className="text-primary">tierra</span>
+                De bolsa a <span className="text-primary">tierra</span> en tu jardín
               </h2>
               <p className="text-lg text-muted-foreground mb-12">
-                Observa cómo tu bolsa ORBITA completa su ciclo natural en solo 180 días.
+                Tu bolsa ORBITA se composta en casa en solo 180 días. Sin planta industrial, 
+                sin microplásticos. Solo nutrientes para el suelo.
               </p>
             </AnimatedSection>
 
@@ -82,15 +83,11 @@ const DecompositionSection = () => {
           {/* Right: Visual */}
           <AnimatedSection delay={200}>
             <div className="relative">
-              {/* Progress circle */}
               <div className="aspect-square rounded-full bg-muted flex items-center justify-center relative overflow-hidden">
-                {/* Animated fill */}
                 <div 
                   className="absolute bottom-0 left-0 right-0 bg-primary/20 transition-all duration-700"
                   style={{ height: `${progress * 100}%` }}
                 />
-                
-                {/* Center content */}
                 <div className="relative z-10 text-center">
                   <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center mx-auto mb-4">
                     <Sprout className="w-10 h-10 text-primary-foreground" />
@@ -98,7 +95,7 @@ const DecompositionSection = () => {
                   <p className="text-5xl md:text-6xl font-display font-bold text-foreground">
                     {Math.round(progress * 180)}
                   </p>
-                  <p className="text-muted-foreground">días transcurridos</p>
+                  <p className="text-muted-foreground">días en tu jardín</p>
                 </div>
               </div>
             </div>

@@ -1,23 +1,23 @@
-import { Leaf, Shield, Truck, ArrowUpRight } from 'lucide-react';
+import { Leaf, Shield, RotateCcw, ArrowUpRight } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
 
 const features = [
   {
     icon: Leaf,
-    title: 'Compostable certificado',
-    description: 'Certificación OK Compost. Se degrada en 180 días sin dejar microplásticos.',
+    title: 'Compostable en casa',
+    description: 'Certificación OK Compost HOME. Se compostan en tu jardín en 180 días, sin necesidad de planta industrial. Cero microplásticos.',
     color: 'lime' as const,
   },
   {
     icon: Shield,
     title: 'Resistente de verdad',
-    description: 'Soporta peso, humedad y la logística real chilena sin romperse.',
+    description: 'Soporta peso, humedad y la logística real chilena sin romperse. Probada en envíos a todo Chile.',
     color: 'sky' as const,
   },
   {
-    icon: Truck,
-    title: 'Diseñada para Chile',
-    description: 'Compatible con todos los operadores. Envíos a todo el país.',
+    icon: RotateCcw,
+    title: 'Doble sello adhesivo',
+    description: 'Tu cliente puede devolver con la misma bolsa. Envío, devolución y luego compostaje: un ciclo completo y sustentable.',
     color: 'forest' as const,
   },
 ];
@@ -36,10 +36,10 @@ const WhyOrbita = () => {
           <div className="max-w-2xl mb-16">
             <span className="tag-outline mb-4 inline-block">Beneficios</span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6">
-              No es solo <span className="text-primary">sustentable</span>
+              Bolsas compostables con <span className="text-primary">doble sello</span>
             </h2>
             <p className="text-lg text-muted-foreground">
-              Es una bolsa que funciona. Sin compromisos entre rendimiento y planeta.
+              Compostables en casa, aptas para devolución y diseñadas para el ecommerce en Chile.
             </p>
           </div>
         </AnimatedSection>
@@ -70,7 +70,7 @@ const WhyOrbita = () => {
         <AnimatedSection delay={400}>
           <div className="mt-16 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
             {[
-              { label: 'Certificación', value: 'OK Compost' },
+              { label: 'Certificación', value: 'OK Compost HOME' },
               { label: 'Norma', value: 'EN 13432' },
               { label: 'Origen', value: '100% Chile' },
             ].map((badge, i) => (

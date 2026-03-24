@@ -1,9 +1,11 @@
-import { ArrowRight, Leaf, ArrowUpRight } from 'lucide-react';
+import { ArrowRight, Leaf, ArrowUpRight, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import AnimatedSection from './AnimatedSection';
+
 const HeroSection = () => {
-  return <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+  return (
+    <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left: Text content */}
@@ -11,22 +13,22 @@ const HeroSection = () => {
             <AnimatedSection delay={0}>
               <span className="tag-lime mb-6 inline-flex gap-2">
                 <Leaf className="w-4 h-4" />
-                100% Compostable
+                Compostable en casa 🌱
               </span>
             </AnimatedSection>
 
             <AnimatedSection delay={100}>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-semibold text-foreground leading-[1.1] mb-6">
-                Envíos que
+                Bolsas courier
                 <br />
-                <span className="text-primary">nutren</span> la tierra
+                que <span className="text-primary">nutren</span> la tierra
               </h1>
             </AnimatedSection>
 
             <AnimatedSection delay={200}>
               <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
-                Bolsas courier compostables para ecommerce. Se degradan en 180 días, 
-                dejando solo nutrientes para el suelo. Diseñadas en Chile.
+                Bolsas compostables en casa para ecommerce en Chile. Con doble sello adhesivo 
+                para envío y devolución. Se compostan en 180 días en tu jardín, sin planta industrial.
               </p>
             </AnimatedSection>
 
@@ -38,33 +40,32 @@ const HeroSection = () => {
                 </Link>
               </Button>
             </AnimatedSection>
-
           </div>
 
-          {/* Right: Visual cards - Greenado style - Hidden on mobile */}
+          {/* Right: Visual cards */}
           <div className="hidden lg:block order-1 lg:order-2 relative">
             <AnimatedSection delay={200}>
               <div className="grid grid-cols-2 gap-4">
                 {/* Main lime card */}
                 <div className="col-span-2 card-lime relative overflow-hidden">
                   <div className="flex items-start justify-between mb-4">
-                    <span className="text-sm font-semibold text-primary-foreground/80">Tiempo de degradación</span>
+                    <span className="text-sm font-semibold text-primary-foreground/80">Compostaje domiciliario</span>
                     <ArrowUpRight className="w-5 h-5 text-primary-foreground/60" />
                   </div>
                   <p className="text-6xl md:text-7xl font-display font-bold text-primary-foreground">180</p>
-                  <p className="text-lg text-primary-foreground/80">días en compostar</p>
+                  <p className="text-lg text-primary-foreground/80">días en tu jardín</p>
                 </div>
 
-                {/* Sky blue card */}
+                {/* Doble sello card */}
                 <div className="card-sky">
-                  <p className="text-3xl md:text-4xl font-display font-bold mb-2">0%</p>
-                  <p className="text-sm text-white/80">plástico convencional</p>
+                  <RotateCcw className="w-8 h-8 mb-2 text-white/80" />
+                  <p className="text-2xl md:text-3xl font-display font-bold mb-1">Doble sello</p>
+                  <p className="text-sm text-white/80">envío + devolución</p>
                 </div>
 
                 {/* Forest green card */}
                 <div className="card-forest">
-                  <p className="text-3xl md:text-4xl font-display font-bold mb-2">​5
-                </p>
+                  <p className="text-3xl md:text-4xl font-display font-bold mb-2">5</p>
                   <p className="text-sm text-white/80">tamaños disponibles</p>
                 </div>
               </div>
@@ -72,6 +73,8 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default HeroSection;
