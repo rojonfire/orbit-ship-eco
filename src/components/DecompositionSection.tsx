@@ -188,7 +188,7 @@ const DecompositionSection = () => {
   return (
     <section id="proceso" ref={sectionRef} className="py-24 md:py-32">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left: Content */}
           <div>
             <AnimatedSection>
