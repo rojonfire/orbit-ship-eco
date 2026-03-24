@@ -1,29 +1,25 @@
 import { Instagram, Linkedin, Mail, Leaf } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import logo from '@/assets/logo-orbita-bags.svg';
 
 const Footer = () => {
-  const links = {
-    Productos: ['Bolsas estándar', 'Personalizadas', 'Catálogo', 'Precios'],
-    Empresa: ['Nosotros', 'Sustentabilidad', 'Blog'],
-    Soporte: ['Contacto', 'FAQ', 'Envíos'],
-  };
-
   return (
     <footer className="bg-foreground text-background pt-16 pb-8">
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <img src={logo} alt="ORBITA BAGS" className="h-10 w-auto invert mb-6" />
+            <img src={logo} alt="ORBITA BAGS - Bolsas courier compostables en Chile" className="h-10 w-auto invert mb-6" />
             <p className="text-background/70 max-w-sm mb-6">
-              Bolsas courier compostables para el ecommerce chileno. 
-              Comprometidos con un futuro sin plástico.
+              Bolsas courier compostables en casa para ecommerce en Chile. Con doble sello adhesivo 
+              para envío y devolución. Certificación OK Compost HOME. Envío a todo Chile.
             </p>
             <div className="flex gap-3">
               <a
                 href="https://instagram.com/orbitabags.cl"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Síguenos en Instagram"
                 className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 <Instagram size={18} />
@@ -32,12 +28,14 @@ const Footer = () => {
                 href="https://linkedin.com/company/orbitabags"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Síguenos en LinkedIn"
                 className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 <Linkedin size={18} />
               </a>
               <a
                 href="mailto:orbitabagscontacto@gmail.com"
+                aria-label="Envíanos un email"
                 className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 <Mail size={18} />
@@ -45,26 +43,42 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links */}
-          {Object.entries(links).map(([title, items]) => (
-            <div key={title}>
-              <h4 className="font-semibold mb-4">{title}</h4>
-              <ul className="space-y-3 text-sm text-background/70">
-                {items.map((item) => (
-                  <li key={item}>
-                    <a href="#" className="hover:text-primary transition-colors">{item}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Navigation */}
+          <div>
+            <h4 className="font-semibold mb-4">Navegación</h4>
+            <ul className="space-y-3 text-sm text-background/70">
+              <li><Link to="/tienda" className="hover:text-primary transition-colors">Tienda</Link></li>
+              <li><Link to="/equipo" className="hover:text-primary transition-colors">Equipo</Link></li>
+              <li><a href="/#productos" className="hover:text-primary transition-colors">Productos</a></li>
+              <li><a href="/#beneficios" className="hover:text-primary transition-colors">Beneficios</a></li>
+              <li><a href="/#contacto" className="hover:text-primary transition-colors">Contacto</a></li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="font-semibold mb-4">Contacto</h4>
+            <ul className="space-y-3 text-sm text-background/70">
+              <li>
+                <a href="https://wa.me/56954244951" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                  WhatsApp: +56 9 5424 4951
+                </a>
+              </li>
+              <li>
+                <a href="mailto:orbitabagscontacto@gmail.com" className="hover:text-primary transition-colors">
+                  orbitabagscontacto@gmail.com
+                </a>
+              </li>
+              <li className="text-background/50">Santiago, Chile 🇨🇱</li>
+            </ul>
+          </div>
         </div>
 
         <div className="pt-8 border-t border-background/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-background/50">
           <p>© {new Date().getFullYear()} ORBITA BAGS. Todos los derechos reservados.</p>
           <p className="flex items-center gap-2">
             <Leaf className="w-4 h-4 text-primary" />
-            Hecho con amor en Chile
+            Packaging compostable hecho en Chile
           </p>
         </div>
       </div>
