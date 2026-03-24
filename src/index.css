@@ -78,7 +78,14 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Cg fill='%23222' opacity='0.06'%3E%3Cpath d='M90 60Q100 25 118 18 108 42 112 60 118 45 126 34 120 55 114 70 106 82 90 60Z'/%3E%3Cpath d='M300 90Q315 55 332 48 320 72 324 90 330 75 338 65 332 85 326 100 318 112 300 90Z'/%3E%3Cpath d='M500 50Q512 20 528 14 518 38 522 55 528 40 536 30 530 50 524 65 516 76 500 50Z'/%3E%3Cpath d='M60 250Q75 218 92 210 80 232 84 250 90 235 98 225 92 245 86 260 78 272 60 250Z'/%3E%3Cpath d='M380 230Q392 198 408 192 398 215 402 232 408 218 416 208 410 228 404 242 396 254 380 230Z'/%3E%3Cpath d='M540 270Q555 238 570 230 558 254 562 270 568 256 576 246 570 266 564 280 556 292 540 270Z'/%3E%3Cpath d='M170 420Q185 388 200 380 188 404 192 420 198 406 206 396 200 416 194 430 186 442 170 420Z'/%3E%3Cpath d='M440 450Q452 418 468 412 458 434 462 452 468 438 476 428 470 448 464 462 456 474 440 450Z'/%3E%3Cpath d='M40 530Q55 498 70 490 58 514 62 530 68 516 76 506 70 526 64 540 56 552 40 530Z'/%3E%3Cpath d='M260 560Q275 528 290 520 278 544 282 560 288 546 296 536 290 556 284 570 276 582 260 560Z'/%3E%3Cpath d='M520 540Q532 508 548 502 538 524 542 542 548 528 556 518 550 538 544 552 536 564 520 540Z'/%3E%3Ccircle cx='200' cy='150' r='4'/%3E%3Ccircle cx='450' cy='350' r='3.5'/%3E%3Ccircle cx='120' cy='380' r='3'/%3E%3Ccircle cx='350' cy='500' r='3.5'/%3E%3Ccircle cx='550' cy='150' r='3'/%3E%3Ccircle cx='80' cy='480' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
+    background-image:
+      radial-gradient(28rem 18rem at 8% 14%, hsl(var(--foreground) / 0.045), transparent 65%),
+      radial-gradient(24rem 16rem at 88% 10%, hsl(var(--foreground) / 0.04), transparent 68%),
+      radial-gradient(22rem 14rem at 18% 48%, hsl(var(--foreground) / 0.035), transparent 70%),
+      radial-gradient(26rem 16rem at 82% 42%, hsl(var(--foreground) / 0.04), transparent 68%),
+      radial-gradient(20rem 12rem at 14% 82%, hsl(var(--foreground) / 0.035), transparent 72%),
+      radial-gradient(24rem 14rem at 86% 78%, hsl(var(--foreground) / 0.04), transparent 70%);
+    background-attachment: fixed;
   }
 
   h1, h2, h3, h4, h5, h6 {
