@@ -57,15 +57,16 @@ const BlogPost = () => {
 
             <article
               className="prose prose-lg max-w-none
-                prose-headings:text-foreground prose-headings:font-semibold
-                prose-h2:text-2xl prose-h2:mt-16 prose-h2:mb-5 prose-h2:border-b prose-h2:border-border prose-h2:pb-3
-                prose-h3:text-xl prose-h3:mt-12 prose-h3:mb-4
-                prose-p:text-muted-foreground prose-p:leading-[1.8] prose-p:mb-6
-                prose-strong:text-foreground
-                prose-a:text-primary prose-a:underline prose-a:underline-offset-4 hover:prose-a:text-primary/80
-                prose-ul:my-6 prose-ul:space-y-2
-                prose-li:text-muted-foreground prose-li:leading-relaxed
-                prose-em:text-muted-foreground/80"
+                prose-headings:text-foreground prose-headings:font-bold
+                prose-h2:text-[1.75rem] prose-h2:md:text-3xl prose-h2:mt-20 prose-h2:mb-6 prose-h2:pt-8 prose-h2:border-t prose-h2:border-border
+                prose-h3:text-xl prose-h3:md:text-2xl prose-h3:mt-14 prose-h3:mb-5
+                prose-p:text-muted-foreground prose-p:leading-[1.85] prose-p:mb-7 prose-p:text-base prose-p:md:text-lg
+                prose-strong:text-foreground prose-strong:font-semibold
+                prose-a:text-primary prose-a:font-medium prose-a:underline prose-a:underline-offset-4 prose-a:decoration-primary/40 hover:prose-a:decoration-primary hover:prose-a:text-primary/80
+                prose-ul:my-8 prose-ul:space-y-3 prose-ul:list-disc prose-ul:pl-6
+                prose-li:text-muted-foreground prose-li:leading-[1.8] prose-li:text-base prose-li:md:text-lg
+                prose-em:text-muted-foreground/80
+                prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-muted-foreground"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </AnimatedSection>
