@@ -9,6 +9,43 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    title: "¿Qué diferencia hay entre packaging compostable y biodegradable? (La guía que nadie te explica)",
+    slug: "compostable-vs-biodegradable",
+    date: "2026-03-24",
+    excerpt: "Biodegradable y compostable no son lo mismo — y confundirlos puede costarte caro. Te explicamos la diferencia real con datos y normas concretas para que elijas bien el packaging de tu ecommerce.",
+    coverImage: "/placeholder.svg",
+    content: `
+      <p>Si tienes un ecommerce y alguna vez buscaste packaging más sustentable, probablemente te topaste con estos dos términos: <strong>biodegradable</strong> y <strong>compostable</strong>. Suenan parecido. A veces los usan como sinónimos. Pero no son lo mismo — y confundirlos puede costarte caro, tanto en plata como en credibilidad frente a tus clientes.</p>
+
+      <h2>El problema con "biodegradable"</h2>
+      <p>Técnicamente, casi todo es biodegradable. Una bolsa de plástico convencional puede degradarse en 400 años. El problema es que "biodegradable" no tiene una norma estándar obligatoria que defina en cuánto tiempo debe degradarse un material ni en qué condiciones. Esto abre la puerta al greenwashing: cualquier empresa puede imprimir "biodegradable" en su packaging sin que eso signifique gran cosa para el medioambiente.</p>
+
+      <h2>Qué significa realmente "compostable"</h2>
+      <p>El packaging compostable sí está regulado. La norma internacional de referencia es la <strong>EN 13432</strong>, que especifica que un material compostable debe:</p>
+      <ul>
+        <li>Biodegradarse en al menos un 90% en 6 meses bajo condiciones aeróbicas controladas</li>
+        <li>Desintegrarse físicamente en menos de 12 semanas, sin dejar fragmentos mayores a 2 mm</li>
+        <li>No liberar metales pesados ni sustancias tóxicas</li>
+        <li>No afectar negativamente la calidad del compost generado</li>
+      </ul>
+      <p>Si un packaging cumple estos criterios y lo certifica un organismo independiente como TÜV Austria, puede llevar el sello <strong>OK Compost</strong> — una garantía verificable, no una promesa de marketing.</p>
+
+      <h2>Industrial vs. en casa: la diferencia que más importa</h2>
+      <p>No todo lo compostable es igual. Existe una distinción crítica:</p>
+      <p><strong>OK Compost INDUSTRIAL</strong> significa que el material se degrada en plantas de compostaje industrial, con temperaturas de entre 55 y 60°C y condiciones controladas. El problema es que en Chile no existe una infraestructura masiva de compostaje industrial. Si tu cliente tira esa bolsa en el basurero o en su compostera casera, el material probablemente no se degrada como debería.</p>
+      <p><strong>OK Compost HOME</strong> es la certificación más exigente: el material debe degradarse en condiciones domésticas, sin maquinaria especializada, en una compostera de jardín común. El estándar exige al menos 90% de degradación en 12 meses a temperatura ambiente.</p>
+      <p>Esta distinción importa muchísimo si tu marca quiere comunicar sustentabilidad de forma honesta.</p>
+
+      <h2>Por qué esto importa para tu ecommerce</h2>
+      <p>Tus clientes cada vez preguntan más sobre el impacto ambiental de los productos que compran. Elegir un packaging con certificación OK Compost HOME te permite comunicar algo concreto y verificable: "nuestra bolsa se degrada en una compostera casera, no necesita infraestructura industrial."</p>
+
+      <h2>Lo que buscamos en Orbitabags</h2>
+      <p>Cuando diseñamos nuestras bolsas courier, esta distinción fue lo primero que pusimos sobre la mesa. No queríamos un packaging que dijera "sustentable" sin serlo de verdad. Por eso trabajamos con materiales que cumplen los criterios de compostabilidad doméstica — porque sabemos que la mayoría de tus clientes no tiene acceso a una planta de compostaje industrial.</p>
+      <p>El packaging de tu tienda puede ser parte genuina de un ciclo más limpio. Solo hay que saber qué buscar.</p>
+      <p><a href="/tienda">Ver nuestras bolsas courier compostables →</a></p>
+    `,
+  },
+  {
     title: "¿Qué son las bolsas compostables y por qué importan?",
     slug: "que-son-bolsas-compostables",
     date: "2026-03-20",
