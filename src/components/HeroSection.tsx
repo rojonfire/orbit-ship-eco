@@ -27,7 +27,7 @@ const HeroSection = () => {
 
             <AnimatedSection delay={200}>
               <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
-                Bolsas compostables en casa para ecommerce en Chile. Con doble sello adhesivo 
+                Bolsass compostables en casa para ecommerce en Chile. Con doble sello adhesivo 
                 para envío y devolución. Se compostan en 180 días en tu jardín, sin planta industrial.
               </p>
             </AnimatedSection>
