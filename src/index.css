@@ -83,13 +83,13 @@
   .organic-paper {
     background-color: hsl(var(--background));
     background-image:
-      radial-gradient(ellipse 60% 50% at 5% 8%, hsl(78 70% 50% / 0.04) 0, transparent 100%),
-      radial-gradient(ellipse 40% 35% at 90% 15%, hsl(var(--foreground) / 0.03) 0, transparent 100%),
-      radial-gradient(ellipse 50% 40% at 50% 55%, hsl(78 70% 50% / 0.025) 0, transparent 100%),
-      radial-gradient(ellipse 45% 35% at 15% 85%, hsl(var(--foreground) / 0.025) 0, transparent 100%),
-      radial-gradient(ellipse 55% 40% at 85% 75%, hsl(78 70% 50% / 0.03) 0, transparent 100%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200' viewBox='0 0 1200 1200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 400px 400px;
+      radial-gradient(ellipse 62% 54% at 8% 10%, hsl(var(--primary) / 0.09) 0, transparent 72%),
+      radial-gradient(ellipse 42% 36% at 92% 14%, hsl(var(--foreground) / 0.05) 0, transparent 72%),
+      radial-gradient(ellipse 58% 44% at 52% 54%, hsl(var(--primary) / 0.05) 0, transparent 74%),
+      radial-gradient(ellipse 44% 38% at 14% 84%, hsl(var(--foreground) / 0.04) 0, transparent 70%),
+      radial-gradient(ellipse 54% 42% at 88% 78%, hsl(var(--primary) / 0.06) 0, transparent 76%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='720' viewBox='0 0 720 720'%3E%3Cg fill='none' stroke='%231a2433' stroke-opacity='0.115' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M78 180C132 138 214 130 284 164C352 198 405 268 482 286C549 301 610 277 654 232'/%3E%3Cpath d='M62 356C116 322 184 316 248 344C324 378 390 450 488 456C564 460 624 428 670 388'/%3E%3Cpath d='M102 558C172 514 252 512 320 546C398 586 472 624 564 612C612 606 650 588 684 562'/%3E%3Cpath d='M198 98C226 148 228 210 202 258C176 306 128 344 116 396'/%3E%3Cpath d='M410 118C446 162 456 220 438 272C420 324 378 372 374 428'/%3E%3Cpath d='M584 102C610 152 612 210 592 258C570 312 530 348 522 398'/%3E%3C/g%3E%3Cg fill='%237ac529' fill-opacity='0.055'%3E%3Cpath d='M186 142C220 120 260 126 284 154C248 164 214 170 176 170C166 160 170 150 186 142Z'/%3E%3Cpath d='M474 298C506 278 548 284 572 314C538 322 504 328 468 326C458 318 460 306 474 298Z'/%3E%3Cpath d='M266 524C300 502 340 506 366 536C330 546 292 550 254 550C246 542 250 532 266 524Z'/%3E%3C/g%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.035'/%3E%3C/svg%3E");
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 560px 560px;
     background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
   }
 
