@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
+import SEOHead from "@/components/SEOHead";
 import { fetchShopifyProducts, ShopifyProduct, formatCLP } from "@/lib/shopify";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
@@ -49,11 +50,15 @@ const Tienda = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Tienda | Bolsas compostables ORBITA BAGS - Compra online en Chile"
+        description="Compra bolsas courier compostables en casa para tu ecommerce. Envío a todo Chile. Doble sello adhesivo, certificación OK Compost HOME. Desde $850 CLP."
+        path="/tienda"
+      />
       <Header />
 
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
-          {/* Back button */}
           <Link
             to="/"
             className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8"
@@ -62,7 +67,6 @@ const Tienda = () => {
             Volver al inicio
           </Link>
 
-          {/* Header */}
           <AnimatedSection>
             <div className="text-center mb-12">
               <span className="text-primary text-sm font-medium uppercase tracking-wider">
@@ -77,7 +81,6 @@ const Tienda = () => {
             </div>
           </AnimatedSection>
 
-          {/* Products Grid */}
           {loading ? (
             <div className="flex items-center justify-center py-20">
               <Loader2 className="w-8 h-8 animate-spin text-primary" />
@@ -98,6 +101,9 @@ const Tienda = () => {
                             src={product.node.images.edges[0].node.url}
                             alt={product.node.images.edges[0].node.altText || product.node.title}
                             className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                            width={400}
+                            height={400}
                           />
                         ) : (
                           <div className="w-full h-full bg-secondary/30 flex items-center justify-center">
