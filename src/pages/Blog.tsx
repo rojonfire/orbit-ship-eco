@@ -44,6 +44,8 @@ const Blog = () => {
                         src={post.coverImage}
                         alt={post.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading={index < 2 ? "eager" : "lazy"}
+                        decoding="async"
                       />
                     </div>
                     <CardContent className="p-6">
