@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import AnimatedSection from './AnimatedSection';
-import { Sprout } from 'lucide-react';
 
 const stages = [
   { day: 0, label: 'Día 0', title: 'Lista para enviar', desc: 'Tu bolsa ORBITA nueva, con doble sello' },
@@ -8,6 +7,161 @@ const stages = [
   { day: 90, label: 'Día 90', title: 'Degradación activa', desc: 'Se integra al compost de tu jardín' },
   { day: 180, label: 'Día 180', title: 'Solo nutrientes', desc: 'Vuelve a la tierra, sin planta industrial' },
 ];
+
+const GrowingPlant = ({ progress }: { progress: number }) => {
+  // Stem grows from bottom
+  const stemHeight = Math.min(progress * 1.3, 1) * 200;
+  // Leaves appear at different progress stages
+  const leaf1Opacity = Math.max(0, Math.min((progress - 0.15) * 4, 1));
+  const leaf2Opacity = Math.max(0, Math.min((progress - 0.3) * 4, 1));
+  const leaf3Opacity = Math.max(0, Math.min((progress - 0.45) * 4, 1));
+  const leaf4Opacity = Math.max(0, Math.min((progress - 0.6) * 4, 1));
+  const flowerOpacity = Math.max(0, Math.min((progress - 0.75) * 4, 1));
+  
+  const leaf1Scale = Math.max(0, Math.min((progress - 0.15) * 3, 1));
+  const leaf2Scale = Math.max(0, Math.min((progress - 0.3) * 3, 1));
+  const leaf3Scale = Math.max(0, Math.min((progress - 0.45) * 3, 1));
+  const leaf4Scale = Math.max(0, Math.min((progress - 0.6) * 3, 1));
+  const flowerScale = Math.max(0, Math.min((progress - 0.75) * 3, 1));
+
+  // Gentle sway based on progress
+  const sway = Math.sin(progress * Math.PI * 3) * 2;
+
+  return (
+    <svg viewBox="0 0 400 400" className="w-full h-full" style={{ filter: 'drop-shadow(0 4px 20px rgba(0,0,0,0.05))' }}>
+      {/* Background circle */}
+      <circle cx="200" cy="200" r="190" fill="hsl(var(--muted))" />
+      
+      {/* Soil/earth at bottom */}
+      <ellipse 
+        cx="200" cy="320" rx={60 + progress * 20} ry={12 + progress * 5} 
+        fill="hsl(33, 30%, 35%)" 
+        opacity={0.6 + progress * 0.4}
+        className="transition-all duration-700"
+      />
+      {/* Soil texture dots */}
+      {progress > 0.05 && (
+        <>
+          <circle cx="175" cy="318" r="3" fill="hsl(33, 25%, 28%)" opacity={progress} />
+          <circle cx="210" cy="322" r="2.5" fill="hsl(33, 25%, 28%)" opacity={progress} />
+          <circle cx="195" cy="315" r="2" fill="hsl(33, 25%, 28%)" opacity={progress} />
+          <circle cx="225" cy="319" r="2" fill="hsl(33, 25%, 28%)" opacity={progress} />
+        </>
+      )}
+
+      {/* Main stem */}
+      <g transform={`translate(${sway}, 0)`}>
+        <path
+          d={`M200,320 Q${198 + sway},${320 - stemHeight * 0.5} ${200 + sway * 0.5},${320 - stemHeight}`}
+          stroke="hsl(var(--primary))"
+          strokeWidth="4"
+          fill="none"
+          strokeLinecap="round"
+          className="transition-all duration-700"
+          style={{ strokeDasharray: 300, strokeDashoffset: 300 - (stemHeight / 200) * 300 }}
+        />
+
+        {/* Leaf pair 1 - small, low */}
+        <g 
+          transform={`translate(200, 280) scale(${leaf1Scale})`} 
+          opacity={leaf1Opacity}
+          className="transition-all duration-500"
+        >
+          <path d="M0,0 Q-25,-15 -35,-5 Q-25,5 0,0" fill="hsl(var(--primary))" opacity="0.8" />
+          <path d="M0,0 Q-17,-8 -35,-5" stroke="hsl(90, 50%, 30%)" strokeWidth="0.5" fill="none" />
+        </g>
+        <g 
+          transform={`translate(200, 275) scale(${leaf1Scale})`} 
+          opacity={leaf1Opacity}
+          className="transition-all duration-500"
+        >
+          <path d="M0,0 Q20,-18 32,-8 Q22,2 0,0" fill="hsl(90, 55%, 45%)" opacity="0.9" />
+          <path d="M0,0 Q15,-10 32,-8" stroke="hsl(90, 50%, 30%)" strokeWidth="0.5" fill="none" />
+        </g>
+
+        {/* Leaf pair 2 - medium */}
+        <g 
+          transform={`translate(${200 + sway * 0.3}, 245) scale(${leaf2Scale})`} 
+          opacity={leaf2Opacity}
+          className="transition-all duration-500"
+        >
+          <path d="M0,0 Q-30,-20 -42,-8 Q-30,8 0,0" fill="hsl(90, 60%, 40%)" opacity="0.85" />
+          <path d="M0,0 Q-20,-12 -42,-8" stroke="hsl(90, 50%, 28%)" strokeWidth="0.5" fill="none" />
+        </g>
+        <g 
+          transform={`translate(${200 + sway * 0.3}, 240) scale(${leaf2Scale})`} 
+          opacity={leaf2Opacity}
+          className="transition-all duration-500"
+        >
+          <path d="M0,0 Q28,-22 40,-10 Q28,6 0,0" fill="hsl(var(--primary))" opacity="0.8" />
+          <path d="M0,0 Q18,-14 40,-10" stroke="hsl(90, 50%, 28%)" strokeWidth="0.5" fill="none" />
+        </g>
+
+        {/* Leaf pair 3 - larger */}
+        <g 
+          transform={`translate(${200 + sway * 0.5}, 200) scale(${leaf3Scale})`} 
+          opacity={leaf3Opacity}
+          className="transition-all duration-500"
+        >
+          <path d="M0,0 Q-35,-25 -48,-12 Q-35,10 0,0" fill="hsl(90, 55%, 42%)" opacity="0.9" />
+          <path d="M0,0 Q-22,-15 -48,-12" stroke="hsl(90, 50%, 28%)" strokeWidth="0.5" fill="none" />
+        </g>
+        <g 
+          transform={`translate(${200 + sway * 0.5}, 195) scale(${leaf3Scale})`} 
+          opacity={leaf3Opacity}
+          className="transition-all duration-500"
+        >
+          <path d="M0,0 Q32,-28 48,-14 Q32,8 0,0" fill="hsl(var(--primary))" opacity="0.75" />
+          <path d="M0,0 Q20,-18 48,-14" stroke="hsl(90, 50%, 28%)" strokeWidth="0.5" fill="none" />
+        </g>
+
+        {/* Leaf pair 4 - top leaves */}
+        <g 
+          transform={`translate(${200 + sway * 0.7}, 160) scale(${leaf4Scale})`} 
+          opacity={leaf4Opacity}
+          className="transition-all duration-500"
+        >
+          <path d="M0,0 Q-28,-30 -40,-18 Q-28,5 0,0" fill="hsl(90, 60%, 45%)" opacity="0.9" />
+          <path d="M0,0 Q28,-30 40,-18 Q28,5 0,0" fill="hsl(var(--primary))" opacity="0.85" />
+        </g>
+
+        {/* Flower/bloom at top */}
+        <g 
+          transform={`translate(${200 + sway * 0.8}, ${320 - stemHeight}) scale(${flowerScale})`} 
+          opacity={flowerOpacity}
+          className="transition-all duration-700"
+        >
+          {/* Petals */}
+          <circle cx="0" cy="-12" r="6" fill="hsl(90, 60%, 50%)" opacity="0.6" />
+          <circle cx="-10" cy="-5" r="6" fill="hsl(90, 55%, 45%)" opacity="0.5" />
+          <circle cx="10" cy="-5" r="6" fill="hsl(90, 55%, 45%)" opacity="0.5" />
+          <circle cx="-6" cy="5" r="5" fill="hsl(90, 50%, 40%)" opacity="0.4" />
+          <circle cx="6" cy="5" r="5" fill="hsl(90, 50%, 40%)" opacity="0.4" />
+          {/* Center */}
+          <circle cx="0" cy="-3" r="4" fill="hsl(50, 80%, 55%)" />
+        </g>
+      </g>
+
+      {/* Nutrient particles floating up */}
+      {progress > 0.3 && (
+        <>
+          <circle cx="170" cy={300 - progress * 120} r="2" fill="hsl(var(--primary))" opacity={0.3 * progress}>
+            <animate attributeName="cy" from={String(300 - progress * 100)} to={String(280 - progress * 120)} dur="3s" repeatCount="indefinite" />
+            <animate attributeName="opacity" from="0.4" to="0" dur="3s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="230" cy={310 - progress * 130} r="1.5" fill="hsl(var(--primary))" opacity={0.2 * progress}>
+            <animate attributeName="cy" from={String(310 - progress * 110)} to={String(290 - progress * 130)} dur="4s" repeatCount="indefinite" />
+            <animate attributeName="opacity" from="0.3" to="0" dur="4s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="190" cy={295 - progress * 110} r="1.8" fill="hsl(50, 70%, 50%)" opacity={0.25 * progress}>
+            <animate attributeName="cy" from={String(295 - progress * 90)} to={String(275 - progress * 110)} dur="3.5s" repeatCount="indefinite" />
+            <animate attributeName="opacity" from="0.35" to="0" dur="3.5s" repeatCount="indefinite" />
+          </circle>
+        </>
+      )}
+    </svg>
+  );
+};
 
 const DecompositionSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -80,23 +234,16 @@ const DecompositionSection = () => {
             </div>
           </div>
 
-          {/* Right: Visual */}
+          {/* Right: Growing plant visual */}
           <AnimatedSection delay={200}>
             <div className="relative">
-              <div className="aspect-square rounded-full bg-muted flex items-center justify-center relative overflow-hidden">
-                <div 
-                  className="absolute bottom-0 left-0 right-0 bg-primary/20 transition-all duration-700"
-                  style={{ height: `${progress * 100}%` }}
-                />
-                <div className="relative z-10 text-center">
-                  <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center mx-auto mb-4">
-                    <Sprout className="w-10 h-10 text-primary-foreground" />
-                  </div>
-                  <p className="text-5xl md:text-6xl font-display font-bold text-foreground">
-                    {Math.round(progress * 180)}
-                  </p>
-                  <p className="text-muted-foreground">días en tu jardín</p>
-                </div>
+              <GrowingPlant progress={progress} />
+              {/* Day counter overlay */}
+              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
+                <p className="text-4xl md:text-5xl font-display font-bold text-foreground">
+                  {Math.round(progress * 180)}
+                </p>
+                <p className="text-sm text-muted-foreground font-medium">días en tu jardín</p>
               </div>
             </div>
           </AnimatedSection>
