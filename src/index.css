@@ -83,13 +83,14 @@
   .organic-paper {
     background-color: hsl(var(--background));
     background-image:
-      radial-gradient(circle at 12% 18%, hsl(var(--foreground) / 0.06) 0, transparent 20%),
-      radial-gradient(circle at 84% 32%, hsl(var(--foreground) / 0.05) 0, transparent 22%),
-      radial-gradient(circle at 22% 78%, hsl(var(--foreground) / 0.045) 0, transparent 20%),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='720' viewBox='0 0 720 720'%3E%3Cg fill='none' stroke='%231a1f2b' stroke-opacity='0.1' stroke-width='6' stroke-linecap='round'%3E%3Cpath d='M-40 120 C 80 40, 180 220, 310 130 S 560 40, 760 160'/%3E%3Cpath d='M-60 230 C 90 120, 180 300, 320 220 S 560 120, 760 250'/%3E%3Cpath d='M-50 345 C 80 240, 210 390, 340 315 S 560 230, 760 360'/%3E%3Cpath d='M-70 465 C 70 340, 190 520, 340 430 S 560 340, 760 485'/%3E%3Cpath d='M-50 580 C 90 470, 220 625, 360 555 S 560 470, 760 600'/%3E%3Cpath d='M120 -30 C 90 110, 210 160, 140 300 S 220 520, 170 760'/%3E%3Cpath d='M320 -40 C 260 120, 380 180, 310 340 S 400 540, 350 760'/%3E%3Cpath d='M540 -30 C 470 130, 590 210, 520 370 S 610 560, 570 760'/%3E%3C/g%3E%3Cg fill='%231a1f2b' fill-opacity='0.075'%3E%3Cellipse cx='150' cy='160' rx='42' ry='14' transform='rotate(-28 150 160)'/%3E%3Cellipse cx='470' cy='110' rx='34' ry='12' transform='rotate(22 470 110)'/%3E%3Cellipse cx='270' cy='390' rx='46' ry='15' transform='rotate(-18 270 390)'/%3E%3Cellipse cx='560' cy='470' rx='38' ry='13' transform='rotate(30 560 470)'/%3E%3Cellipse cx='190' cy='610' rx='40' ry='13' transform='rotate(-22 190 610)'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: auto, auto, auto, 720px 720px;
-    background-repeat: no-repeat, no-repeat, no-repeat, repeat;
-    background-position: 0 0, 0 0, 0 0, center top;
+      radial-gradient(ellipse 60% 50% at 5% 8%, hsl(78 70% 50% / 0.04) 0, transparent 100%),
+      radial-gradient(ellipse 40% 35% at 90% 15%, hsl(var(--foreground) / 0.03) 0, transparent 100%),
+      radial-gradient(ellipse 50% 40% at 50% 55%, hsl(78 70% 50% / 0.025) 0, transparent 100%),
+      radial-gradient(ellipse 45% 35% at 15% 85%, hsl(var(--foreground) / 0.025) 0, transparent 100%),
+      radial-gradient(ellipse 55% 40% at 85% 75%, hsl(78 70% 50% / 0.03) 0, transparent 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200' viewBox='0 0 1200 1200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 400px 400px;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, repeat;
   }
 
   h1, h2, h3, h4, h5, h6 {
