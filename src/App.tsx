@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import Equipo from "./pages/Equipo";
 import Tienda from "./pages/Tienda";
 import ShopProduct from "./pages/ShopProduct";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
