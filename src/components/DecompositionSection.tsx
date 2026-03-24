@@ -188,7 +188,7 @@ const DecompositionSection = () => {
   return (
     <section id="proceso" ref={sectionRef} className="py-24 md:py-32">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
           {/* Left: Content */}
           <div>
             <AnimatedSection>
@@ -234,19 +234,36 @@ const DecompositionSection = () => {
             </div>
           </div>
 
-          {/* Right: Growing plant visual */}
-          <AnimatedSection delay={200}>
-            <div className="relative">
-              <GrowingPlant progress={progress} />
-              {/* Day counter overlay */}
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
-                <p className="text-4xl md:text-5xl font-display font-bold text-foreground">
-                  {Math.round(progress * 180)}
-                </p>
-                <p className="text-sm text-muted-foreground font-medium">días en tu jardín</p>
+          {/* Right: Growing plant visual - sticky so it stays visible */}
+          <div className="hidden lg:block lg:sticky lg:top-24">
+            <AnimatedSection delay={200}>
+              <div className="relative">
+                <GrowingPlant progress={progress} />
+                {/* Day counter overlay */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
+                  <p className="text-4xl md:text-5xl font-display font-bold text-foreground">
+                    {Math.round(progress * 180)}
+                  </p>
+                  <p className="text-sm text-muted-foreground font-medium">días en tu jardín</p>
+                </div>
               </div>
-            </div>
-          </AnimatedSection>
+            </AnimatedSection>
+          </div>
+
+          {/* Mobile: plant below timeline */}
+          <div className="lg:hidden">
+            <AnimatedSection delay={200}>
+              <div className="relative">
+                <GrowingPlant progress={progress} />
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center">
+                  <p className="text-4xl font-display font-bold text-foreground">
+                    {Math.round(progress * 180)}
+                  </p>
+                  <p className="text-sm text-muted-foreground font-medium">días en tu jardín</p>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
         </div>
       </div>
     </section>
