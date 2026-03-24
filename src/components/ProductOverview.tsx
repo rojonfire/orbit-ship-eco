@@ -6,7 +6,7 @@ import bolsasDuo from '@/assets/bolsas-duo.png';
 
 const ProductOverview = () => {
   return (
-    <section id="productos" className="py-24 md:py-32">
+    <section id="productos" className="py-12 md:py-16 lg:py-24">
       <div className="container mx-auto px-6">
         <AnimatedSection>
           <div className="text-center mb-12">

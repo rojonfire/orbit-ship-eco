@@ -5,7 +5,7 @@ import AnimatedSection from './AnimatedSection';
 
 const FinalCTA = () => {
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-12 md:py-16 lg:py-24">
       <div className="container mx-auto px-6">
         <AnimatedSection>
           <div className="card-lime text-center py-16 md:py-24 px-8">
