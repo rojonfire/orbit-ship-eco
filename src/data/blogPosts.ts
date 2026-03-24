@@ -1,3 +1,5 @@
+import blogCompostableImg from "@/assets/blog-compostable-vs-biodegradable.jpg";
+
 export interface BlogPost {
   id: string;
   slug: string;
