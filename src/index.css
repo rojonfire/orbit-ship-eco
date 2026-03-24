@@ -79,13 +79,13 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     background-image:
-      radial-gradient(28rem 18rem at 8% 14%, hsl(var(--foreground) / 0.045), transparent 65%),
-      radial-gradient(24rem 16rem at 88% 10%, hsl(var(--foreground) / 0.04), transparent 68%),
-      radial-gradient(22rem 14rem at 18% 48%, hsl(var(--foreground) / 0.035), transparent 70%),
-      radial-gradient(26rem 16rem at 82% 42%, hsl(var(--foreground) / 0.04), transparent 68%),
-      radial-gradient(20rem 12rem at 14% 82%, hsl(var(--foreground) / 0.035), transparent 72%),
-      radial-gradient(24rem 14rem at 86% 78%, hsl(var(--foreground) / 0.04), transparent 70%);
-    background-attachment: fixed;
+      radial-gradient(circle at 12% 18%, hsl(var(--foreground) / 0.055) 0, transparent 22%),
+      radial-gradient(circle at 84% 32%, hsl(var(--foreground) / 0.05) 0, transparent 24%),
+      radial-gradient(circle at 22% 78%, hsl(var(--foreground) / 0.045) 0, transparent 22%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='640' viewBox='0 0 640 640'%3E%3Cg fill='none' stroke='%231a1f2b' stroke-opacity='0.075' stroke-width='5' stroke-linecap='round'%3E%3Cpath d='M-40 120 C 80 40, 180 220, 310 130 S 560 40, 700 150'/%3E%3Cpath d='M-60 210 C 90 120, 180 300, 320 220 S 560 120, 700 240'/%3E%3Cpath d='M-50 305 C 80 220, 210 390, 340 315 S 560 230, 700 330'/%3E%3Cpath d='M-70 395 C 70 300, 190 480, 340 400 S 560 310, 700 420'/%3E%3Cpath d='M-50 490 C 90 390, 220 565, 360 500 S 560 400, 700 515'/%3E%3Cpath d='M120 -30 C 90 110, 210 160, 140 300 S 220 520, 170 700'/%3E%3Cpath d='M300 -40 C 260 120, 380 180, 310 340 S 400 540, 350 700'/%3E%3Cpath d='M500 -30 C 450 130, 570 190, 500 350 S 590 540, 550 700'/%3E%3C/g%3E%3Cg fill='%231a1f2b' fill-opacity='0.05'%3E%3Cellipse cx='140' cy='150' rx='34' ry='12' transform='rotate(-28 140 150)'/%3E%3Cellipse cx='430' cy='95' rx='28' ry='10' transform='rotate(22 430 95)'/%3E%3Cellipse cx='250' cy='350' rx='38' ry='13' transform='rotate(-18 250 350)'/%3E%3Cellipse cx='520' cy='420' rx='30' ry='11' transform='rotate(30 520 420)'/%3E%3Cellipse cx='180' cy='540' rx='32' ry='11' transform='rotate(-22 180 540)'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: auto, auto, auto, 680px 680px;
+    background-repeat: no-repeat, no-repeat, no-repeat, repeat;
+    background-position: 0 0, 0 0, 0 0, center top;
   }
 
   h1, h2, h3, h4, h5, h6 {
