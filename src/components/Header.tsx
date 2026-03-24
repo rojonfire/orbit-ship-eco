@@ -13,6 +13,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { label: 'Tienda', href: '/tienda', type: 'link' },
+  { label: 'Blog', href: '/blog', type: 'link' },
   { label: 'Equipo', href: '/equipo', type: 'link' },
   { label: 'Proceso', href: 'proceso', type: 'scroll' },
   { label: 'Contacto', href: 'contacto', type: 'scroll' },

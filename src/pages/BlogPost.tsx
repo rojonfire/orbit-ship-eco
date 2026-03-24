@@ -18,7 +18,7 @@ const BlogPost = () => {
       <SEOHead
         title={`${post.title} | Orbita Bags`}
         description={post.excerpt}
-        canonicalUrl={`https://orbitabags.cl/blog/${post.slug}`}
+        path={`/blog/${post.slug}`}
       />
       <Header />
 

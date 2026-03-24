@@ -14,7 +14,7 @@ const Blog = () => {
       <SEOHead
         title="Blog | Orbita Bags — Bolsas Compostables en Chile"
         description="Artículos sobre sustentabilidad, compostaje y packaging ecológico para ecommerce en Chile."
-        canonicalUrl="https://orbitabags.cl/blog"
+        path="/blog"
       />
       <Header />
 
