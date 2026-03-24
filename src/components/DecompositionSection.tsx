@@ -260,33 +260,33 @@ const DecompositionSection = () => {
   }, [startAnimation]);
 
   return (
-    <section id="proceso" ref={sectionRef} className="py-24 md:py-32">
+    <section id="proceso" ref={sectionRef} className="py-12 md:py-16 lg:py-24">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left: Content */}
           <div>
             <AnimatedSection>
-              <span className="tag-outline mb-4 inline-block">Compostaje domiciliario</span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6">
+              <span className="tag-outline mb-3 inline-block">Compostaje domiciliario</span>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold mb-4">
                 De bolsa a <span className="text-primary">tierra</span> en tu jardín
               </h2>
-              <p className="text-lg text-muted-foreground mb-12">
+              <p className="text-base lg:text-lg text-muted-foreground mb-6 lg:mb-10">
                 Tu bolsa ORBITA se composta en casa en solo 180 días. Sin planta industrial, 
                 sin microplásticos. Solo nutrientes para el suelo.
               </p>
             </AnimatedSection>
 
             {/* Timeline */}
-            <div className="space-y-6">
+            <div className="space-y-3 lg:space-y-4">
               {stages.map((stage, index) => (
                 <AnimatedSection key={stage.day} delay={100 + index * 75}>
                   <div 
-                    className={`flex items-start gap-4 p-4 rounded-2xl transition-all duration-500 ${
+                    className={`flex items-start gap-3 p-3 rounded-2xl transition-all duration-500 ${
                       index <= currentStageIndex ? 'bg-muted' : ''
                     }`}
                   >
                     <div 
-                      className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-500 ${
+                      className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-all duration-500 ${
                         index <= currentStageIndex 
                           ? 'bg-primary text-primary-foreground' 
                           : 'bg-muted text-muted-foreground'
@@ -295,12 +295,12 @@ const DecompositionSection = () => {
                       {stage.day}
                     </div>
                     <div>
-                      <p className={`font-semibold transition-colors duration-500 ${
+                      <p className={`font-semibold text-sm lg:text-base transition-colors duration-500 ${
                         index <= currentStageIndex ? 'text-foreground' : 'text-muted-foreground'
                       }`}>
                         {stage.title}
                       </p>
-                      <p className="text-sm text-muted-foreground">{stage.desc}</p>
+                      <p className="text-xs lg:text-sm text-muted-foreground">{stage.desc}</p>
                     </div>
                   </div>
                 </AnimatedSection>
@@ -310,17 +310,16 @@ const DecompositionSection = () => {
 
           {/* Right: Growing plant visual */}
           <AnimatedSection delay={200}>
-            <div className="relative cursor-pointer group" onClick={handleReplay} title="Click para repetir">
+            <div className="relative cursor-pointer group max-w-md mx-auto" onClick={handleReplay} title="Click para repetir">
               <GrowingPlant progress={progress} isWow={isWow} />
-              <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 text-center transition-all duration-700 ${isWow ? 'scale-110' : ''}`}>
-                <p className={`font-display font-bold transition-all duration-700 ${isWow ? 'text-5xl md:text-6xl text-primary' : 'text-4xl md:text-5xl text-foreground'}`}>
+              <div className={`absolute bottom-4 lg:bottom-6 left-1/2 -translate-x-1/2 text-center transition-all duration-700 ${isWow ? 'scale-110' : ''}`}>
+                <p className={`font-display font-bold transition-all duration-700 ${isWow ? 'text-4xl lg:text-5xl text-primary' : 'text-3xl lg:text-4xl text-foreground'}`}>
                   {currentDay}
                 </p>
-                <p className="text-sm text-muted-foreground font-medium">
+                <p className="text-xs lg:text-sm text-muted-foreground font-medium">
                   {isWow ? '¡Volvió a la tierra! 🌱' : 'días en tu jardín'}
                 </p>
               </div>
-              {/* Replay hint */}
               <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-60 transition-opacity text-xs text-muted-foreground">
                 ↻ Repetir
               </div>
