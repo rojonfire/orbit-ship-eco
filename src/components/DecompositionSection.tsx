@@ -8,12 +8,13 @@ const stages = [
   { day: 180, label: 'Día 180', title: 'Solo nutrientes', desc: 'Vuelve a la tierra, sin planta industrial' },
 ];
 
-const useAnimatedTime = () => {
+const useAnimatedTime = (active: boolean) => {
   const [time, setTime] = useState(0);
   useEffect(() => {
+    if (!active) return;
     const interval = setInterval(() => setTime(t => t + 0.02), 30);
     return () => clearInterval(interval);
-  }, []);
+  }, [active]);
   return time;
 };
 
@@ -26,7 +27,8 @@ const Leaf = ({ x, y, scale, opacity, angle, d, fill }: {
 );
 
 const GrowingPlant = ({ progress, isWow }: { progress: number; isWow: boolean }) => {
-  const time = useAnimatedTime();
+  const isActive = progress > 0 && progress < 1;
+  const time = useAnimatedTime(isActive || isWow);
   
   const stemHeight = Math.min(progress * 1.3, 1) * 200;
   const sway = Math.sin(time * 1.5) * 3;
