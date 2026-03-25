@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
 import SEOHead from "@/components/SEOHead";
-import teamRaimundo from "@/assets/team-raimundo.png";
+import teamRaimundo from "@/assets/team-raimundo.webp";
 
 interface TeamMember {
   name: string;
