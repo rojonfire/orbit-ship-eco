@@ -1,12 +1,15 @@
+import { lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import ProductOverview from "@/components/ProductOverview";
-import WhyOrbita from "@/components/WhyOrbita";
-import DecompositionSection from "@/components/DecompositionSection";
-import ContactSection from "@/components/ContactSection";
-import FinalCTA from "@/components/FinalCTA";
-import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+
+// Lazy-load below-the-fold sections to reduce initial JS
+const ProductOverview = lazy(() => import("@/components/ProductOverview"));
+const WhyOrbita = lazy(() => import("@/components/WhyOrbita"));
+const DecompositionSection = lazy(() => import("@/components/DecompositionSection"));
+const ContactSection = lazy(() => import("@/components/ContactSection"));
+const FinalCTA = lazy(() => import("@/components/FinalCTA"));
+const Footer = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
   const jsonLd = {
@@ -43,12 +46,14 @@ const Index = () => {
       />
       <Header />
       <HeroSection />
-      <ProductOverview />
-      <WhyOrbita />
-      <DecompositionSection />
-      <ContactSection />
-      <FinalCTA />
-      <Footer />
+      <Suspense fallback={null}>
+        <ProductOverview />
+        <WhyOrbita />
+        <DecompositionSection />
+        <ContactSection />
+        <FinalCTA />
+        <Footer />
+      </Suspense>
     </main>
   );
 };
