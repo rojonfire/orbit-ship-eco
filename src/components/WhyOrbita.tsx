@@ -35,7 +35,7 @@ const WhyOrbita = () => {
         <AnimatedSection>
           <div className="max-w-2xl mb-16">
             <span className="tag-outline mb-4 inline-block">Beneficios</span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold mb-6">
               Bolsas compostables con <span className="text-primary">doble sello</span>
             </h2>
             <p className="text-lg text-muted-foreground">
