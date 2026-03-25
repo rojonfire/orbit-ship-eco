@@ -1,6 +1,7 @@
 import { ArrowRight, Leaf, ArrowUpRight, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+
 const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
@@ -55,7 +56,6 @@ const HeroSection = () => {
             </div>
           </div>
         </div>
-      </div>
       </div>
     </section>
   );
