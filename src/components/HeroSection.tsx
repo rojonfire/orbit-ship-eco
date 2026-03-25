@@ -34,7 +34,7 @@ const HeroSection = () => {
 
           {/* Right: Visual cards */}
           <div className="hidden lg:block order-1 lg:order-2 relative">
-            <AnimatedSection delay={200}>
+          <div className="hidden lg:block order-1 lg:order-2 relative">
               <div className="grid grid-cols-2 gap-4">
                 {/* Main lime card */}
                 <div className="col-span-2 card-lime relative overflow-hidden">
@@ -59,7 +59,6 @@ const HeroSection = () => {
                   <p className="text-sm text-white/80">tamaños disponibles</p>
                 </div>
               </div>
-            </AnimatedSection>
           </div>
         </div>
       </div>
