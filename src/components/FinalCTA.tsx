@@ -13,7 +13,7 @@ const FinalCTA = () => {
               <Leaf className="w-8 h-8 text-primary-foreground" />
             </div>
             
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold text-primary-foreground mb-6 max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-primary-foreground mb-6 max-w-3xl mx-auto">
               Envía mejor. Sin plástico.
             </h2>
             

@@ -42,7 +42,7 @@ export const CartDrawer = () => {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="relative">
+        <Button variant="outline" size="icon" className="relative" aria-label="Abrir carrito de compras">
           <ShoppingCart className="h-5 w-5" />
           {totalItems > 0 && (
             <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-primary text-primary-foreground">
@@ -101,6 +101,7 @@ export const CartDrawer = () => {
                           size="icon"
                           className="h-6 w-6"
                           onClick={() => removeItem(item.variantId)}
+                          aria-label={`Eliminar ${item.product.node.title}`}
                         >
                           <Trash2 className="h-3 w-3" />
                         </Button>
@@ -111,15 +112,17 @@ export const CartDrawer = () => {
                             size="icon"
                             className="h-6 w-6"
                             onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
+                            aria-label={`Reducir cantidad de ${item.product.node.title}`}
                           >
                             <Minus className="h-3 w-3" />
                           </Button>
-                          <span className="w-6 text-center text-sm">{item.quantity}</span>
+                          <span className="w-6 text-center text-sm" aria-label={`Cantidad: ${item.quantity}`}>{item.quantity}</span>
                           <Button
                             variant="outline"
                             size="icon"
                             className="h-6 w-6"
                             onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
+                            aria-label={`Aumentar cantidad de ${item.product.node.title}`}
                           >
                             <Plus className="h-3 w-3" />
                           </Button>

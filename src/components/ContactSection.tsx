@@ -15,7 +15,7 @@ const ContactSection = () => {
           <div>
             <AnimatedSection>
               <span className="tag-outline mb-4 inline-block">Contacto</span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold mb-6">
                 ¿Dudas? <span className="text-primary">Hablemos</span>
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-lg">

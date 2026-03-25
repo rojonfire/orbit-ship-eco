@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <img src={logo} alt="ORBITA BAGS - Bolsas courier compostables en Chile" className="h-10 w-auto invert mb-6" />
-            <p className="text-background/70 max-w-sm mb-6">
+            <p className="text-background/80 max-w-sm mb-6">
               Bolsas courier compostables en casa para ecommerce en Chile. Con doble sello adhesivo 
               para envío y devolución. Certificación OK Compost HOME. Envío a todo Chile.
             </p>
@@ -45,31 +45,31 @@ const Footer = () => {
 
           {/* Navigation */}
           <div>
-            <h4 className="font-semibold mb-4">Navegación</h4>
-            <ul className="space-y-3 text-sm text-background/70">
-              <li><Link to="/tienda" className="hover:text-primary transition-colors">Tienda</Link></li>
-              <li><Link to="/equipo" className="hover:text-primary transition-colors">Equipo</Link></li>
-              <li><a href="/#productos" className="hover:text-primary transition-colors">Productos</a></li>
-              <li><a href="/#beneficios" className="hover:text-primary transition-colors">Beneficios</a></li>
-              <li><a href="/#contacto" className="hover:text-primary transition-colors">Contacto</a></li>
+            <h3 className="font-semibold mb-4">Navegación</h3>
+            <ul className="space-y-3 text-sm">
+              <li><Link to="/tienda" className="hover:text-primary transition-colors text-background/80">Tienda</Link></li>
+              <li><Link to="/equipo" className="hover:text-primary transition-colors text-background/80">Equipo</Link></li>
+              <li><a href="/#productos" className="hover:text-primary transition-colors text-background/80">Productos</a></li>
+              <li><a href="/#beneficios" className="hover:text-primary transition-colors text-background/80">Beneficios</a></li>
+              <li><a href="/#contacto" className="hover:text-primary transition-colors text-background/80">Contacto</a></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold mb-4">Contacto</h4>
-            <ul className="space-y-3 text-sm text-background/70">
+            <h3 className="font-semibold mb-4">Contacto</h3>
+            <ul className="space-y-3 text-sm">
               <li>
-                <a href="https://wa.me/56954244951" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                <a href="https://wa.me/56954244951" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors text-background/80">
                   WhatsApp: +56 9 5424 4951
                 </a>
               </li>
               <li>
-                <a href="mailto:orbitabagscontacto@gmail.com" className="hover:text-primary transition-colors">
+                <a href="mailto:orbitabagscontacto@gmail.com" className="hover:text-primary transition-colors text-background/80">
                   orbitabagscontacto@gmail.com
                 </a>
               </li>
-              <li className="text-background/50">Santiago, Chile 🇨🇱</li>
+              <li className="text-background/60">Santiago, Chile 🇨🇱</li>
             </ul>
           </div>
         </div>
