@@ -27,7 +27,8 @@ const Leaf = ({ x, y, scale, opacity, angle, d, fill }: {
 );
 
 const GrowingPlant = ({ progress, isWow }: { progress: number; isWow: boolean }) => {
-  const time = useAnimatedTime();
+  const isActive = progress > 0 && progress < 1;
+  const time = useAnimatedTime(isActive || isWow);
   
   const stemHeight = Math.min(progress * 1.3, 1) * 200;
   const sway = Math.sin(time * 1.5) * 3;
