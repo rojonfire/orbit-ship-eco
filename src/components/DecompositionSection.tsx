@@ -8,12 +8,13 @@ const stages = [
   { day: 180, label: 'Día 180', title: 'Solo nutrientes', desc: 'Vuelve a la tierra, sin planta industrial' },
 ];
 
-const useAnimatedTime = () => {
+const useAnimatedTime = (active: boolean) => {
   const [time, setTime] = useState(0);
   useEffect(() => {
+    if (!active) return;
     const interval = setInterval(() => setTime(t => t + 0.02), 30);
     return () => clearInterval(interval);
-  }, []);
+  }, [active]);
   return time;
 };
 
