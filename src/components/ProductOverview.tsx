@@ -29,8 +29,8 @@ const ProductOverview = () => {
                 alt="Bolsas courier compostables Orbita - packaging sustentable para envío y devolución en Chile"
                 className="w-full h-full object-contain hover-scale"
                 loading="lazy"
-                width={500}
-                height={500}
+                width={580}
+                height={536}
               />
             </div>
 
