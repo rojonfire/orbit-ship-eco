@@ -22,6 +22,7 @@ interface NotifyMeModalProps {
 const NotifyMeModal = ({ productName, className }: NotifyMeModalProps) => {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
