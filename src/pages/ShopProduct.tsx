@@ -292,12 +292,10 @@ const ShopProduct = () => {
 
               {!wantsCustom && (
                 <Button 
-                  onClick={handleAddToCart}
                   className="w-full py-6 text-lg"
-                  disabled={!selectedVariant}
+                  disabled
                 >
-                  <ShoppingCart className="w-5 h-5 mr-2" />
-                  Agregar al carrito
+                  Agotado
                 </Button>
               )}
             </div>
