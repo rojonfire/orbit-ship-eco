@@ -47,22 +47,6 @@ const ShopProduct = () => {
 
   const selectedVariant = getSelectedVariant();
 
-  const handleAddToCart = () => {
-    if (!product || !selectedVariant) return;
-    addItem({
-      product,
-      variantId: selectedVariant.id,
-      variantTitle: selectedVariant.title,
-      price: selectedVariant.price,
-      quantity: 1,
-      selectedOptions: selectedVariant.selectedOptions,
-    });
-    toast.success("Agregado al carrito", {
-      description: `${product.node.title} - ${selectedVariant.title}`,
-      position: "top-center",
-    });
-  };
-
   const handleWhatsAppCustom = () => {
     const message = `¡Hola! Me interesa saber más sobre las bolsas personalizadas. ¿Podrían darme más información?`;
     window.open(`https://wa.me/56954244951?text=${encodeURIComponent(message)}`, "_blank");
