@@ -22,6 +22,7 @@ interface NotifyMeModalProps {
 const NotifyMeModal = ({ productName, className }: NotifyMeModalProps) => {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -35,7 +36,7 @@ const NotifyMeModal = ({ productName, className }: NotifyMeModalProps) => {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), product: productName || "General" }),
+        body: JSON.stringify({ email: email.trim(), product: productName || "General", comment: comment.trim() }),
       });
 
       setSubmitted(true);
@@ -47,6 +48,7 @@ const NotifyMeModal = ({ productName, className }: NotifyMeModalProps) => {
         setOpen(false);
         setSubmitted(false);
         setEmail("");
+        setComment("");
       }, 2000);
     } catch {
       toast.error("Error al registrar. Intenta de nuevo.", {
@@ -94,6 +96,13 @@ const NotifyMeModal = ({ productName, className }: NotifyMeModalProps) => {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoFocus
+            />
+            <textarea
+              placeholder="Comentario (opcional)"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              rows={2}
+              className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 resize-none"
             />
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? (
