@@ -6,8 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { fetchProductByHandle, ShopifyProduct, formatCLP } from "@/lib/shopify";
-import { useCartStore } from "@/stores/cartStore";
-import { toast } from "sonner";
+import NotifyMeModal from "@/components/NotifyMeModal";
 
 const ShopProduct = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -16,8 +15,6 @@ const ShopProduct = () => {
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedPack, setSelectedPack] = useState<string>("");
   const [wantsCustom, setWantsCustom] = useState(false);
-  const addItem = useCartStore(state => state.addItem);
-
   useEffect(() => {
     const loadProduct = async () => {
       if (!handle) return;
@@ -291,12 +288,10 @@ const ShopProduct = () => {
               )}
 
               {!wantsCustom && (
-                <Button 
+                <NotifyMeModal 
+                  productName={product.node.title}
                   className="w-full py-6 text-lg"
-                  disabled
-                >
-                  Agotado
-                </Button>
+                />
               )}
             </div>
           </div>
