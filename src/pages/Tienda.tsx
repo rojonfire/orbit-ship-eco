@@ -7,14 +7,11 @@ import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
 import SEOHead from "@/components/SEOHead";
 import { fetchShopifyProducts, ShopifyProduct, formatCLP } from "@/lib/shopify";
-import { useCartStore } from "@/stores/cartStore";
-import { toast } from "sonner";
+import NotifyMeModal from "@/components/NotifyMeModal";
 
 const Tienda = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
-  const addItem = useCartStore(state => state.addItem);
-
   useEffect(() => {
     const loadProducts = async () => {
       try {
@@ -28,25 +25,6 @@ const Tienda = () => {
     };
     loadProducts();
   }, []);
-
-  const handleAddToCart = (product: ShopifyProduct) => {
-    const firstVariant = product.node.variants.edges[0]?.node;
-    if (!firstVariant) return;
-
-    addItem({
-      product,
-      variantId: firstVariant.id,
-      variantTitle: firstVariant.title,
-      price: firstVariant.price,
-      quantity: 1,
-      selectedOptions: firstVariant.selectedOptions || [],
-    });
-
-    toast.success("Agregado al carrito", {
-      description: `${product.node.title} - ${firstVariant.title}`,
-      position: "top-center",
-    });
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -126,12 +104,10 @@ const Tienda = () => {
                           Desde {formatCLP(product.node.priceRange.minVariantPrice.amount)}
                         </p>
                       </div>
-                      <Button 
+                      <NotifyMeModal 
+                        productName={product.node.title}
                         className="w-full mt-4"
-                        disabled
-                      >
-                        Agotado
-                      </Button>
+                      />
                     </div>
                   </div>
                 </AnimatedSection>

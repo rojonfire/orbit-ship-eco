@@ -6,8 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { fetchProductByHandle, ShopifyProduct, formatCLP } from "@/lib/shopify";
-import { useCartStore } from "@/stores/cartStore";
-import { toast } from "sonner";
+import NotifyMeModal from "@/components/NotifyMeModal";
 
 const ShopProduct = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -16,8 +15,6 @@ const ShopProduct = () => {
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedPack, setSelectedPack] = useState<string>("");
   const [wantsCustom, setWantsCustom] = useState(false);
-  const addItem = useCartStore(state => state.addItem);
-
   useEffect(() => {
     const loadProduct = async () => {
       if (!handle) return;
@@ -49,22 +46,6 @@ const ShopProduct = () => {
   };
 
   const selectedVariant = getSelectedVariant();
-
-  const handleAddToCart = () => {
-    if (!product || !selectedVariant) return;
-    addItem({
-      product,
-      variantId: selectedVariant.id,
-      variantTitle: selectedVariant.title,
-      price: selectedVariant.price,
-      quantity: 1,
-      selectedOptions: selectedVariant.selectedOptions,
-    });
-    toast.success("Agregado al carrito", {
-      description: `${product.node.title} - ${selectedVariant.title}`,
-      position: "top-center",
-    });
-  };
 
   const handleWhatsAppCustom = () => {
     const message = `¡Hola! Me interesa saber más sobre las bolsas personalizadas. ¿Podrían darme más información?`;
@@ -291,12 +272,10 @@ const ShopProduct = () => {
               )}
 
               {!wantsCustom && (
-                <Button 
+                <NotifyMeModal 
+                  productName={product.node.title}
                   className="w-full py-6 text-lg"
-                  disabled
-                >
-                  Agotado
-                </Button>
+                />
               )}
             </div>
           </div>
