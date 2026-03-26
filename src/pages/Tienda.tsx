@@ -127,11 +127,10 @@ const Tienda = () => {
                         </p>
                       </div>
                       <Button 
-                        onClick={() => handleAddToCart(product)}
                         className="w-full mt-4"
+                        disabled
                       >
-                        <ShoppingCart className="w-4 h-4 mr-2" />
-                        Agregar al carrito
+                        Agotado
                       </Button>
                     </div>
                   </div>
