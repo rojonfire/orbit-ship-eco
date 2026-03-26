@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxXXXXXXXXXXXXXXXXXXXXXXXXX/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznaIR6y_GuQICfGYXkAFNgvGxq7R2kQbVWx06cGQwC1R_zn4q_IBiCq6900IGGwsew/exec";
 
 interface NotifyMeModalProps {
   productName?: string;
