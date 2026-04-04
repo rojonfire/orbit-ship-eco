@@ -39,6 +39,9 @@ const NotifyMeModal = ({ productName, className }: NotifyMeModalProps) => {
         body: JSON.stringify({ email: email.trim(), product: productName || "General", comment: comment.trim() }),
       });
 
+      if (typeof (window as any).fbq === "function") {
+        (window as any).fbq("track", "Lead", { content_name: productName || "General" });
+      }
       setSubmitted(true);
       toast.success("¡Te avisaremos cuando haya stock!", {
         position: "top-center",

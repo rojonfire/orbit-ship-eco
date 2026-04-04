@@ -27,6 +27,15 @@ const ShopProduct = () => {
           if (colorOption?.values[0]) setSelectedColor(colorOption.values[0]);
           if (packOption?.values[0]) setSelectedPack(packOption.values[0]);
         }
+        if (data && typeof (window as any).fbq === "function") {
+          (window as any).fbq("track", "ViewContent", {
+            content_name: data.node.title,
+            content_type: "product",
+            content_ids: [data.node.id],
+            value: parseFloat(data.node.priceRange.minVariantPrice.amount),
+            currency: "CLP",
+          });
+        }
       } catch (error) {
         console.error("Error loading product:", error);
       } finally {
