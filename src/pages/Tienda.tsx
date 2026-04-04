@@ -13,6 +13,9 @@ const Tienda = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    if (typeof (window as any).fbq === "function") {
+      (window as any).fbq("track", "ViewContent", { content_type: "product_group", content_name: "Tienda" });
+    }
     const loadProducts = async () => {
       try {
         const data = await fetchShopifyProducts(10);
