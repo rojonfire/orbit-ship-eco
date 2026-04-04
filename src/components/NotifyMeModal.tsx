@@ -16,10 +16,13 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznaIR6y_GuQI
 
 interface NotifyMeModalProps {
   productName?: string;
+  selectedColor?: string;
+  selectedPack?: string;
+  isCustom?: boolean;
   className?: string;
 }
 
-const NotifyMeModal = ({ productName, className }: NotifyMeModalProps) => {
+const NotifyMeModal = ({ productName, selectedColor, selectedPack, isCustom, className }: NotifyMeModalProps) => {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
@@ -36,7 +39,14 @@ const NotifyMeModal = ({ productName, className }: NotifyMeModalProps) => {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), product: productName || "General", comment: comment.trim() }),
+        body: JSON.stringify({
+          email: email.trim(),
+          product: productName || "General",
+          color: selectedColor || "",
+          pack: selectedPack || "",
+          personalizada: isCustom ? "Sí" : "No",
+          comment: comment.trim(),
+        }),
       });
 
       if (typeof (window as any).fbq === "function") {
@@ -100,6 +110,16 @@ const NotifyMeModal = ({ productName, className }: NotifyMeModalProps) => {
               required
               autoFocus
             />
+
+            {(selectedColor || selectedPack) && (
+              <div className="flex gap-2 text-xs text-muted-foreground bg-muted/50 rounded-md px-3 py-2">
+                {selectedColor && <span>Color: <strong>{selectedColor}</strong></span>}
+                {selectedColor && selectedPack && <span>·</span>}
+                {selectedPack && <span>Pack: <strong>{selectedPack}</strong></span>}
+                {isCustom && <span>· <strong>Personalizada</strong></span>}
+              </div>
+            )}
+
             <textarea
               placeholder="Comentario (opcional)"
               value={comment}

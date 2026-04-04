@@ -283,6 +283,9 @@ const ShopProduct = () => {
               {!wantsCustom && (
                 <NotifyMeModal 
                   productName={product.node.title}
+                  selectedColor={selectedColor}
+                  selectedPack={selectedPack}
+                  isCustom={false}
                   className="w-full py-6 text-lg"
                 />
               )}
