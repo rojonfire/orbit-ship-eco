@@ -21,6 +21,10 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Fire Meta Pixel PageView on every route change
+    if (typeof window.fbq === "function") {
+      window.fbq("track", "PageView");
+    }
   }, [pathname]);
   return null;
 };
