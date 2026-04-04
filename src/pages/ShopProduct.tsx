@@ -53,6 +53,19 @@ const ShopProduct = () => {
     loadProduct();
   }, [handle]);
 
+  // Track selection changes
+  useEffect(() => {
+    if (!product || !selectedColor) return;
+    if (typeof (window as any).fbq === "function") {
+      (window as any).fbq("trackCustom", "ProductOptionSelected", {
+        content_name: product.node.title,
+        color: selectedColor,
+        pack: selectedPack,
+        personalizada: wantsCustom ? "Sí" : "No",
+      });
+    }
+  }, [selectedColor, selectedPack, wantsCustom]);
+
   const getSelectedVariant = () => {
     if (!product) return null;
     return product.node.variants.edges.find(v => {
