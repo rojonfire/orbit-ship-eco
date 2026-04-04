@@ -28,12 +28,20 @@ const ShopProduct = () => {
           if (packOption?.values[0]) setSelectedPack(packOption.values[0]);
         }
         if (data && typeof (window as any).fbq === "function") {
+          const colorOpt = data.node.options.find(o => o.name === "Color");
+          const packOpt = data.node.options.find(o => o.name === "Pack");
           (window as any).fbq("track", "ViewContent", {
             content_name: data.node.title,
             content_type: "product",
             content_ids: [data.node.id],
             value: parseFloat(data.node.priceRange.minVariantPrice.amount),
             currency: "CLP",
+            contents: [{
+              id: data.node.id,
+              quantity: packOpt?.values[0] || "1",
+              color: colorOpt?.values[0] || "",
+              custom: false,
+            }],
           });
         }
       } catch (error) {
@@ -44,6 +52,19 @@ const ShopProduct = () => {
     };
     loadProduct();
   }, [handle]);
+
+  // Track selection changes
+  useEffect(() => {
+    if (!product || !selectedColor) return;
+    if (typeof (window as any).fbq === "function") {
+      (window as any).fbq("trackCustom", "ProductOptionSelected", {
+        content_name: product.node.title,
+        color: selectedColor,
+        pack: selectedPack,
+        personalizada: wantsCustom ? "Sí" : "No",
+      });
+    }
+  }, [selectedColor, selectedPack, wantsCustom]);
 
   const getSelectedVariant = () => {
     if (!product) return null;
