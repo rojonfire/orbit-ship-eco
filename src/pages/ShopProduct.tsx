@@ -112,12 +112,13 @@ const ShopProduct = () => {
   const packOptions = product.node.options.find(o => o.name === "Pack")?.values || [];
   const productImage = product.node.images.edges[0]?.node?.url || "";
 
+  const allImages = product.node.images.edges.map(e => e.node.url).filter(Boolean);
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": product.node.title,
-    "description": product.node.description,
-    "image": productImage,
+    "description": product.node.description || "Bolsa courier compostable en casa - ORBITA BAGS",
+    "image": allImages.length > 0 ? allImages : ["https://orbitabags.cl/placeholder.svg"],
     "brand": {
       "@type": "Brand",
       "name": "ORBITA BAGS"
