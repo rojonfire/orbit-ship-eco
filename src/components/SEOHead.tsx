@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 
 const SITE_URL = "https://orbitabags.cl";
-const DEFAULT_OG_IMAGE = "https://storage.googleapis.com/gpt-engineer-file-uploads/MNCWozbhLMOHqFITdYsJnmpqal62/social-images/social-1768306739229-Logo-orbita-bags-Negro.svg";
+const DEFAULT_OG_IMAGE = "https://orbitabags.cl/og-image.png";
 
 interface SEOHeadProps {
   title: string;
