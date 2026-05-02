@@ -15,9 +15,9 @@ const HeroSection = () => {
             </span>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-semibold text-foreground leading-[1.1] mb-6">
-              Bolsas courier
+              Bolsas courier compostables
               <br />
-              que <span className="text-primary">nutren</span> la tierra
+              para <span className="text-primary">ir y volver</span>
             </h1>
 
             <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
