@@ -15,9 +15,9 @@ const HeroSection = () => {
             </span>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-semibold text-foreground leading-[1.1] mb-6">
-              Bolsas courier
+              Bolsas courier compostables
               <br />
-              que <span className="text-primary">nutren</span> la tierra
+              para <span className="text-primary">ir y volver</span>
             </h1>
 
             <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
@@ -42,16 +42,16 @@ const HeroSection = () => {
                   <ArrowUpRight className="w-5 h-5 text-primary-foreground/60" />
                 </div>
                 <p className="text-6xl md:text-7xl font-display font-bold text-primary-foreground">180</p>
-                <p className="text-lg text-primary-foreground/80">días en tu jardín</p>
+                <p className="text-lg text-primary-foreground/80">días en jardín</p>
               </div>
               <div className="card-sky">
                 <RotateCcw className="w-8 h-8 mb-2 text-white/80" />
-                <p className="text-2xl md:text-3xl font-display font-bold mb-1">Doble sello</p>
+                <p className="text-xl md:text-2xl font-display font-bold mb-1">Doble sello</p>
                 <p className="text-sm text-white/80">envío + devolución</p>
               </div>
               <div className="card-forest">
-                <p className="text-3xl md:text-4xl font-display font-bold mb-2">4</p>
-                <p className="text-sm text-white/80">tamaños disponibles</p>
+                <p className="text-2xl md:text-3xl font-display font-bold mb-2">4</p>
+                <p className="text-sm text-white/80">tamaños</p>
               </div>
             </div>
           </div>
