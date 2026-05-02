@@ -33,7 +33,7 @@ const Tienda = () => {
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Tienda | Bolsas compostables ORBITA BAGS - Compra online en Chile"
-        description="Compra bolsas courier compostables en casa para tu ecommerce. Envío a todo Chile. Doble sello adhesivo, certificación OK Compost HOME. Desde $850 CLP."
+        description="Compra bolsas courier compostables en casa para tu ecommerce. Envío a todo Chile. Doble sello adhesivo, certificación OK Compost HOME. Desde $100 CLP."
         path="/tienda"
       />
       <Header />
