@@ -171,6 +171,17 @@ function injectMeta(html, { title, description, path: routePath, body }) {
   html = html.replace(/<meta name="twitter:title" content="[^"]*"/, `<meta name="twitter:title" content="${escapeAttr(title)}"`);
   html = html.replace(/<meta name="twitter:description" content="[^"]*"/, `<meta name="twitter:description" content="${escapeAttr(description)}"`);
 
+  // Anti-FOUC: ocultar #root hasta que CSS + JS carguen.
+  // El crawler no ejecuta JS, así que ve el contenido igual.
+  html = html.replace(
+    "</head>",
+    `<style id="a-f">#root{opacity:0}</style>\n</head>`
+  );
+  html = html.replace(
+    "</body>",
+    `<script>window.addEventListener('load',function(){var e=document.getElementById('a-f');e&&e.parentNode.removeChild(e)})</script>\n</body>`
+  );
+
   // Inyectar el body dentro del <div id="root">
   // React lo va a hidratar/reemplazar al cargar, pero los crawlers lo ven inmediatamente
   if (body) {
