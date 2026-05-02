@@ -41,7 +41,7 @@ const ProductOverview = () => {
                   Bolsa Compostable Premium
                 </h3>
                 <p className="text-2xl text-primary font-semibold mt-2">
-                  Desde $850 CLP / unidad
+                  Desde $100 CLP / unidad
                 </p>
               </div>
 
