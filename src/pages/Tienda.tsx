@@ -74,45 +74,7 @@ const Tienda = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {products.map((product, index) => (
                 <AnimatedSection key={product.node.id} delay={index * 100}>
-                  <div className="bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg group">
-                    <Link to={`/shop/${product.node.handle}`}>
-                      <div className="aspect-square bg-white p-6 flex items-center justify-center">
-                        {product.node.images.edges[0]?.node ? (
-                          <img
-                            src={product.node.images.edges[0].node.url}
-                            alt={product.node.images.edges[0].node.altText || product.node.title}
-                            className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
-                            loading="lazy"
-                            width={400}
-                            height={400}
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-secondary/30 flex items-center justify-center">
-                            <span className="text-muted-foreground">Sin imagen</span>
-                          </div>
-                        )}
-                      </div>
-                    </Link>
-                    <div className="p-6">
-                      <Link to={`/shop/${product.node.handle}`}>
-                        <h3 className="font-semibold text-foreground text-lg mb-2 hover:text-primary transition-colors">
-                          {product.node.title}
-                        </h3>
-                      </Link>
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                        {product.node.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <p className="text-xl font-bold text-primary">
-                          Desde {formatCLP(product.node.priceRange.minVariantPrice.amount)}
-                        </p>
-                      </div>
-                      <NotifyMeModal 
-                        productName={product.node.title}
-                        className="w-full mt-4"
-                      />
-                    </div>
-                  </div>
+                  <ProductCard product={product} />
                 </AnimatedSection>
               ))}
             </div>
