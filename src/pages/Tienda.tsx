@@ -160,9 +160,6 @@ const ProductCard = ({ product }: { product: ShopifyProduct }) => {
             {product.node.title}
           </h3>
         </Link>
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-          {product.node.description}
-        </p>
         {colorValues.length > 1 && (
           <div className="flex items-center gap-2 mb-4">
             <span className="text-xs text-muted-foreground">Color:</span>
@@ -184,10 +181,17 @@ const ProductCard = ({ product }: { product: ShopifyProduct }) => {
             </div>
           </div>
         )}
-        <div className="flex items-center justify-between">
-          <p className="text-xl font-bold text-primary">
-            Desde {formatCLP(product.node.priceRange.minVariantPrice.amount)}
-          </p>
+        <div className="flex items-baseline justify-between gap-2">
+          <div>
+            <p className="text-2xl font-bold text-primary leading-tight">
+              {formatCLP(entryPrice.toString())}
+            </p>
+            {entryQty > 0 && (
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Pack de {entryQty} · {formatCLP(pricePerUnit.toString())} c/u
+              </p>
+            )}
+          </div>
         </div>
         <NotifyMeModal
           productName={product.node.title}
