@@ -174,10 +174,10 @@ const ShopProduct = () => {
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="space-y-4">
               <div className="aspect-square bg-white rounded-2xl overflow-hidden border border-border p-8 flex items-center justify-center">
-                {product.node.images.edges[0]?.node ? (
+                {currentImage ? (
                   <img
-                    src={product.node.images.edges[0].node.url}
-                    alt={product.node.images.edges[0].node.altText || product.node.title}
+                    src={currentImage.url}
+                    alt={currentImage.altText || product.node.title}
                     className="max-h-full max-w-full object-contain"
                     loading="eager"
                     width={600}
