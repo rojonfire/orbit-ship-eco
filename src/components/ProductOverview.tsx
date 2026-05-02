@@ -46,9 +46,9 @@ const ProductOverview = () => {
               </div>
 
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Diseñadas con la economía circular en mente: combinan resistencia, calidad y 
-                sostenibilidad en un packaging amigable con el medio ambiente, pensado para 
-                más de un uso. Mejor experiencia para tu cliente y menos huella para el planeta.
+                Packaging diseñado bajo principios de economía circular: une resistencia, calidad 
+                y compostabilidad en una sola bolsa pensada para reutilizarse. Mejor experiencia 
+                post-venta y menor impacto ambiental.
               </p>
 
               {/* Features */}
