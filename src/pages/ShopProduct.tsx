@@ -116,7 +116,18 @@ const ShopProduct = () => {
 
   const colorOptions = product.node.options.find(o => o.name === "Color")?.values || [];
   const packOptions = product.node.options.find(o => o.name === "Pack")?.values || [];
-  const productImage = product.node.images.edges[0]?.node?.url || "";
+  const images = product.node.images.edges;
+  const getImageForColor = (color: string) => {
+    if (!color) return images[0]?.node;
+    const matchByAlt = images.find(e =>
+      e.node.altText?.toLowerCase().includes(color.toLowerCase())
+    );
+    if (matchByAlt) return matchByAlt.node;
+    const idx = colorOptions.indexOf(color);
+    return images[idx]?.node || images[0]?.node;
+  };
+  const currentImage = getImageForColor(selectedColor);
+  const productImage = currentImage?.url || "";
 
   const allImages = product.node.images.edges.map(e => e.node.url).filter(Boolean);
   const productJsonLd = {
