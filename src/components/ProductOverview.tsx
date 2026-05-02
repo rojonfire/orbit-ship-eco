@@ -2,7 +2,7 @@ import { ArrowRight, Leaf, RotateCcw, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import AnimatedSection from './AnimatedSection';
-import bolsasDuo from '@/assets/bolsas-duo.webp';
+import bolsasDuo from '@/assets/bolsas-duo.jpg';
 
 const ProductOverview = () => {
   return (
