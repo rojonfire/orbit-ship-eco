@@ -50,7 +50,7 @@ const HeroSection = () => {
                 <p className="text-sm text-white/80">envío + devolución</p>
               </div>
               <div className="card-forest">
-                <p className="text-3xl md:text-4xl font-display font-bold mb-2">5</p>
+                <p className="text-3xl md:text-4xl font-display font-bold mb-2">4</p>
                 <p className="text-sm text-white/80">tamaños disponibles</p>
               </div>
             </div>
