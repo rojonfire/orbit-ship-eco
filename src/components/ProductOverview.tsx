@@ -46,9 +46,9 @@ const ProductOverview = () => {
               </div>
 
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Nuestra bolsa insignia combina resistencia y sustentabilidad. Compostable en casa, 
-                con doble sello adhesivo para que tu cliente pueda devolver con la misma bolsa. 
-                Perfecta para ecommerce en Chile.
+                Diseñadas con la economía circular en mente: combinan resistencia, calidad y 
+                sostenibilidad en un packaging amigable con el medio ambiente, pensado para 
+                más de un uso. Mejor experiencia para tu cliente y menos huella para el planeta.
               </p>
 
               {/* Features */}
