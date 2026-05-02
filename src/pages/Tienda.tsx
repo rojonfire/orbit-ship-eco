@@ -115,6 +115,25 @@ const ProductCard = ({ product }: { product: ShopifyProduct }) => {
     return "bg-gray-400";
   };
 
+  // Find smallest pack variant for the selected color to show entry price
+  const packOption = product.node.options.find(o => o.name === "Pack");
+  const packValues = packOption?.values || [];
+  const parsePackQty = (label: string) => {
+    const m = label.match(/\d[\d.]*/);
+    return m ? parseInt(m[0].replace(/\./g, ""), 10) : 0;
+  };
+  const smallestPack = [...packValues].sort((a, b) => parsePackQty(a) - parsePackQty(b))[0];
+  const entryVariant = product.node.variants.edges.find(v => {
+    const matchColor = !selectedColor || v.node.selectedOptions.some(o => o.name === "Color" && o.value === selectedColor);
+    const matchPack = !smallestPack || v.node.selectedOptions.some(o => o.name === "Pack" && o.value === smallestPack);
+    return matchColor && matchPack;
+  })?.node;
+  const entryPrice = entryVariant
+    ? parseFloat(entryVariant.price.amount)
+    : parseFloat(product.node.priceRange.minVariantPrice.amount);
+  const entryQty = smallestPack ? parsePackQty(smallestPack) : 0;
+  const pricePerUnit = entryQty > 0 ? entryPrice / entryQty : 0;
+
   return (
     <div className="bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg group">
       <Link to={linkTo}>
@@ -137,7 +156,7 @@ const ProductCard = ({ product }: { product: ShopifyProduct }) => {
       </Link>
       <div className="p-6">
         <Link to={linkTo}>
-          <h3 className="font-semibold text-foreground text-lg mb-2 hover:text-primary transition-colors">
+          <h3 className="font-semibold text-foreground text-lg mb-3 hover:text-primary transition-colors">
             {product.node.title}
           </h3>
         </Link>
