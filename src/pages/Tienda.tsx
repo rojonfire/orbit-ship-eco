@@ -87,4 +87,96 @@ const Tienda = () => {
   );
 };
 
+const ProductCard = ({ product }: { product: ShopifyProduct }) => {
+  const colorOption = product.node.options.find(o => o.name === "Color");
+  const colorValues = colorOption?.values || [];
+  const [selectedColor, setSelectedColor] = useState<string>(colorValues[0] || "");
+
+  const images = product.node.images.edges;
+  const getImageForColor = (color: string) => {
+    if (!color) return images[0]?.node;
+    const matchByAlt = images.find(e =>
+      e.node.altText?.toLowerCase().includes(color.toLowerCase())
+    );
+    if (matchByAlt) return matchByAlt.node;
+    const idx = colorValues.indexOf(color);
+    return images[idx]?.node || images[0]?.node;
+  };
+
+  const currentImage = getImageForColor(selectedColor);
+  const linkTo = selectedColor
+    ? `/shop/${product.node.handle}?color=${encodeURIComponent(selectedColor)}`
+    : `/shop/${product.node.handle}`;
+
+  const swatchClass = (color: string) => {
+    const lower = color.toLowerCase();
+    if (lower.includes("blanc")) return "bg-white border border-gray-300";
+    if (lower.includes("negr")) return "bg-gray-900";
+    return "bg-gray-400";
+  };
+
+  return (
+    <div className="bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg group">
+      <Link to={linkTo}>
+        <div className="aspect-square bg-white p-6 flex items-center justify-center">
+          {currentImage ? (
+            <img
+              src={currentImage.url}
+              alt={currentImage.altText || product.node.title}
+              className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+              width={400}
+              height={400}
+            />
+          ) : (
+            <div className="w-full h-full bg-secondary/30 flex items-center justify-center">
+              <span className="text-muted-foreground">Sin imagen</span>
+            </div>
+          )}
+        </div>
+      </Link>
+      <div className="p-6">
+        <Link to={linkTo}>
+          <h3 className="font-semibold text-foreground text-lg mb-2 hover:text-primary transition-colors">
+            {product.node.title}
+          </h3>
+        </Link>
+        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+          {product.node.description}
+        </p>
+        {colorValues.length > 1 && (
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-xs text-muted-foreground">Color:</span>
+            <div className="flex gap-2">
+              {colorValues.map((color) => (
+                <button
+                  key={color}
+                  onClick={() => setSelectedColor(color)}
+                  onMouseEnter={() => setSelectedColor(color)}
+                  aria-label={`Ver color ${color}`}
+                  title={color}
+                  className={`w-6 h-6 rounded-full transition-all ${swatchClass(color)} ${
+                    selectedColor === color
+                      ? "ring-2 ring-primary ring-offset-2 ring-offset-card"
+                      : "hover:scale-110"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="flex items-center justify-between">
+          <p className="text-xl font-bold text-primary">
+            Desde {formatCLP(product.node.priceRange.minVariantPrice.amount)}
+          </p>
+        </div>
+        <NotifyMeModal
+          productName={product.node.title}
+          className="w-full mt-4"
+        />
+      </div>
+    </div>
+  );
+};
+
 export default Tienda;
