@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ShoppingCart, Loader2, Leaf, Recycle, Package, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
@@ -10,6 +10,8 @@ import NotifyMeModal from "@/components/NotifyMeModal";
 
 const ShopProduct = () => {
   const { handle } = useParams<{ handle: string }>();
+  const [searchParams] = useSearchParams();
+  const colorParam = searchParams.get("color");
   const [product, setProduct] = useState<ShopifyProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedColor, setSelectedColor] = useState<string>("");
@@ -24,7 +26,11 @@ const ShopProduct = () => {
         if (data?.node.options) {
           const colorOption = data.node.options.find(o => o.name === "Color");
           const packOption = data.node.options.find(o => o.name === "Pack");
-          if (colorOption?.values[0]) setSelectedColor(colorOption.values[0]);
+          const initialColor =
+            colorParam && colorOption?.values.includes(colorParam)
+              ? colorParam
+              : colorOption?.values[0];
+          if (initialColor) setSelectedColor(initialColor);
           if (packOption?.values[0]) setSelectedPack(packOption.values[0]);
         }
         if (data && typeof (window as any).fbq === "function") {
