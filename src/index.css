@@ -78,10 +78,10 @@
 
   body {
     @apply text-foreground font-sans antialiased;
-    /* Mobile: scroll normal (fixed no funciona en iOS Safari) */
+    /* Mobile: cover scroll — imagen 4318px se ve nítida en mobile */
     background:
       linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
-      url('/imagenfondo3x.png') top center / 100% auto no-repeat;
+      url('/imagenfondo3x.png') center / cover no-repeat scroll;
   }
 
   @media (min-width: 768px) {
