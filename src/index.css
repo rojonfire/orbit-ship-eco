@@ -77,7 +77,14 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply text-foreground font-sans antialiased;
+    background:
+      linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
+      url('/imagenfondo3x.png') top center / 100% auto no-repeat;
+  }
+
+  main {
+    background-color: transparent;
   }
 
   h1, h2, h3, h4, h5, h6 {
