@@ -8,7 +8,7 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(
 
 const ContactSection = () => {
   return (
-    <section id="contacto" className="py-12 md:py-16 lg:py-24 bg-muted/50">
+    <section id="contacto" className="py-12 md:py-16 lg:py-24">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Content */}
@@ -61,7 +61,7 @@ const ContactSection = () => {
                 <p className="text-3xl font-display font-bold mb-1">2hrs</p>
                 <p className="text-sm opacity-70">tiempo de respuesta</p>
               </div>
-              <div className="bg-muted rounded-3xl p-6">
+              <div className="bg-card border border-border shadow-sm rounded-3xl p-6">
                 <p className="text-3xl font-display font-bold text-foreground mb-1">24/7</p>
                 <p className="text-sm text-muted-foreground">WhatsApp activo</p>
               </div>
