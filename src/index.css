@@ -80,7 +80,7 @@
     @apply text-foreground font-sans antialiased;
     background:
       linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
-      url('/imagenfondo3x.png') top center / 100% auto no-repeat;
+      url('/imagenfondo3x.png') center / cover no-repeat fixed;
   }
 
   main {
