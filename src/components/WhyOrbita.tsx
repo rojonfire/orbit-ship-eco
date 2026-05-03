@@ -30,7 +30,7 @@ const colorClasses = {
 
 const WhyOrbita = () => {
   return (
-    <section id="beneficios" className="py-12 md:py-16 lg:py-24 bg-muted/50">
+    <section id="beneficios" className="py-12 md:py-16 lg:py-24">
       <div className="container mx-auto px-6">
         <AnimatedSection>
           <div className="max-w-2xl mb-16">
@@ -68,17 +68,19 @@ const WhyOrbita = () => {
 
         {/* Trust badges */}
         <AnimatedSection delay={400}>
-          <div className="mt-16 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
-            {[
-              { label: 'Certificación', value: 'OK Compost HOME' },
-              { label: 'Norma', value: 'EN 13432' },
-              { label: 'Origen', value: '100% Chile' },
-            ].map((badge, i) => (
-              <div key={i} className="text-center">
-                <p className="text-2xl md:text-3xl font-display font-bold text-foreground">{badge.value}</p>
-                <p className="text-sm text-muted-foreground">{badge.label}</p>
-              </div>
-            ))}
+          <div className="mt-16 max-w-3xl mx-auto bg-card rounded-3xl border border-border shadow-sm p-8">
+            <div className="grid grid-cols-3 gap-6">
+              {[
+                { label: 'Certificación', value: 'OK Compost HOME' },
+                { label: 'Norma', value: 'EN 13432' },
+                { label: 'Origen', value: '100% Chile' },
+              ].map((badge, i) => (
+                <div key={i} className="text-center">
+                  <p className="text-xl md:text-2xl lg:text-3xl font-display font-bold text-foreground">{badge.value}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{badge.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </AnimatedSection>
       </div>
