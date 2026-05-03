@@ -53,17 +53,17 @@ const ProductOverview = () => {
 
               {/* Features */}
               <div className="grid grid-cols-3 gap-4">
-                <div className="bg-secondary/30 rounded-xl p-4 text-center border border-border">
+                <div className="bg-card rounded-xl p-4 text-center border border-border shadow-sm">
                   <Leaf className="w-8 h-8 text-primary mx-auto mb-2" />
-                  <span className="text-sm text-muted-foreground">Compostable en casa</span>
+                  <span className="text-sm text-foreground font-medium">Compostable en casa</span>
                 </div>
-                <div className="bg-secondary/30 rounded-xl p-4 text-center border border-border">
+                <div className="bg-card rounded-xl p-4 text-center border border-border shadow-sm">
                   <RotateCcw className="w-8 h-8 text-accent mx-auto mb-2" />
-                  <span className="text-sm text-muted-foreground">Doble sello</span>
+                  <span className="text-sm text-foreground font-medium">Doble sello</span>
                 </div>
-                <div className="bg-secondary/30 rounded-xl p-4 text-center border border-border">
+                <div className="bg-card rounded-xl p-4 text-center border border-border shadow-sm">
                   <Package className="w-8 h-8 text-forest mx-auto mb-2" />
-                  <span className="text-sm text-muted-foreground">Alta resistencia</span>
+                  <span className="text-sm text-foreground font-medium">Alta resistencia</span>
                 </div>
               </div>
 
