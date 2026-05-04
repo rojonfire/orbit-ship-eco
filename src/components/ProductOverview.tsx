@@ -63,7 +63,7 @@ const ProductOverview = () => {
                     href={`#${anchor}`}
                     onClick={(e) => {
                       e.preventDefault();
-                      document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      document.getElementById('beneficios')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
                     className="group relative h-32 [transform-style:preserve-3d] transition-transform duration-500 hover:[transform:rotateY(180deg)] focus:[transform:rotateY(180deg)] outline-none cursor-pointer"
                   >
