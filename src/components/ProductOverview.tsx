@@ -54,10 +54,10 @@ const ProductOverview = () => {
               {/* Features - flip cards */}
               <div className="grid grid-cols-3 gap-4 [perspective:1000px]">
                 {[
-                  { icon: Leaf, label: 'Compostable en casa', back: 'bg-primary text-primary-foreground', anchor: 'beneficio-compostable' },
-                  { icon: RotateCcw, label: 'Doble sello', back: 'bg-sky text-white', anchor: 'beneficio-doble-sello' },
-                  { icon: Package, label: 'Alta resistencia', back: 'bg-forest text-white', anchor: 'beneficio-resistencia' },
-                ].map(({ icon: Icon, label, back, anchor }) => (
+                  { icon: Leaf, label: 'Compostable en casa', iconColor: 'text-primary', back: 'bg-primary text-primary-foreground', anchor: 'beneficio-compostable' },
+                  { icon: RotateCcw, label: 'Doble sello', iconColor: 'text-sky', back: 'bg-sky text-white', anchor: 'beneficio-doble-sello' },
+                  { icon: Package, label: 'Alta resistencia', iconColor: 'text-forest', back: 'bg-forest text-white', anchor: 'beneficio-resistencia' },
+                ].map(({ icon: Icon, label, iconColor, back, anchor }) => (
                   <a
                     key={label}
                     href={`#${anchor}`}
