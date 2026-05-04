@@ -63,7 +63,13 @@ const ProductOverview = () => {
                     href={`#${anchor}`}
                     onClick={(e) => {
                       e.preventDefault();
-                      document.getElementById('beneficios')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      const section = document.getElementById('beneficios');
+                      const target = document.getElementById(anchor);
+                      section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      if (target) {
+                        target.classList.add('is-highlighted');
+                        setTimeout(() => target.classList.remove('is-highlighted'), 2200);
+                      }
                     }}
                     className="group relative h-32 [transform-style:preserve-3d] transition-transform duration-500 hover:[transform:rotateY(180deg)] focus:[transform:rotateY(180deg)] outline-none cursor-pointer"
                   >
