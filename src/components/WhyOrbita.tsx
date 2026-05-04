@@ -12,6 +12,7 @@ const features = [
       'Vuelven a la tierra como nutrientes',
     ],
     color: 'lime' as const,
+    anchor: 'beneficio-compostable',
   },
   {
     icon: Shield,
@@ -23,6 +24,7 @@ const features = [
       'Probadas en envíos a todo Chile',
     ],
     color: 'sky' as const,
+    anchor: 'beneficio-resistencia',
   },
   {
     icon: RotateCcw,
@@ -34,6 +36,7 @@ const features = [
       'Mejora la experiencia post-compra',
     ],
     color: 'forest' as const,
+    anchor: 'beneficio-doble-sello',
   },
 ];
 
