@@ -12,6 +12,7 @@ const features = [
       'Vuelven a la tierra como nutrientes',
     ],
     color: 'lime' as const,
+    anchor: 'beneficio-compostable',
   },
   {
     icon: Shield,
@@ -23,6 +24,7 @@ const features = [
       'Probadas en envíos a todo Chile',
     ],
     color: 'sky' as const,
+    anchor: 'beneficio-resistencia',
   },
   {
     icon: RotateCcw,
@@ -34,6 +36,7 @@ const features = [
       'Mejora la experiencia post-compra',
     ],
     color: 'forest' as const,
+    anchor: 'beneficio-doble-sello',
   },
 ];
 
@@ -62,7 +65,7 @@ const WhyOrbita = () => {
         <div className="grid md:grid-cols-3 gap-5">
           {features.map((feature, index) => (
             <AnimatedSection key={feature.title} delay={100 + index * 100}>
-              <div className={`${colorClasses[feature.color]} rounded-3xl p-8 h-full group transition-transform duration-300 hover:-translate-y-1 flex flex-col`}>
+              <div id={feature.anchor} className={`${colorClasses[feature.color]} rounded-3xl p-8 h-full group transition-transform duration-300 hover:-translate-y-1 flex flex-col scroll-mt-24`}>
                 <div className="flex items-start justify-between mb-8">
                   <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
                     <feature.icon className="w-7 h-7" />
