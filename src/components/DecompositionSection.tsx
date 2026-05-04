@@ -47,14 +47,7 @@ const GrowingPlant = ({ progress, isWow }: { progress: number; isWow: boolean })
   return (
     <svg viewBox="0 0 400 420" className="w-full h-full">
       {/* Background circle */}
-      <defs>
-        <radialGradient id="bgGrad" cx="50%" cy="30%" r="70%">
-          <stop offset="0%" stopColor="hsl(195, 55%, 90%)" />
-          <stop offset="55%" stopColor="hsl(200, 35%, 94%)" />
-          <stop offset="100%" stopColor="hsl(33, 35%, 88%)" />
-        </radialGradient>
-      </defs>
-      <circle cx="200" cy="210" r="195" fill="url(#bgGrad)" />
+      <circle cx="200" cy="210" r="195" fill="hsl(var(--muted))" />
       
       {/* Wow glow ring */}
       {isWow && wowProgress > 0 && (
@@ -286,16 +279,12 @@ const DecompositionSection = () => {
             </AnimatedSection>
 
             {/* Timeline */}
-            <div className="space-y-3 lg:space-y-4 relative">
-              {/* Vertical connecting line */}
-              <div className="absolute left-8 top-6 bottom-6 w-px bg-border" />
+            <div className="space-y-3 lg:space-y-4">
               {stages.map((stage, index) => (
                 <AnimatedSection key={stage.day} delay={100 + index * 75}>
-                  <div
-                    className={`flex items-start gap-3 p-3 rounded-2xl transition-all duration-500 border-l-[3px] ${
-                      index <= currentStageIndex
-                        ? 'bg-muted border-primary'
-                        : 'border-transparent'
+                  <div 
+                    className={`flex items-start gap-3 p-3 rounded-2xl transition-all duration-500 ${
+                      index <= currentStageIndex ? 'bg-muted' : ''
                     }`}
                   >
                     <div 
@@ -325,15 +314,13 @@ const DecompositionSection = () => {
           <AnimatedSection delay={200}>
             <div className="relative cursor-pointer group max-w-md mx-auto" onClick={handleReplay} title="Click para repetir">
               <GrowingPlant progress={progress} isWow={isWow} />
-              <div className={`absolute bottom-4 lg:bottom-6 left-1/2 -translate-x-1/2 transition-all duration-700 ${isWow ? 'scale-110' : ''}`}>
-                <div className={`inline-flex flex-col items-center px-5 py-2 rounded-2xl backdrop-blur-sm transition-all duration-700 ${isWow ? 'bg-primary/20' : 'bg-background/70'}`}>
-                  <p className={`font-display font-bold leading-none transition-all duration-700 ${isWow ? 'text-5xl lg:text-6xl text-primary' : 'text-4xl lg:text-5xl text-foreground'}`}>
-                    {currentDay}
-                  </p>
-                  <p className="text-xs lg:text-sm text-muted-foreground font-medium mt-1 whitespace-nowrap">
-                    {isWow ? '¡Volvió a la tierra! 🌱' : 'días en tu jardín'}
-                  </p>
-                </div>
+              <div className={`absolute bottom-4 lg:bottom-6 left-1/2 -translate-x-1/2 text-center transition-all duration-700 ${isWow ? 'scale-110' : ''}`}>
+                <p className={`font-display font-bold transition-all duration-700 ${isWow ? 'text-4xl lg:text-5xl text-primary' : 'text-3xl lg:text-4xl text-foreground'}`}>
+                  {currentDay}
+                </p>
+                <p className="text-xs lg:text-sm text-muted-foreground font-medium">
+                  {isWow ? '¡Volvió a la tierra! 🌱' : 'días en tu jardín'}
+                </p>
               </div>
               <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-60 transition-opacity text-xs text-muted-foreground">
                 ↻ Repetir
