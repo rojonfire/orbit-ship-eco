@@ -51,20 +51,30 @@ const ProductOverview = () => {
                 post-venta y menor impacto ambiental.
               </p>
 
-              {/* Features */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="bg-card rounded-xl p-4 text-center border border-border shadow-sm">
-                  <Leaf className="w-8 h-8 text-primary mx-auto mb-2" />
-                  <span className="text-sm text-foreground font-medium">Compostable en casa</span>
-                </div>
-                <div className="bg-card rounded-xl p-4 text-center border border-border shadow-sm">
-                  <RotateCcw className="w-8 h-8 text-accent mx-auto mb-2" />
-                  <span className="text-sm text-foreground font-medium">Doble sello</span>
-                </div>
-                <div className="bg-card rounded-xl p-4 text-center border border-border shadow-sm">
-                  <Package className="w-8 h-8 text-forest mx-auto mb-2" />
-                  <span className="text-sm text-foreground font-medium">Alta resistencia</span>
-                </div>
+              {/* Features - flip cards */}
+              <div className="grid grid-cols-3 gap-4 [perspective:1000px]">
+                {[
+                  { icon: Leaf, label: 'Compostable en casa', back: 'bg-primary text-primary-foreground', anchor: 'beneficio-compostable' },
+                  { icon: RotateCcw, label: 'Doble sello', back: 'bg-sky text-white', anchor: 'beneficio-doble-sello' },
+                  { icon: Package, label: 'Alta resistencia', back: 'bg-forest text-white', anchor: 'beneficio-resistencia' },
+                ].map(({ icon: Icon, label, back, anchor }) => (
+                  <a
+                    key={label}
+                    href={`#${anchor}`}
+                    className="group relative h-32 [transform-style:preserve-3d] transition-transform duration-500 hover:[transform:rotateY(180deg)] focus:[transform:rotateY(180deg)] outline-none"
+                  >
+                    <div className="absolute inset-0 bg-card rounded-xl p-4 flex flex-col items-center justify-center border border-border shadow-sm [backface-visibility:hidden]">
+                      <Icon className="w-8 h-8 text-primary mb-2" />
+                      <span className="text-sm text-foreground font-medium text-center">{label}</span>
+                    </div>
+                    <div className={`absolute inset-0 ${back} rounded-xl p-4 flex flex-col items-center justify-center shadow-sm [transform:rotateY(180deg)] [backface-visibility:hidden]`}>
+                      <span className="text-sm font-semibold text-center mb-1">{label}</span>
+                      <span className="text-xs opacity-90 inline-flex items-center gap-1">
+                        Ver más <ArrowRight className="w-3 h-3" />
+                      </span>
+                    </div>
+                  </a>
+                ))}
               </div>
 
               {/* CTA */}
