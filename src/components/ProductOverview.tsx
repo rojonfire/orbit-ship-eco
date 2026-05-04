@@ -61,7 +61,11 @@ const ProductOverview = () => {
                   <a
                     key={label}
                     href={`#${anchor}`}
-                    className="group relative h-32 [transform-style:preserve-3d] transition-transform duration-500 hover:[transform:rotateY(180deg)] focus:[transform:rotateY(180deg)] outline-none"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    className="group relative h-32 [transform-style:preserve-3d] transition-transform duration-500 hover:[transform:rotateY(180deg)] focus:[transform:rotateY(180deg)] outline-none cursor-pointer"
                   >
                     <div className="absolute inset-0 bg-card rounded-xl p-4 flex flex-col items-center justify-center border border-border shadow-sm [backface-visibility:hidden]">
                       <Icon className={`w-8 h-8 ${iconColor} mb-2`} />
