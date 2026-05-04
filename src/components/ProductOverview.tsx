@@ -64,7 +64,7 @@ const ProductOverview = () => {
                     className="group relative h-32 [transform-style:preserve-3d] transition-transform duration-500 hover:[transform:rotateY(180deg)] focus:[transform:rotateY(180deg)] outline-none"
                   >
                     <div className="absolute inset-0 bg-card rounded-xl p-4 flex flex-col items-center justify-center border border-border shadow-sm [backface-visibility:hidden]">
-                      <Icon className="w-8 h-8 text-primary mb-2" />
+                      <Icon className={`w-8 h-8 ${iconColor} mb-2`} />
                       <span className="text-sm text-foreground font-medium text-center">{label}</span>
                     </div>
                     <div className={`absolute inset-0 ${back} rounded-xl p-4 flex flex-col items-center justify-center shadow-sm [transform:rotateY(180deg)] [backface-visibility:hidden]`}>
