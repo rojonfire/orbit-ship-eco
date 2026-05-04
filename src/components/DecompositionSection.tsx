@@ -52,10 +52,10 @@ const GrowingPlant = ({ progress, isWow }: { progress: number; isWow: boolean })
       {/* Wow glow ring */}
       {isWow && wowProgress > 0 && (
         <>
-          <circle cx="200" cy="210" r="195" fill="none" stroke="hsl(var(--primary))" strokeWidth={wowProgress * 3} opacity={wowProgress * 0.2} />
-          <circle cx="200" cy="210" r="195" fill="none" stroke="hsl(var(--primary))" strokeWidth={wowProgress * 1.5} opacity={wowProgress * 0.15}>
-            <animate attributeName="r" from="195" to="225" dur="2s" repeatCount="indefinite" />
-            <animate attributeName="opacity" from="0.2" to="0" dur="2s" repeatCount="indefinite" />
+          <circle cx="200" cy="210" r="195" fill="none" stroke="hsl(var(--primary))" strokeWidth={wowProgress * 10} opacity={wowProgress * 0.25} />
+          <circle cx="200" cy="210" r="195" fill="none" stroke="hsl(var(--primary))" strokeWidth={wowProgress * 5} opacity={wowProgress * 0.18}>
+            <animate attributeName="r" from="195" to="220" dur="2s" repeatCount="indefinite" />
+            <animate attributeName="opacity" from="0.22" to="0" dur="2s" repeatCount="indefinite" />
           </circle>
         </>
       )}
@@ -187,6 +187,27 @@ const GrowingPlant = ({ progress, isWow }: { progress: number; isWow: boolean })
           })}
         </>
       )}
+
+      {/* Day counter — stays inside circle */}
+      <text
+        x="200" y="378"
+        textAnchor="middle"
+        fontSize={isWow ? "58" : "50"}
+        fontWeight="bold"
+        fill={isWow ? "hsl(78, 65%, 38%)" : "hsl(220, 25%, 12%)"}
+        style={{ transition: 'font-size 0.7s, fill 0.7s' }}
+      >
+        {progress > 0 ? Math.round(progress * 180) : 0}
+      </text>
+      <text
+        x="200" y="398"
+        textAnchor="middle"
+        fontSize="13"
+        fill="hsl(220, 15%, 45%)"
+        fontWeight="500"
+      >
+        {isWow ? '¡Volvió a la tierra! 🌱' : 'días en tu jardín'}
+      </text>
     </svg>
   );
 };
@@ -250,7 +271,6 @@ const DecompositionSection = () => {
 
   const currentStageIndex = Math.min(Math.floor(progress * stages.length), stages.length - 1);
   const isWow = progress > 0.85;
-  const currentDay = Math.round(progress * 180);
 
   const handleReplay = useCallback(() => {
     if (animRef.current) cancelAnimationFrame(animRef.current);
@@ -314,14 +334,6 @@ const DecompositionSection = () => {
           <AnimatedSection delay={200}>
             <div className="relative cursor-pointer group max-w-md mx-auto" onClick={handleReplay} title="Click para repetir">
               <GrowingPlant progress={progress} isWow={isWow} />
-              <div className={`absolute bottom-4 lg:bottom-6 left-1/2 -translate-x-1/2 text-center transition-all duration-700 ${isWow ? 'scale-110' : ''}`}>
-                <p className={`font-display font-bold transition-all duration-700 ${isWow ? 'text-4xl lg:text-5xl text-primary' : 'text-3xl lg:text-4xl text-foreground'}`}>
-                  {currentDay}
-                </p>
-                <p className="text-xs lg:text-sm text-muted-foreground font-medium">
-                  {isWow ? '¡Volvió a la tierra! 🌱' : 'días en tu jardín'}
-                </p>
-              </div>
               <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-60 transition-opacity text-xs text-muted-foreground">
                 ↻ Repetir
               </div>
