@@ -23,7 +23,7 @@ const features = [
       'Aguantan humedad y golpes',
       'Probadas en envíos a todo Chile',
     ],
-    color: 'sky' as const,
+    color: 'forest' as const,
     anchor: 'beneficio-resistencia',
   },
   {
@@ -35,7 +35,7 @@ const features = [
       'Reutilizable para la devolución',
       'Mejora la experiencia post-compra',
     ],
-    color: 'forest' as const,
+    color: 'sky' as const,
     anchor: 'beneficio-doble-sello',
   },
 ];
