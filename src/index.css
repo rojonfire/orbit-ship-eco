@@ -81,7 +81,7 @@
     /* Mobile: imagen portrait optimizada */
     background:
       linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
-      url('/fondoapp.png') top center / cover no-repeat scroll;
+      url('/fondoapp.webp') top center / cover no-repeat scroll;
   }
 
   @media (min-width: 768px) {
@@ -89,7 +89,7 @@
       /* Desktop: textura fija mientras scrolleas */
       background:
         linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
-        url('/imagenfondo3x.png') center / cover no-repeat fixed;
+        url('/imagenfondo3x.webp') center / cover no-repeat fixed;
     }
   }
 
