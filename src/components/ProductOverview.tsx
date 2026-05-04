@@ -54,17 +54,17 @@ const ProductOverview = () => {
               {/* Features - flip cards */}
               <div className="grid grid-cols-3 gap-4 [perspective:1000px]">
                 {[
-                  { icon: Leaf, label: 'Compostable en casa', back: 'bg-primary text-primary-foreground', anchor: 'beneficio-compostable' },
-                  { icon: RotateCcw, label: 'Doble sello', back: 'bg-sky text-white', anchor: 'beneficio-doble-sello' },
-                  { icon: Package, label: 'Alta resistencia', back: 'bg-forest text-white', anchor: 'beneficio-resistencia' },
-                ].map(({ icon: Icon, label, back, anchor }) => (
+                  { icon: Leaf, label: 'Compostable en casa', iconColor: 'text-primary', back: 'bg-primary text-primary-foreground', anchor: 'beneficio-compostable' },
+                  { icon: RotateCcw, label: 'Doble sello', iconColor: 'text-sky', back: 'bg-sky text-white', anchor: 'beneficio-doble-sello' },
+                  { icon: Package, label: 'Alta resistencia', iconColor: 'text-forest', back: 'bg-forest text-white', anchor: 'beneficio-resistencia' },
+                ].map(({ icon: Icon, label, iconColor, back, anchor }) => (
                   <a
                     key={label}
                     href={`#${anchor}`}
                     className="group relative h-32 [transform-style:preserve-3d] transition-transform duration-500 hover:[transform:rotateY(180deg)] focus:[transform:rotateY(180deg)] outline-none"
                   >
                     <div className="absolute inset-0 bg-card rounded-xl p-4 flex flex-col items-center justify-center border border-border shadow-sm [backface-visibility:hidden]">
-                      <Icon className="w-8 h-8 text-primary mb-2" />
+                      <Icon className={`w-8 h-8 ${iconColor} mb-2`} />
                       <span className="text-sm text-foreground font-medium text-center">{label}</span>
                     </div>
                     <div className={`absolute inset-0 ${back} rounded-xl p-4 flex flex-col items-center justify-center shadow-sm [transform:rotateY(180deg)] [backface-visibility:hidden]`}>
