@@ -81,7 +81,7 @@
     /* Mobile: imagen portrait optimizada */
     background:
       linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
-      url('/fondoapp.webp') top center / cover no-repeat scroll;
+      url('/imagenfondo3x.webp') center / cover no-repeat scroll;
   }
 
   @media (min-width: 768px) {
