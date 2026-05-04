@@ -65,7 +65,7 @@ const WhyOrbita = () => {
         <div className="grid md:grid-cols-3 gap-5">
           {features.map((feature, index) => (
             <AnimatedSection key={feature.title} delay={100 + index * 100}>
-              <div id={feature.anchor} className={`${colorClasses[feature.color]} rounded-3xl p-8 h-full group transition-transform duration-300 hover:-translate-y-1 flex flex-col scroll-mt-24`}>
+              <div id={feature.anchor} className={`${colorClasses[feature.color]} rounded-3xl p-8 h-full group transition-all duration-500 hover:-translate-y-1 flex flex-col scroll-mt-24 ring-0 ring-white/0 [&.is-highlighted]:ring-4 [&.is-highlighted]:ring-white/60 [&.is-highlighted]:scale-[1.03] [&.is-highlighted]:shadow-2xl`}>
                 <div className="flex items-start justify-between mb-8">
                   <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
                     <feature.icon className="w-7 h-7" />
