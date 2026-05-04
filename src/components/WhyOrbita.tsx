@@ -1,23 +1,38 @@
-import { Leaf, Shield, RotateCcw, ArrowUpRight } from 'lucide-react';
+import { Leaf, Shield, RotateCcw, ArrowUpRight, Check } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
 
 const features = [
   {
     icon: Leaf,
-    title: 'Compostable en casa',
-    description: 'Certificación OK Compost HOME. Se compostan en tu jardín en 180 días, sin necesidad de planta industrial. Cero microplásticos.',
+    title: 'Compostables en casa, sin plantas industriales',
+    description: 'Tu cliente las puede compostar en su jardín o macetero en 180 días. Cero microplásticos, cero culpa.',
+    bullets: [
+      'Certificación OK Compost HOME',
+      'Se descomponen en 180 días',
+      'Vuelven a la tierra como nutrientes',
+    ],
     color: 'lime' as const,
   },
   {
     icon: Shield,
-    title: 'Resistente de verdad',
-    description: 'Soporta peso, humedad y la logística real chilena sin romperse. Probada en envíos a todo Chile.',
+    title: 'Resistentes para la logística real chilena',
+    description: 'Soportan peso, humedad y el manoseo de los couriers. Olvídate de bolsas rotas y reclamos por productos dañados.',
+    bullets: [
+      'Cumplen norma EN 13432',
+      'Aguantan humedad y golpes',
+      'Probadas en envíos a todo Chile',
+    ],
     color: 'sky' as const,
   },
   {
     icon: RotateCcw,
-    title: 'Doble sello adhesivo',
-    description: 'Tu cliente puede devolver con la misma bolsa. Envío, devolución y luego compostaje: un ciclo completo y sustentable.',
+    title: 'Doble sello: menos fricción en devoluciones',
+    description: 'Tu cliente devuelve con la misma bolsa. Menos costos de logística inversa y una experiencia que fideliza.',
+    bullets: [
+      'Dos adhesivos independientes',
+      'Reutilizable para la devolución',
+      'Mejora la experiencia post-compra',
+    ],
     color: 'forest' as const,
   },
 ];
@@ -36,10 +51,10 @@ const WhyOrbita = () => {
           <div className="max-w-2xl mb-16">
             <span className="tag-outline mb-4 inline-block">Beneficios</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold mb-6">
-              Bolsas compostables con <span className="text-primary">doble sello</span>
+              Resuelven los <span className="text-primary">3 dolores</span> de enviar con bolsas comunes
             </h2>
             <p className="text-lg text-muted-foreground">
-              Compostables en casa, aptas para devolución y diseñadas para el ecommerce en Chile.
+              Plástico que contamina, bolsas que se rompen y devoluciones que cuestan caro. ORBITA ataca los tres a la vez.
             </p>
           </div>
         </AnimatedSection>
@@ -47,42 +62,33 @@ const WhyOrbita = () => {
         <div className="grid md:grid-cols-3 gap-5">
           {features.map((feature, index) => (
             <AnimatedSection key={feature.title} delay={100 + index * 100}>
-              <div className={`${colorClasses[feature.color]} rounded-3xl p-8 h-full group transition-transform duration-300 hover:-translate-y-1`}>
+              <div className={`${colorClasses[feature.color]} rounded-3xl p-8 h-full group transition-transform duration-300 hover:-translate-y-1 flex flex-col`}>
                 <div className="flex items-start justify-between mb-8">
                   <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center">
                     <feature.icon className="w-7 h-7" />
                   </div>
                   <ArrowUpRight className="w-6 h-6 opacity-50 group-hover:opacity-100 transition-opacity" />
                 </div>
-                
-                <h3 className="text-2xl font-display font-semibold mb-4">
+
+                <h3 className="text-xl md:text-2xl font-display font-semibold mb-4 leading-tight">
                   {feature.title}
                 </h3>
-                <p className="opacity-80 leading-relaxed">
+                <p className="opacity-80 leading-relaxed mb-6">
                   {feature.description}
                 </p>
+
+                <ul className="mt-auto space-y-2 pt-6 border-t border-white/20">
+                  {feature.bullets.map((b) => (
+                    <li key={b} className="flex items-start gap-2 text-sm opacity-90">
+                      <Check className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </AnimatedSection>
           ))}
         </div>
-
-        {/* Trust badges */}
-        <AnimatedSection delay={400}>
-          <div className="mt-16 max-w-3xl mx-auto bg-card rounded-3xl border border-border shadow-sm p-8">
-            <div className="grid grid-cols-3 gap-6">
-              {[
-                { label: 'Certificación', value: 'OK Compost HOME' },
-                { label: 'Norma', value: 'EN 13432' },
-                { label: 'Origen', value: '100% Chile' },
-              ].map((badge, i) => (
-                <div key={i} className="text-center">
-                  <p className="text-xl md:text-2xl lg:text-3xl font-display font-bold text-foreground">{badge.value}</p>
-                  <p className="text-sm text-muted-foreground mt-1">{badge.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </AnimatedSection>
       </div>
     </section>
   );
