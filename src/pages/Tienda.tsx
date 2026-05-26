@@ -29,12 +29,20 @@ const Tienda = () => {
     loadProducts();
   }, []);
 
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Tienda Orbita Bags",
+    "url": "https://orbitabags.cl/tienda",
+    "description": "Bolsas courier compostables en casa con envío a todo Chile.",
+  };
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Tienda | Bolsas compostables ORBITA BAGS - Compra online en Chile"
-        description="Compra bolsas courier compostables en casa para tu ecommerce. Envío a todo Chile. Doble sello adhesivo, certificación OK Compost HOME. Desde $100 CLP."
+        title="Tienda | Bolsas compostables ORBITA BAGS Chile"
+        description="Compra bolsas courier compostables en casa para tu ecommerce. Envío a todo Chile. Doble sello, OK Compost HOME."
         path="/tienda"
+        jsonLd={collectionJsonLd}
       />
       <Header />
 

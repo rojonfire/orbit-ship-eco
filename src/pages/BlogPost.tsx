@@ -13,12 +13,35 @@ const BlogPost = () => {
 
   if (!post) return <Navigate to="/blog" replace />;
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.coverImage,
+    "datePublished": post.date,
+    "dateModified": post.date,
+    "author": { "@type": "Organization", "name": "ORBITA BAGS" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ORBITA BAGS",
+      "logo": { "@type": "ImageObject", "url": "https://orbitabags.cl/favicon.png" }
+    },
+    "mainEntityOfPage": `https://orbitabags.cl/blog/${post.slug}`
+  };
+
+  const trimmedTitle = post.title.length > 50 ? `${post.title.slice(0, 47)}…` : post.title;
+  const trimmedExcerpt = post.excerpt.length > 160 ? `${post.excerpt.slice(0, 157)}…` : post.excerpt;
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${post.title} | Orbita Bags`}
-        description={post.excerpt}
+        title={`${trimmedTitle} | Orbita Bags`}
+        description={trimmedExcerpt}
         path={`/blog/${post.slug}`}
+        ogImage={post.coverImage}
+        type="article"
+        jsonLd={articleJsonLd}
       />
       <Header />
 

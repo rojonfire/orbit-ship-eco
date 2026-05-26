@@ -152,8 +152,8 @@ const ShopProduct = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${product.node.title} | ORBITA BAGS - Bolsas compostables Chile`}
-        description={product.node.description || `Compra ${product.node.title} - bolsa courier compostable en casa. Envío a todo Chile. Certificación OK Compost HOME.`}
+        title={`${product.node.title.length > 35 ? product.node.title.slice(0, 35) : product.node.title} | ORBITA BAGS`}
+        description={(product.node.description || `Compra ${product.node.title} - bolsa courier compostable en casa. Envío a todo Chile.`).slice(0, 160)}
         path={`/shop/${handle}`}
         ogImage={productImage}
         type="product"

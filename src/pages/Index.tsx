@@ -39,8 +39,8 @@ const Index = () => {
   return (
     <main className="min-h-screen">
       <SEOHead
-        title="ORBITA BAGS | Bolsas courier compostables en casa para ecommerce en Chile"
-        description="Bolsas courier 100% compostables en casa para ecommerce en Chile. Packaging sustentable con doble adhesivo, ideales para tiendas online que quieren reducir su huella ambiental."
+        title="ORBITA BAGS | Bolsas courier compostables Chile"
+        description="Bolsas courier 100% compostables en casa para ecommerce en Chile. Doble adhesivo para envío y devolución."
         path="/"
         jsonLd={jsonLd}
       />

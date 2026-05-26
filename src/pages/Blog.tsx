@@ -9,12 +9,26 @@ import SEOHead from "@/components/SEOHead";
 import { blogPosts } from "@/data/blogPosts";
 
 const Blog = () => {
+  const blogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Blog Orbita Bags",
+    "url": "https://orbitabags.cl/blog",
+    "blogPost": blogPosts.map((p) => ({
+      "@type": "BlogPosting",
+      "headline": p.title,
+      "url": `https://orbitabags.cl/blog/${p.slug}`,
+      "datePublished": p.date,
+      "image": p.coverImage,
+    })),
+  };
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Blog | Orbita Bags — Bolsas Compostables en Chile"
+        title="Blog | Orbita Bags — Bolsas Compostables Chile"
         description="Artículos sobre sustentabilidad, compostaje y packaging ecológico para ecommerce en Chile."
         path="/blog"
+        jsonLd={blogJsonLd}
       />
       <Header />
 
