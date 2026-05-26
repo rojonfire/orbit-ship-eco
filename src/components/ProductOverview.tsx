@@ -2,7 +2,7 @@ import { ArrowRight, Leaf, RotateCcw, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import AnimatedSection from './AnimatedSection';
-import bolsasDuo from '@/assets/bolsas-multiples.png';
+import bolsasDuo from '@/assets/bolsas-multiples.webp';
 
 const ProductOverview = () => {
   return (
@@ -29,6 +29,7 @@ const ProductOverview = () => {
                 alt="Bolsas courier compostables Orbita - packaging sustentable para envío y devolución en Chile"
                 className="w-full h-full object-contain hover-scale"
                 loading="lazy"
+                decoding="async"
                 width={580}
                 height={536}
               />
