@@ -78,18 +78,18 @@
 
   body {
     @apply text-foreground font-sans antialiased;
-    /* Mobile: imagen portrait optimizada */
+    /* Mobile: imagen liviana (227KB) */
     background:
       linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
-      url('/imagenfondo3x.webp') center / cover no-repeat scroll;
+      url('/imagenfondo-mobile.webp') center / cover no-repeat scroll;
   }
 
   @media (min-width: 768px) {
     body {
-      /* Desktop: textura fija mientras scrolleas */
+      /* Desktop: imagen más detallada, attachment scroll (fixed mata performance en móvil/tablet) */
       background:
         linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
-        url('/imagenfondo3x.webp') center / cover no-repeat fixed;
+        url('/imagenfondo-desktop.webp') center / cover no-repeat scroll;
     }
   }
 
