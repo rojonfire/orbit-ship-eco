@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 
 interface AnimatedSectionProps {
   children: ReactNode;
@@ -8,31 +7,10 @@ interface AnimatedSectionProps {
   delay?: number;
 }
 
-const AnimatedSection = ({ children, className, delay = 0 }: AnimatedSectionProps) => {
-  const { ref, isVisible } = useScrollAnimation();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    // Ensure content is visible after mount
-    setMounted(true);
-  }, []);
-
-  // Always show content - animation is just a nice-to-have
-  const visible = mounted || isVisible;
-
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "transition-all duration-500 ease-out",
-        visible ? "opacity-100 translate-y-0" : "opacity-100 translate-y-0",
-        className
-      )}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  );
+// Content is always visible; previous IntersectionObserver + getBoundingClientRect
+// caused forced reflows (~519ms) on mobile. Render plain content for perf.
+const AnimatedSection = ({ children, className }: AnimatedSectionProps) => {
+  return <div className={cn(className)}>{children}</div>;
 };
 
 export default AnimatedSection;
