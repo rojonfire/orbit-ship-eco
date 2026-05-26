@@ -85,7 +85,7 @@
       /* Desktop: textura fija mientras scrolleas */
       background:
         linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
-        url('/imagenfondo-desktop.webp') center / cover no-repeat fixed;
+        url('/fondoapp.webp') center / cover no-repeat fixed;
     }
   }
 
