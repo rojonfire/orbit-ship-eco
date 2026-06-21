@@ -5,12 +5,15 @@ import Footer from "@/components/Footer";
 import AnimatedSection from "@/components/AnimatedSection";
 import SEOHead from "@/components/SEOHead";
 import teamRaimundo from "@/assets/team-raimundo.webp";
+import teamJuanjo from "@/assets/team-juanjo.webp";
+import teamBelen from "@/assets/team-belen.webp";
+import teamJacqueline from "@/assets/team-jacqueline.webp";
 
 interface TeamMember {
   name: string;
   role: string;
   description: string;
-  image: string;
+  image?: string;
   socials: {
     linkedin?: string;
     instagram?: string;
@@ -20,12 +23,43 @@ interface TeamMember {
 
 const TEAM_MEMBERS: TeamMember[] = [
   {
+    name: "Jacqueline Meza",
+    role: "Jefa de Producto y Estrategia",
+    description:
+      "Ingeniera Civil Industrial con Magíster en Ingeniería Industrial e Investigación de Operaciones. Lidera el desarrollo de producto y la estrategia de Orbita; su misión es que nuestro packaging sea el mejor del mercado al menor costo posible.",
+    image: teamJacqueline,
+    socials: {
+      linkedin: "https://www.linkedin.com/in/jacqueline-meza-cofre/",
+    },
+  },
+  {
+    name: "Belén Cespedes",
+    role: "Jefa de Shopify y Embudo de Ventas",
+    description:
+      "Ingeniera Civil en Computación. A cargo de la tienda Shopify y el embudo de ventas; optimiza el ROAS y la venta neta mensual, apoyada en el análisis de datos automatizado de Meta.",
+    image: teamBelen,
+    socials: {
+      linkedin: "https://www.linkedin.com/in/bel%C3%A9n-c%C3%A9spedes-stuven-627441135/",
+    },
+  },
+  {
     name: "Raimundo Vives",
-    role: "CSO (Chief Sales Officer)",
-    description: "Ingeniero Civil Industrial con mención en Medio Ambiente. Lidera la estrategia comercial de Orbita, conectando a empresas con soluciones de packaging sustentable.",
+    role: "Jefe de Finanzas y Desarrollo de Negocios",
+    description:
+      "Ingeniero Civil Industrial con mención en Medio Ambiente. Lidera las finanzas y el desarrollo de negocios: cierre y control de ventas, proyecciones y la coordinación contable de Orbita.",
     image: teamRaimundo,
     socials: {
       linkedin: "https://www.linkedin.com/in/raimundo-vives/",
+    },
+  },
+  {
+    name: "Juan José Barrientos",
+    role: "Jefe de Operaciones y Logística",
+    description:
+      "Ingeniero Civil Industrial. El director de la orquesta: coordina las operaciones, la logística y la post venta, con foco en el tiempo de despacho y el costo logístico por pedido.",
+    image: teamJuanjo,
+    socials: {
+      linkedin: "https://www.linkedin.com/in/juan-jos%C3%A9-barrientos-yung-9a8a81112/",
     },
   },
 ];
@@ -65,35 +99,35 @@ const Equipo = () => {
             </div>
           </AnimatedSection>
 
-          <AnimatedSection delay={100}>
-            <div className="mb-16 rounded-3xl overflow-hidden border border-border">
-              <div className="aspect-[21/9] bg-secondary/30 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <p className="text-muted-foreground text-lg">
-                    📸 Foto del equipo completo
-                  </p>
-                  <p className="text-sm text-muted-foreground/70 mt-2">
-                    Sube una imagen de todo el equipo aquí
-                  </p>
-                </div>
-              </div>
-            </div>
-          </AnimatedSection>
-
           <div className="grid md:grid-cols-2 gap-8">
             {TEAM_MEMBERS.map((member, index) => (
               <AnimatedSection key={member.name} delay={150 + index * 100}>
                 <div className="bg-card rounded-3xl border border-border p-8 hover:border-primary/30 transition-colors">
                   <div className="flex flex-col sm:flex-row gap-6">
                     <div className="shrink-0">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="w-32 h-32 rounded-2xl object-cover mx-auto sm:mx-0"
-                        loading="lazy"
-                        width={128}
-                        height={128}
-                      />
+                      {member.image ? (
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-32 h-32 rounded-2xl object-cover mx-auto sm:mx-0"
+                          loading="lazy"
+                          width={128}
+                          height={128}
+                        />
+                      ) : (
+                        <div
+                          className="w-32 h-32 rounded-2xl bg-secondary/50 flex items-center justify-center mx-auto sm:mx-0"
+                          aria-hidden="true"
+                        >
+                          <span className="text-3xl font-display font-bold text-primary">
+                            {member.name
+                              .split(" ")
+                              .map((part) => part[0])
+                              .slice(0, 2)
+                              .join("")}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     <div className="flex-1 text-center sm:text-left">
                       <h3 className="text-xl font-display font-bold text-foreground">
