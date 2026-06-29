@@ -201,10 +201,18 @@ const ProductCard = ({ product }: { product: ShopifyProduct }) => {
             )}
           </div>
         </div>
-        <NotifyMeModal
-          productName={product.node.title}
-          className="w-full mt-4"
-        />
+        {product.node.variants.edges.some(v => v.node.availableForSale) ? (
+          <Link to={linkTo} className="block mt-4">
+            <Button className="w-full bg-primary hover:bg-primary/90">
+              Ver producto
+            </Button>
+          </Link>
+        ) : (
+          <NotifyMeModal
+            productName={product.node.title}
+            className="w-full mt-4"
+          />
+        )}
       </div>
     </div>
   );
