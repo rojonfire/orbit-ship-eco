@@ -96,13 +96,16 @@ const Header = () => {
           </Link>
         </div>
 
-        <button
-          className="md:hidden p-2"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center gap-2">
+          <CartDrawer />
+          <button
+            className="p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {isMobileMenuOpen && (
