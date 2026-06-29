@@ -320,13 +320,41 @@ const ShopProduct = () => {
               )}
 
               {!wantsCustom && (
-                <NotifyMeModal 
-                  productName={product.node.title}
-                  selectedColor={selectedColor}
-                  selectedPack={selectedPack}
-                  isCustom={false}
-                  className="w-full py-6 text-lg"
-                />
+                selectedVariant?.availableForSale ? (
+                  <Button
+                    onClick={() => {
+                      useCartStore.getState().addItem({
+                        product,
+                        variantId: selectedVariant.id,
+                        variantTitle: selectedVariant.title,
+                        price: selectedVariant.price,
+                        quantity: 1,
+                        selectedOptions: selectedVariant.selectedOptions || [],
+                      });
+                      if (typeof (window as any).fbq === "function") {
+                        (window as any).fbq("track", "AddToCart", {
+                          content_name: product.node.title,
+                          content_ids: [selectedVariant.id],
+                          value: parseFloat(selectedVariant.price.amount),
+                          currency: "CLP",
+                        });
+                      }
+                    }}
+                    className="w-full py-6 text-lg bg-primary hover:bg-primary/90"
+                    size="lg"
+                  >
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    Agregar al carrito
+                  </Button>
+                ) : (
+                  <NotifyMeModal 
+                    productName={product.node.title}
+                    selectedColor={selectedColor}
+                    selectedPack={selectedPack}
+                    isCustom={false}
+                    className="w-full py-6 text-lg"
+                  />
+                )
               )}
             </div>
           </div>
