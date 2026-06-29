@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
 import { fetchProductByHandle, ShopifyProduct, formatCLP } from "@/lib/shopify";
 import NotifyMeModal from "@/components/NotifyMeModal";
+import { useCartStore } from "@/stores/cartStore";
 
 const ShopProduct = () => {
   const { handle } = useParams<{ handle: string }>();
