@@ -28,6 +28,14 @@ export const CartDrawer = () => {
 
   const handleCheckout = async () => {
     try {
+      if (typeof (window as any).fbq === "function") {
+        (window as any).fbq("track", "InitiateCheckout", {
+          content_ids: items.map(item => item.variantId),
+          num_items: totalItems,
+          value: totalPrice,
+          currency: "CLP",
+        });
+      }
       await createCheckout();
       const checkoutUrl = useCartStore.getState().checkoutUrl;
       if (checkoutUrl) {
