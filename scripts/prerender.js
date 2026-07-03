@@ -132,6 +132,7 @@ const ROUTES = [
     path: `/blog/${p.slug}`,
     title: `${p.title} | Orbita Bags`,
     description: p.excerpt,
+    lastmod: p.date,
     body: `
       <main>
         <article>
@@ -224,6 +225,37 @@ function escapeAttr(s) {
 
 // ─── Main ────────────────────────────────────────────────────────────────
 
+// ─── Sitemap: se genera desde ROUTES, así los blogs nuevos entran solos ──
+
+function routeUrl(routePath) {
+  return routePath === "/" ? `${SITE_URL}/` : `${SITE_URL}${routePath}/`;
+}
+
+function generateSitemap() {
+  const today = new Date().toISOString().slice(0, 10);
+  const entries = ROUTES.map((r) => {
+    const isPost = r.path.startsWith("/blog/");
+    const isProduct = r.path.startsWith("/shop/");
+    const lastmod = /^\d{4}-\d{2}-\d{2}$/.test(r.lastmod || "") ? r.lastmod : today;
+    const changefreq = r.path === "/" || r.path === "/tienda" || r.path === "/blog" ? "weekly" : "monthly";
+    const priority = r.path === "/" ? "1.0" : isProduct ? "0.9" : isPost ? "0.6" : "0.8";
+    return `  <url>
+    <loc>${routeUrl(r.path)}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
+  });
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries.join("\n")}
+</urlset>
+`;
+  fs.writeFileSync(path.join(DIST, "sitemap.xml"), xml);
+  console.log(`🗺️  sitemap.xml generado con ${ROUTES.length} URLs.`);
+}
+
 async function prerender() {
   const indexHtml = fs.readFileSync(path.join(DIST, "index.html"), "utf-8");
 
@@ -234,6 +266,8 @@ async function prerender() {
     fs.writeFileSync(path.join(outDir, "index.html"), html);
     console.log(`  ✓ ${route.path}`);
   }
+
+  generateSitemap();
 
   console.log(`\n✅ Prerendering completo — ${ROUTES.length} rutas generadas con contenido SEO.`);
 }
