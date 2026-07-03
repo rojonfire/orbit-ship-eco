@@ -13,7 +13,8 @@ interface SEOHeadProps {
 }
 
 const SEOHead = ({ title, description, path, ogImage = DEFAULT_OG_IMAGE, type = "website", jsonLd }: SEOHeadProps) => {
-  const url = `${SITE_URL}${path}`;
+  // Con slash final, igual que las URLs que sirve Cloudflare Pages y el canonical estático
+  const url = path === "/" || path.endsWith("/") ? `${SITE_URL}${path}` : `${SITE_URL}${path}/`;
 
   return (
     <Helmet>

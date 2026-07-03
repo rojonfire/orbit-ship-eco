@@ -160,12 +160,27 @@ const ROUTES = [
 // ─── Helpers ─────────────────────────────────────────────────────────────
 
 function injectMeta(html, { title, description, path: routePath, body }) {
-  const canonical = `${SITE_URL}${routePath}`;
+  // Cloudflare Pages sirve las rutas prerenderizadas con slash final
+  // (/tienda -> 308 -> /tienda/), así que el canonical debe llevarlo.
+  const canonical = routePath === "/" ? `${SITE_URL}/` : `${SITE_URL}${routePath}/`;
 
   html = html.replace(/<title>[^<]*<\/title>/, `<title>${escapeHtml(title)}</title>`);
   html = html.replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${escapeAttr(description)}"`);
-  html = html.replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${canonical}"`);
-  html = html.replace(/<meta property="og:url" content="[^"]*"/, `<meta property="og:url" content="${canonical}"`);
+
+  // El hreflang de la plantilla apunta al home: corregirlo a la URL de cada página
+  html = html.replace(/<link rel="alternate" hreflang="es-CL" href="[^"]*"/, `<link rel="alternate" hreflang="es-CL" href="${canonical}"`);
+
+  // Canonical y og:url no existen en la plantilla: insertar (o reemplazar si aparecen)
+  if (/<link rel="canonical"/.test(html)) {
+    html = html.replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${canonical}"`);
+  } else {
+    html = html.replace(/<link rel="alternate" hreflang="es-CL"[^>]*\/>/, (m) => `${m}\n    <link rel="canonical" href="${canonical}" />`);
+  }
+  if (/<meta property="og:url"/.test(html)) {
+    html = html.replace(/<meta property="og:url" content="[^"]*"/, `<meta property="og:url" content="${canonical}"`);
+  } else {
+    html = html.replace(/<meta property="og:type"[^>]*\/>/, (m) => `${m}\n    <meta property="og:url" content="${canonical}" />`);
+  }
   html = html.replace(/<meta property="og:title" content="[^"]*"/, `<meta property="og:title" content="${escapeAttr(title)}"`);
   html = html.replace(/<meta property="og:description" content="[^"]*"/, `<meta property="og:description" content="${escapeAttr(description)}"`);
   html = html.replace(/<meta name="twitter:title" content="[^"]*"/, `<meta name="twitter:title" content="${escapeAttr(title)}"`);
