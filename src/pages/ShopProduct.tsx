@@ -176,9 +176,6 @@ const ShopProduct = () => {
     | { type: "image"; url: string; alt: string; fullBleed?: boolean }
     | { type: "video"; src: string; poster: string };
   const mediaItems: MediaItem[] = [
-    ...(currentImage
-      ? [{ type: "image" as const, url: currentImage.url, alt: currentImage.altText || product.node.title }]
-      : []),
     ...(sizeMedia
       ? [
           {
@@ -187,9 +184,12 @@ const ShopProduct = () => {
             alt: sizeMedia.sizeAlt,
             fullBleed: true,
           },
-          { type: "video" as const, src: sizeMedia.video, poster: sizeMedia.poster },
         ]
       : []),
+    ...(currentImage
+      ? [{ type: "image" as const, url: currentImage.url, alt: currentImage.altText || product.node.title }]
+      : []),
+    ...(sizeMedia ? [{ type: "video" as const, src: sizeMedia.video, poster: sizeMedia.poster }] : []),
     { type: "image" as const, url: bolsasTamanos, alt: "Los 4 tamaños de bolsas compostables Orbita Bags" },
   ];
   const activeMedia = mediaItems[Math.min(mediaIndex, mediaItems.length - 1)];
