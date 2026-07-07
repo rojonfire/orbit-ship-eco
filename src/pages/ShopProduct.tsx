@@ -184,12 +184,11 @@ const ShopProduct = () => {
             alt: sizeMedia.sizeAlt,
             fullBleed: true,
           },
+          { type: "video" as const, src: sizeMedia.video, poster: sizeMedia.poster },
         ]
-      : []),
-    ...(currentImage
-      ? [{ type: "image" as const, url: currentImage.url, alt: currentImage.altText || product.node.title }]
-      : []),
-    ...(sizeMedia ? [{ type: "video" as const, src: sizeMedia.video, poster: sizeMedia.poster }] : []),
+      : currentImage
+        ? [{ type: "image" as const, url: currentImage.url, alt: currentImage.altText || product.node.title }]
+        : []),
     { type: "image" as const, url: bolsasTamanos, alt: "Los 4 tamaños de bolsas compostables Orbita Bags" },
   ];
   const activeMedia = mediaItems[Math.min(mediaIndex, mediaItems.length - 1)];
