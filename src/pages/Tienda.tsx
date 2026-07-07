@@ -8,6 +8,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import SEOHead from "@/components/SEOHead";
 import { fetchShopifyProducts, ShopifyProduct, formatCLP } from "@/lib/shopify";
 import NotifyMeModal from "@/components/NotifyMeModal";
+import { SIZE_MEDIA } from "@/data/sizeMedia";
 
 const Tienda = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
@@ -112,6 +113,10 @@ const ProductCard = ({ product }: { product: ShopifyProduct }) => {
   };
 
   const currentImage = getImageForColor(selectedColor);
+  const sizeMedia = SIZE_MEDIA[product.node.handle];
+  const sizePhoto = sizeMedia
+    ? sizeMedia.sizePhoto[selectedColor] || sizeMedia.sizePhoto.Blanca
+    : undefined;
   const linkTo = selectedColor
     ? `/shop/${product.node.handle}?color=${encodeURIComponent(selectedColor)}`
     : `/shop/${product.node.handle}`;
@@ -145,8 +150,17 @@ const ProductCard = ({ product }: { product: ShopifyProduct }) => {
   return (
     <div className="bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-all hover:shadow-lg group">
       <Link to={linkTo}>
-        <div className="aspect-square bg-white p-6 flex items-center justify-center">
-          {currentImage ? (
+        <div className={`aspect-square bg-white flex items-center justify-center ${sizePhoto ? "" : "p-6"}`}>
+          {sizePhoto ? (
+            <img
+              src={sizePhoto}
+              alt={sizeMedia?.sizeAlt || product.node.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+              width={400}
+              height={400}
+            />
+          ) : currentImage ? (
             <img
               src={currentImage.url}
               alt={currentImage.altText || product.node.title}
