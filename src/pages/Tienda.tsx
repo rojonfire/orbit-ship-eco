@@ -83,7 +83,7 @@ const Tienda = () => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {products.map((product, index) => (
                 <AnimatedSection key={product.node.id} delay={index * 100}>
-                  <ProductCard product={product} />
+                  <ProductCard product={product} index={index} />
                 </AnimatedSection>
               ))}
             </div>
@@ -96,10 +96,12 @@ const Tienda = () => {
   );
 };
 
-const ProductCard = ({ product }: { product: ShopifyProduct }) => {
+const ProductCard = ({ product, index }: { product: ShopifyProduct; index: number }) => {
   const colorOption = product.node.options.find(o => o.name === "Color");
   const colorValues = colorOption?.values || [];
-  const [selectedColor, setSelectedColor] = useState<string>(colorValues[0] || "");
+  // Alternar el color inicial entre tarjetas para mostrar ambos colores en la grilla
+  const initialColor = colorValues.length > 1 ? colorValues[index % colorValues.length] : colorValues[0] || "";
+  const [selectedColor, setSelectedColor] = useState<string>(initialColor);
 
   const images = product.node.images.edges;
   const getImageForColor = (color: string) => {
