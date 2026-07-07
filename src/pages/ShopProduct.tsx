@@ -9,13 +9,44 @@ import { fetchProductByHandle, ShopifyProduct, formatCLP } from "@/lib/shopify";
 import NotifyMeModal from "@/components/NotifyMeModal";
 import { useCartStore } from "@/stores/cartStore";
 import bolsasTamanos from "@/assets/bolsas-tamanos.webp";
+import ref2030Blanca from "@/assets/bolsa-20x30-referencia-blanca.webp";
+import ref2030Negra from "@/assets/bolsa-20x30-referencia-negra.webp";
+import ref3040Blanca from "@/assets/bolsa-30x40-referencia-blanca.webp";
+import ref3040Negra from "@/assets/bolsa-30x40-referencia-negra.webp";
+import ref4050Blanca from "@/assets/bolsa-40x50-referencia-blanca.webp";
+import ref4050Negra from "@/assets/bolsa-40x50-referencia-negra.webp";
+import ref5060Blanca from "@/assets/bolsa-50x60-referencia-blanca.webp";
+import ref5060Negra from "@/assets/bolsa-50x60-referencia-negra.webp";
 
-// Videos de referencia de tamaño por producto (sin audio)
-const SIZE_VIDEOS: Record<string, { src: string; poster: string }> = {
-  "bolsa-biodegradable-20x30-cm": { src: "/videos/bolsa-20x30.mp4", poster: "/videos/bolsa-20x30-poster.jpg" },
-  "bolsa-biodegradable-30x40-cm": { src: "/videos/bolsa-30x40.mp4", poster: "/videos/bolsa-30x40-poster.jpg" },
-  "bolsa-biodegradable-40x50-cm": { src: "/videos/bolsa-40x50.mp4", poster: "/videos/bolsa-40x50-poster.jpg" },
-  "bolsa-biodegradable-50x60-cm": { src: "/videos/bolsa-50x60.mp4", poster: "/videos/bolsa-50x60-poster.jpg" },
+// Media de referencia de tamaño por producto: foto con objeto real (por color) y video (sin audio)
+const SIZE_MEDIA: Record<
+  string,
+  { video: string; poster: string; sizePhoto: Record<string, string>; sizeAlt: string }
+> = {
+  "bolsa-biodegradable-20x30-cm": {
+    video: "/videos/bolsa-20x30.mp4",
+    poster: "/videos/bolsa-20x30-poster.jpg",
+    sizePhoto: { Blanca: ref2030Blanca, Negra: ref2030Negra },
+    sizeAlt: "Bolsa compostable 20x30 cm comparada con un teléfono",
+  },
+  "bolsa-biodegradable-30x40-cm": {
+    video: "/videos/bolsa-30x40.mp4",
+    poster: "/videos/bolsa-30x40-poster.jpg",
+    sizePhoto: { Blanca: ref3040Blanca, Negra: ref3040Negra },
+    sizeAlt: "Bolsa compostable 30x40 cm comparada con un cuaderno",
+  },
+  "bolsa-biodegradable-40x50-cm": {
+    video: "/videos/bolsa-40x50.mp4",
+    poster: "/videos/bolsa-40x50-poster.jpg",
+    sizePhoto: { Blanca: ref4050Blanca, Negra: ref4050Negra },
+    sizeAlt: "Bolsa compostable 40x50 cm comparada con un chaleco doblado",
+  },
+  "bolsa-biodegradable-50x60-cm": {
+    video: "/videos/bolsa-50x60.mp4",
+    poster: "/videos/bolsa-50x60-poster.jpg",
+    sizePhoto: { Blanca: ref5060Blanca, Negra: ref5060Negra },
+    sizeAlt: "Bolsa compostable 50x60 cm comparada con una caja de zapatos",
+  },
 };
 
 const ShopProduct = () => {
@@ -28,11 +59,6 @@ const ShopProduct = () => {
   const [selectedPack, setSelectedPack] = useState<string>("");
   const [wantsCustom, setWantsCustom] = useState(false);
   const [mediaIndex, setMediaIndex] = useState(0);
-
-  // Al cambiar de color, volver a la foto del producto
-  useEffect(() => {
-    setMediaIndex(0);
-  }, [selectedColor]);
   useEffect(() => {
     const loadProduct = async () => {
       if (!handle) return;
@@ -145,15 +171,25 @@ const ShopProduct = () => {
   const currentImage = getImageForColor(selectedColor);
   const productImage = currentImage?.url || "";
 
-  const sizeVideo = handle ? SIZE_VIDEOS[handle] : undefined;
+  const sizeMedia = handle ? SIZE_MEDIA[handle] : undefined;
   type MediaItem =
-    | { type: "image"; url: string; alt: string }
+    | { type: "image"; url: string; alt: string; fullBleed?: boolean }
     | { type: "video"; src: string; poster: string };
   const mediaItems: MediaItem[] = [
     ...(currentImage
       ? [{ type: "image" as const, url: currentImage.url, alt: currentImage.altText || product.node.title }]
       : []),
-    ...(sizeVideo ? [{ type: "video" as const, ...sizeVideo }] : []),
+    ...(sizeMedia
+      ? [
+          {
+            type: "image" as const,
+            url: sizeMedia.sizePhoto[selectedColor] || sizeMedia.sizePhoto.Blanca,
+            alt: sizeMedia.sizeAlt,
+            fullBleed: true,
+          },
+          { type: "video" as const, src: sizeMedia.video, poster: sizeMedia.poster },
+        ]
+      : []),
     { type: "image" as const, url: bolsasTamanos, alt: "Los 4 tamaños de bolsas compostables Orbita Bags" },
   ];
   const activeMedia = mediaItems[Math.min(mediaIndex, mediaItems.length - 1)];
@@ -209,16 +245,27 @@ const ShopProduct = () => {
                     Sin imagen
                   </div>
                 ) : activeMedia.type === "image" ? (
-                  <div className="w-full h-full p-8 flex items-center justify-center">
+                  activeMedia.fullBleed ? (
                     <img
                       src={activeMedia.url}
                       alt={activeMedia.alt}
-                      className="max-h-full max-w-full object-contain"
+                      className="w-full h-full object-cover"
                       loading="eager"
                       width={600}
                       height={600}
                     />
-                  </div>
+                  ) : (
+                    <div className="w-full h-full p-8 flex items-center justify-center">
+                      <img
+                        src={activeMedia.url}
+                        alt={activeMedia.alt}
+                        className="max-h-full max-w-full object-contain"
+                        loading="eager"
+                        width={600}
+                        height={600}
+                      />
+                    </div>
+                  )
                 ) : (
                   <>
                     <video
@@ -275,7 +322,7 @@ const ShopProduct = () => {
                         <img
                           src={item.url}
                           alt=""
-                          className="w-full h-full object-contain p-1"
+                          className={item.fullBleed ? "w-full h-full object-cover" : "w-full h-full object-contain p-1"}
                           loading="lazy"
                           width={80}
                           height={80}
