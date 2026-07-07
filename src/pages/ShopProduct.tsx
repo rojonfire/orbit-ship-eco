@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
-import { ArrowLeft, ShoppingCart, Loader2, Leaf, Recycle, Package, MessageCircle } from "lucide-react";
+import { ArrowLeft, ShoppingCart, Loader2, Leaf, Recycle, Package, MessageCircle, ChevronLeft, ChevronRight, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,6 +8,15 @@ import SEOHead from "@/components/SEOHead";
 import { fetchProductByHandle, ShopifyProduct, formatCLP } from "@/lib/shopify";
 import NotifyMeModal from "@/components/NotifyMeModal";
 import { useCartStore } from "@/stores/cartStore";
+import bolsasTamanos from "@/assets/bolsas-tamanos.webp";
+
+// Videos de referencia de tamaño por producto (sin audio)
+const SIZE_VIDEOS: Record<string, { src: string; poster: string }> = {
+  "bolsa-biodegradable-20x30-cm": { src: "/videos/bolsa-20x30.mp4", poster: "/videos/bolsa-20x30-poster.jpg" },
+  "bolsa-biodegradable-30x40-cm": { src: "/videos/bolsa-30x40.mp4", poster: "/videos/bolsa-30x40-poster.jpg" },
+  "bolsa-biodegradable-40x50-cm": { src: "/videos/bolsa-40x50.mp4", poster: "/videos/bolsa-40x50-poster.jpg" },
+  "bolsa-biodegradable-50x60-cm": { src: "/videos/bolsa-50x60.mp4", poster: "/videos/bolsa-50x60-poster.jpg" },
+};
 
 const ShopProduct = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -18,6 +27,12 @@ const ShopProduct = () => {
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedPack, setSelectedPack] = useState<string>("");
   const [wantsCustom, setWantsCustom] = useState(false);
+  const [mediaIndex, setMediaIndex] = useState(0);
+
+  // Al cambiar de color, volver a la foto del producto
+  useEffect(() => {
+    setMediaIndex(0);
+  }, [selectedColor]);
   useEffect(() => {
     const loadProduct = async () => {
       if (!handle) return;
@@ -130,6 +145,20 @@ const ShopProduct = () => {
   const currentImage = getImageForColor(selectedColor);
   const productImage = currentImage?.url || "";
 
+  const sizeVideo = handle ? SIZE_VIDEOS[handle] : undefined;
+  type MediaItem =
+    | { type: "image"; url: string; alt: string }
+    | { type: "video"; src: string; poster: string };
+  const mediaItems: MediaItem[] = [
+    ...(currentImage
+      ? [{ type: "image" as const, url: currentImage.url, alt: currentImage.altText || product.node.title }]
+      : []),
+    ...(sizeVideo ? [{ type: "video" as const, ...sizeVideo }] : []),
+    { type: "image" as const, url: bolsasTamanos, alt: "Los 4 tamaños de bolsas compostables Orbita Bags" },
+  ];
+  const activeMedia = mediaItems[Math.min(mediaIndex, mediaItems.length - 1)];
+  const goTo = (i: number) => setMediaIndex((i + mediaItems.length) % mediaItems.length);
+
   const allImages = product.node.images.edges.map(e => e.node.url).filter(Boolean);
   const productJsonLd = {
     "@context": "https://schema.org",
@@ -174,20 +203,104 @@ const ShopProduct = () => {
 
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="space-y-4">
-              <div className="aspect-square bg-white rounded-2xl overflow-hidden border border-border p-8 flex items-center justify-center">
-                {currentImage ? (
-                  <img
-                    src={currentImage.url}
-                    alt={currentImage.altText || product.node.title}
-                    className="max-h-full max-w-full object-contain"
-                    loading="eager"
-                    width={600}
-                    height={600}
-                  />
+              <div className="relative aspect-square bg-white rounded-2xl overflow-hidden border border-border">
+                {!activeMedia ? (
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                    Sin imagen
+                  </div>
+                ) : activeMedia.type === "image" ? (
+                  <div className="w-full h-full p-8 flex items-center justify-center">
+                    <img
+                      src={activeMedia.url}
+                      alt={activeMedia.alt}
+                      className="max-h-full max-w-full object-contain"
+                      loading="eager"
+                      width={600}
+                      height={600}
+                    />
+                  </div>
                 ) : (
-                  <div className="text-muted-foreground">Sin imagen</div>
+                  <>
+                    <video
+                      key={activeMedia.src}
+                      src={activeMedia.src}
+                      poster={activeMedia.poster}
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                    />
+                    <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent px-4 pt-8 pb-3 pointer-events-none">
+                      <p className="text-white text-sm font-medium">
+                        Así se ve el tamaño real
+                      </p>
+                    </div>
+                  </>
+                )}
+
+                {mediaItems.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => goTo(mediaIndex - 1)}
+                      aria-label="Anterior"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur border border-border flex items-center justify-center text-foreground hover:bg-white transition-colors shadow-sm"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      onClick={() => goTo(mediaIndex + 1)}
+                      aria-label="Siguiente"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur border border-border flex items-center justify-center text-foreground hover:bg-white transition-colors shadow-sm"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </>
                 )}
               </div>
+
+              {mediaItems.length > 1 && (
+                <div className="flex gap-3">
+                  {mediaItems.map((item, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setMediaIndex(i)}
+                      aria-label={item.type === "video" ? "Ver video del tamaño real" : "Ver foto del producto"}
+                      className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 transition-all bg-white ${
+                        mediaIndex === i ? "border-primary" : "border-border hover:border-primary/50"
+                      }`}
+                    >
+                      {item.type === "image" ? (
+                        <img
+                          src={item.url}
+                          alt=""
+                          className="w-full h-full object-contain p-1"
+                          loading="lazy"
+                          width={80}
+                          height={80}
+                        />
+                      ) : (
+                        <>
+                          <img
+                            src={item.poster}
+                            alt=""
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                            width={80}
+                            height={80}
+                          />
+                          <span className="absolute inset-0 flex items-center justify-center bg-black/30">
+                            <span className="w-7 h-7 rounded-full bg-white/90 flex items-center justify-center">
+                              <Play className="w-3.5 h-3.5 text-foreground ml-0.5" fill="currentColor" />
+                            </span>
+                          </span>
+                        </>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="space-y-6">
