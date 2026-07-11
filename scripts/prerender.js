@@ -52,6 +52,37 @@ function loadBlogPosts() {
 const blogPosts = loadBlogPosts();
 console.log(`📚 Cargados ${blogPosts.length} blog posts desde src/data/blogPosts.ts`);
 
+// ─── Cargar FAQs desde el TS source (mismo patrón que blogPosts) ─────────
+function loadFaqs() {
+  const tsSource = fs.readFileSync(
+    path.resolve(__dirname, "../src/data/faqs.ts"),
+    "utf-8"
+  );
+
+  const faqs = [];
+  const regex = /\{\s*question:\s*"([^"]+)",\s*answer:\s*"([^"]+)",?\s*\}/g;
+
+  let m;
+  while ((m = regex.exec(tsSource)) !== null) {
+    faqs.push({ question: m[1], answer: m[2] });
+  }
+
+  return faqs;
+}
+
+const faqs = loadFaqs();
+console.log(`❓ Cargadas ${faqs.length} preguntas frecuentes desde src/data/faqs.ts`);
+
+const faqJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+});
+
 // ─── Productos (handles + meta) ──────────────────────────────────────────
 const shopProducts = [
   { handle: "bolsa-biodegradable-15x20-cm", title: "Bolsa Courier Compostable 15x20 cm | Orbita Bags", description: "Bolsa courier compostable en casa 15x20 cm con doble adhesivo para envío y devolución. Certificación OK Compost HOME." },
@@ -124,6 +155,19 @@ const ROUTES = [
         <ul>
           ${blogPosts.map((p) => `<li><a href="/blog/${p.slug}">${p.title}</a> — ${p.excerpt}</li>`).join("\n          ")}
         </ul>
+      </main>
+    `,
+  },
+  {
+    path: "/faq",
+    title: "Preguntas Frecuentes | Orbita Bags — Bolsas courier compostables",
+    description: "Respuestas a las preguntas más comunes sobre bolsas courier compostables en casa: certificación OK Compost HOME, tiempos de compostaje, tamaños, doble adhesivo y envíos en Chile.",
+    body: `
+      <main>
+        <h1>Preguntas frecuentes sobre bolsas courier compostables</h1>
+        <p>Respuestas directas a las dudas más comunes sobre las bolsas Orbita: certificaciones, compostaje en casa, tamaños, doble adhesivo y envíos en Chile.</p>
+        ${faqs.map((f) => `<section>\n          <h2>${f.question}</h2>\n          <p>${f.answer}</p>\n        </section>`).join("\n        ")}
+        <script type="application/ld+json">${faqJsonLd}</script>
       </main>
     `,
   },
