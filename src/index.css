@@ -82,10 +82,14 @@
 
   @media (min-width: 768px) {
     body {
-      /* Desktop: textura fija mientras scrolleas */
-      background:
-        linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
-        url('/fondoapp.webp') center / cover no-repeat fixed;
+      /* Desktop: textura fija mientras scrolleas.
+         El velo blanco 68% ya viene incorporado en la imagen
+         (regenerar con scripts si se cambia la opacidad). */
+      background: url('/fondo-desktop.webp') center / cover no-repeat fixed;
+      background: image-set(
+          url('/fondo-desktop.avif') type('image/avif'),
+          url('/fondo-desktop.webp') type('image/webp')
+        ) center / cover no-repeat fixed;
     }
   }
 
