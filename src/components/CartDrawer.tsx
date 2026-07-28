@@ -191,7 +191,7 @@ export const CartDrawer = () => {
                   {wantsInvoice && (
                     <div className="space-y-3 rounded-lg bg-secondary/30 p-3">
                       <p className="text-xs text-muted-foreground">
-                        Emitimos factura electrónica. Completa los datos de tu empresa y te la enviamos por correo.
+                        Emitimos factura electrónica. Completa los datos de tu empresa y te la enviamos por correo dentro de 5 días hábiles.
                       </p>
 
                       <div className="space-y-1">
