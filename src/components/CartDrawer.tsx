@@ -9,25 +9,59 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { formatCLP } from "@/lib/shopify";
+import { invoiceSchema } from "@/lib/invoice";
+
+const emptyInvoiceForm = { rut: "", razonSocial: "", giro: "", direccion: "" };
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { 
-    items, 
-    isLoading, 
-    updateQuantity, 
-    removeItem, 
-    createCheckout 
+  const [wantsInvoice, setWantsInvoice] = useState(false);
+  const [invoiceForm, setInvoiceForm] = useState(emptyInvoiceForm);
+  const [invoiceErrors, setInvoiceErrors] = useState<Record<string, string>>({});
+  const {
+    items,
+    isLoading,
+    updateQuantity,
+    removeItem,
+    createCheckout,
+    setInvoiceData,
   } = useCartStore();
-  
+
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = items.reduce((sum, item) => sum + (parseFloat(item.price.amount) * item.quantity), 0);
 
+  const updateInvoiceField = (field: keyof typeof emptyInvoiceForm, value: string) => {
+    setInvoiceForm(prev => ({ ...prev, [field]: value }));
+    setInvoiceErrors(prev => {
+      if (!prev[field]) return prev;
+      const { [field]: _removed, ...rest } = prev;
+      return rest;
+    });
+  };
+
   const handleCheckout = async () => {
     try {
+      if (wantsInvoice) {
+        const result = invoiceSchema.safeParse(invoiceForm);
+        if (!result.success) {
+          const errors: Record<string, string> = {};
+          for (const issue of result.error.issues) {
+            const field = String(issue.path[0]);
+            if (!errors[field]) errors[field] = issue.message;
+          }
+          setInvoiceErrors(errors);
+          return;
+        }
+        setInvoiceData(result.data);
+      } else {
+        setInvoiceData(null);
+      }
+
       if (typeof (window as any).fbq === "function") {
         (window as any).fbq("track", "InitiateCheckout", {
           content_ids: items.map(item => item.variantId),
@@ -143,6 +177,82 @@ export const CartDrawer = () => {
               
               {/* Fixed checkout section */}
               <div className="flex-shrink-0 space-y-4 pt-4 border-t bg-background">
+                <div className="space-y-3">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={wantsInvoice}
+                      onChange={(e) => setWantsInvoice(e.target.checked)}
+                      className="h-4 w-4 rounded border-input accent-primary"
+                    />
+                    <span className="text-sm font-medium">Necesito factura</span>
+                  </label>
+
+                  {wantsInvoice && (
+                    <div className="space-y-3 rounded-lg bg-secondary/30 p-3">
+                      <p className="text-xs text-muted-foreground">
+                        Emitimos factura electrónica. Completa los datos de tu empresa y te la enviamos por correo.
+                      </p>
+
+                      <div className="space-y-1">
+                        <Label htmlFor="invoice-rut" className="text-xs">RUT empresa</Label>
+                        <Input
+                          id="invoice-rut"
+                          value={invoiceForm.rut}
+                          onChange={(e) => updateInvoiceField("rut", e.target.value)}
+                          placeholder="76.543.210-K"
+                          aria-invalid={!!invoiceErrors.rut}
+                        />
+                        {invoiceErrors.rut && (
+                          <p className="text-xs text-destructive">{invoiceErrors.rut}</p>
+                        )}
+                      </div>
+
+                      <div className="space-y-1">
+                        <Label htmlFor="invoice-razon" className="text-xs">Razón social</Label>
+                        <Input
+                          id="invoice-razon"
+                          value={invoiceForm.razonSocial}
+                          onChange={(e) => updateInvoiceField("razonSocial", e.target.value)}
+                          placeholder="Comercial Ejemplo SpA"
+                          aria-invalid={!!invoiceErrors.razonSocial}
+                        />
+                        {invoiceErrors.razonSocial && (
+                          <p className="text-xs text-destructive">{invoiceErrors.razonSocial}</p>
+                        )}
+                      </div>
+
+                      <div className="space-y-1">
+                        <Label htmlFor="invoice-giro" className="text-xs">Giro</Label>
+                        <Input
+                          id="invoice-giro"
+                          value={invoiceForm.giro}
+                          onChange={(e) => updateInvoiceField("giro", e.target.value)}
+                          placeholder="Venta al por menor"
+                          aria-invalid={!!invoiceErrors.giro}
+                        />
+                        {invoiceErrors.giro && (
+                          <p className="text-xs text-destructive">{invoiceErrors.giro}</p>
+                        )}
+                      </div>
+
+                      <div className="space-y-1">
+                        <Label htmlFor="invoice-direccion" className="text-xs">Dirección comercial</Label>
+                        <Input
+                          id="invoice-direccion"
+                          value={invoiceForm.direccion}
+                          onChange={(e) => updateInvoiceField("direccion", e.target.value)}
+                          placeholder="Av. Providencia 1234, Santiago"
+                          aria-invalid={!!invoiceErrors.direccion}
+                        />
+                        {invoiceErrors.direccion && (
+                          <p className="text-xs text-destructive">{invoiceErrors.direccion}</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
                 <div className="flex justify-between items-center">
                   <span className="text-lg font-semibold">Total</span>
                   <span className="text-xl font-bold text-primary">

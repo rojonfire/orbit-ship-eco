@@ -256,16 +256,22 @@ export interface CartItem {
 }
 
 // Create checkout function
-export async function createStorefrontCheckout(items: CartItem[]): Promise<string> {
+export async function createStorefrontCheckout(
+  items: CartItem[],
+  attributes?: Array<{ key: string; value: string }>,
+): Promise<string> {
   try {
     const lines = items.map(item => ({
       quantity: item.quantity,
       merchandiseId: item.variantId,
     }));
 
-    const cartData = await storefrontApiRequest(CART_CREATE_MUTATION, {
-      input: { lines },
-    });
+    const input: { lines: typeof lines; attributes?: typeof attributes } = { lines };
+    if (attributes?.length) {
+      input.attributes = attributes;
+    }
+
+    const cartData = await storefrontApiRequest(CART_CREATE_MUTATION, { input });
 
     if (!cartData) {
       throw new Error('Failed to create cart');

@@ -1,13 +1,15 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { CartItem, createStorefrontCheckout } from '@/lib/shopify';
+import { InvoiceData, toCartAttributes } from '@/lib/invoice';
 
 interface CartStore {
   items: CartItem[];
   cartId: string | null;
   checkoutUrl: string | null;
   isLoading: boolean;
-  
+  invoiceData: InvoiceData | null;
+
   // Actions
   addItem: (item: CartItem) => void;
   updateQuantity: (variantId: string, quantity: number) => void;
@@ -16,6 +18,7 @@ interface CartStore {
   setCartId: (cartId: string) => void;
   setCheckoutUrl: (url: string) => void;
   setLoading: (loading: boolean) => void;
+  setInvoiceData: (data: InvoiceData | null) => void;
   createCheckout: () => Promise<void>;
 }
 
@@ -26,6 +29,7 @@ export const useCartStore = create<CartStore>()(
       cartId: null,
       checkoutUrl: null,
       isLoading: false,
+      invoiceData: null,
 
       addItem: (item) => {
         const { items } = get();
@@ -64,20 +68,22 @@ export const useCartStore = create<CartStore>()(
       },
 
       clearCart: () => {
-        set({ items: [], cartId: null, checkoutUrl: null });
+        set({ items: [], cartId: null, checkoutUrl: null, invoiceData: null });
       },
 
       setCartId: (cartId) => set({ cartId }),
       setCheckoutUrl: (checkoutUrl) => set({ checkoutUrl }),
       setLoading: (isLoading) => set({ isLoading }),
+      setInvoiceData: (invoiceData) => set({ invoiceData }),
 
       createCheckout: async () => {
-        const { items, setLoading, setCheckoutUrl } = get();
+        const { items, invoiceData, setLoading, setCheckoutUrl } = get();
         if (items.length === 0) return;
 
         setLoading(true);
         try {
-          const checkoutUrl = await createStorefrontCheckout(items);
+          const attributes = invoiceData ? toCartAttributes(invoiceData) : undefined;
+          const checkoutUrl = await createStorefrontCheckout(items, attributes);
           setCheckoutUrl(checkoutUrl);
         } catch (error) {
           console.error('Failed to create checkout:', error);
