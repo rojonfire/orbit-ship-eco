@@ -4,7 +4,7 @@ import { toast } from "sonner";
 const SHOPIFY_API_VERSION = '2025-07';
 const SHOPIFY_STORE_PERMANENT_DOMAIN = 'orbit-ship-eco-ine72.myshopify.com';
 const SHOPIFY_STOREFRONT_URL = `https://${SHOPIFY_STORE_PERMANENT_DOMAIN}/api/${SHOPIFY_API_VERSION}/graphql.json`;
-const SHOPIFY_STOREFRONT_TOKEN = '8c8aad58546f9c3b6d65d957025959b1';
+const SHOPIFY_STOREFRONT_TOKEN = '0f1baa11db92ba644f2cc8265224719a';
 
 export interface ShopifyProduct {
   node: {
