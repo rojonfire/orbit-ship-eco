@@ -19,7 +19,7 @@ const Tienda = () => {
     }
     const loadProducts = async () => {
       try {
-        const data = await fetchShopifyProducts(10, "-title:'Bolsas Personalizadas*'");
+        const data = await fetchShopifyProducts(10, "-title:'Bolsas Personalizadas*' AND -title:*Pack*");
         setProducts(data);
       } catch (error) {
         console.error("Error loading products:", error);
