@@ -189,10 +189,139 @@ const PRODUCT_BY_HANDLE_QUERY = `
   }
 `;
 
+export interface RetailPackVariant {
+  id: string;
+  color: string;
+  price: string;
+  availableForSale: boolean;
+}
+
+export interface RetailPackBundle {
+  units: number;
+  variants: RetailPackVariant[];
+}
+
+const RETAIL_PACK_BUNDLES_QUERY = `
+  query GetRetailPackBundles($query: String!) {
+    products(first: 20, query: $query) {
+      edges {
+        node {
+          title
+          variants(first: 10) {
+            edges {
+              node {
+                id
+                title
+                price { amount }
+                availableForSale
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/** Trae los packs con descuento (300/500/1000) de un tamaño, ej. "30x40". El pack de 100 sigue
+ * viniendo del producto real (fetchProductByHandle), estos son bundles aparte. */
+export async function fetchRetailPackBundles(sizeLabel: string): Promise<RetailPackBundle[]> {
+  const query = `title:'Bolsa Biodegradable ${sizeLabel} cm*'`;
+  const data = await storefrontApiRequest(RETAIL_PACK_BUNDLES_QUERY, { query });
+  if (!data) return [];
+
+  const edges = data.data.products.edges as Array<{ node: { title: string; variants: { edges: Array<{ node: { id: string; title: string; price: { amount: string }; availableForSale: boolean } }> } } }>;
+
+  return edges
+    .map(({ node }) => {
+      const match = node.title.match(/Pack (\d+)/);
+      if (!match) return null;
+      const units = parseInt(match[1], 10);
+      const variants: RetailPackVariant[] = node.variants.edges.map((v) => ({
+        id: v.node.id,
+        color: v.node.title,
+        price: v.node.price.amount,
+        availableForSale: v.node.availableForSale,
+      }));
+      return { units, variants };
+    })
+    .filter((b): b is RetailPackBundle => b !== null)
+    .sort((a, b) => a.units - b.units);
+}
+
 export async function fetchProductByHandle(handle: string): Promise<ShopifyProduct | null> {
   const data = await storefrontApiRequest(PRODUCT_BY_HANDLE_QUERY, { handle });
   if (!data || !data.data.productByHandle) return null;
   return { node: data.data.productByHandle };
+}
+
+// Bolsas personalizadas: cada combinación de tramo de cantidad + N° de colores es un
+// producto-bundle separado (Shopify Bundles no permite agregar una opción propia, solo
+// hereda Color del producto real). El título codifica el tramo y los colores, ej.
+// "Bolsas Personalizadas 30x40 - 200+ uds, 2 colores".
+export type PersonalizadaTramo = '100-199' | '200+';
+
+export interface PersonalizadaBundleVariant {
+  id: string;
+  color: string;
+  price: string;
+  availableForSale: boolean;
+}
+
+export interface PersonalizadaBundle {
+  id: string;
+  title: string;
+  tramo: PersonalizadaTramo;
+  nColores: number;
+  variants: PersonalizadaBundleVariant[];
+}
+
+const PERSONALIZADA_BUNDLES_QUERY = `
+  query GetPersonalizadaBundles($query: String!) {
+    products(first: 20, query: $query) {
+      edges {
+        node {
+          id
+          title
+          variants(first: 10) {
+            edges {
+              node {
+                id
+                title
+                price { amount }
+                availableForSale
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+/** Trae los 8 bundles de personalizadas (2 tramos x 4 N° de colores) para un tamaño, ej. "30x40". */
+export async function fetchPersonalizadaBundles(sizeLabel: string): Promise<PersonalizadaBundle[]> {
+  const query = `title:'Bolsas Personalizadas ${sizeLabel} -*'`;
+  const data = await storefrontApiRequest(PERSONALIZADA_BUNDLES_QUERY, { query });
+  if (!data) return [];
+
+  const edges = data.data.products.edges as Array<{ node: { id: string; title: string; variants: { edges: Array<{ node: { id: string; title: string; price: { amount: string }; availableForSale: boolean } }> } } }>;
+
+  return edges
+    .map(({ node }) => {
+      const match = node.title.match(/(100-199|200\+)\s*uds,\s*(\d+)\s*color(?:es)?/i);
+      if (!match) return null;
+      const tramo = match[1] as PersonalizadaTramo;
+      const nColores = parseInt(match[2], 10);
+      const variants: PersonalizadaBundleVariant[] = node.variants.edges.map((v) => ({
+        id: v.node.id,
+        color: v.node.title,
+        price: v.node.price.amount,
+        availableForSale: v.node.availableForSale,
+      }));
+      return { id: node.id, title: node.title, tramo, nColores, variants };
+    })
+    .filter((b): b is PersonalizadaBundle => b !== null);
 }
 
 // Cart creation mutation
@@ -253,6 +382,10 @@ export interface CartItem {
     name: string;
     value: string;
   }>;
+  lineAttributes?: Array<{
+    key: string;
+    value: string;
+  }>;
 }
 
 // Create checkout function
@@ -264,6 +397,7 @@ export async function createStorefrontCheckout(
     const lines = items.map(item => ({
       quantity: item.quantity,
       merchandiseId: item.variantId,
+      ...(item.lineAttributes?.length ? { attributes: item.lineAttributes } : {}),
     }));
 
     const input: { lines: typeof lines; attributes?: typeof attributes } = { lines };

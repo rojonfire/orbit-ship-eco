@@ -1,26 +1,87 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ShoppingCart, Loader2, Leaf, Recycle, Package, MessageCircle, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { fetchProductByHandle, ShopifyProduct, formatCLP } from "@/lib/shopify";
+import {
+  fetchProductByHandle,
+  fetchPersonalizadaBundles,
+  fetchRetailPackBundles,
+  ShopifyProduct,
+  PersonalizadaBundle,
+  PersonalizadaTramo,
+  RetailPackBundle,
+  formatCLP,
+} from "@/lib/shopify";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 import NotifyMeModal from "@/components/NotifyMeModal";
+import LogoMockup, { LogoMockupHandle, LogoMockupState } from "@/components/LogoMockup";
 import { useCartStore } from "@/stores/cartStore";
 import bolsasTamanos from "@/assets/bolsas-tamanos.webp";
 import { SIZE_MEDIA } from "@/data/sizeMedia";
+
+const POSITION_LABELS: Record<string, string> = {
+  "0,0": "Arriba izquierda",
+  "0.5,0": "Arriba centro",
+  "1,0": "Arriba derecha",
+  "0,0.5": "Centro izquierda",
+  "0.5,0.5": "Centro",
+  "1,0.5": "Centro derecha",
+  "0,1": "Abajo izquierda",
+  "0.5,1": "Abajo centro",
+  "1,1": "Abajo derecha",
+};
+
+const getPositionLabel = (pos: { x: number; y: number }) => {
+  const key = `${pos.x},${pos.y}`;
+  return POSITION_LABELS[key] ?? `Personalizada (${Math.round(pos.x * 100)}%, ${Math.round(pos.y * 100)}%)`;
+};
 
 const ShopProduct = () => {
   const { handle } = useParams<{ handle: string }>();
   const [searchParams] = useSearchParams();
   const colorParam = searchParams.get("color");
+  const tipoParam = searchParams.get("tipo");
   const [product, setProduct] = useState<ShopifyProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedPack, setSelectedPack] = useState<string>("");
-  const [wantsCustom, setWantsCustom] = useState(false);
+  const [wantsCustom, setWantsCustom] = useState(tipoParam === "personalizada");
   const [mediaIndex, setMediaIndex] = useState(0);
+
+  // Bolsas personalizadas: cada tamaño tiene 8 bundles (2 tramos de cantidad x 4 N° de colores)
+  const [personalizadaBundles, setPersonalizadaBundles] = useState<PersonalizadaBundle[] | null>(null);
+  const [loadingBundles, setLoadingBundles] = useState(false);
+  const [nColores, setNColores] = useState(1);
+  const [cantidad, setCantidad] = useState(100);
+  const [logoState, setLogoState] = useState<LogoMockupState | null>(null);
+  const [colorAck, setColorAck] = useState(false);
+  const [addingToCart, setAddingToCart] = useState(false);
+  const mockupRef = useRef<LogoMockupHandle>(null);
+
+  const sizeLabel = handle?.match(/(\d+x\d+)/)?.[1];
+
+  useEffect(() => {
+    if (!wantsCustom || !sizeLabel || personalizadaBundles) return;
+    setLoadingBundles(true);
+    fetchPersonalizadaBundles(sizeLabel)
+      .then(setPersonalizadaBundles)
+      .finally(() => setLoadingBundles(false));
+  }, [wantsCustom, sizeLabel, personalizadaBundles]);
+
+  // Packs con descuento (300/500/1000) para la compra normal — el pack de 100 sigue viniendo
+  // del producto real.
+  const [retailPackBundles, setRetailPackBundles] = useState<RetailPackBundle[] | null>(null);
+  const [selectedPackUnits, setSelectedPackUnits] = useState(100);
+  const [packQuantity, setPackQuantity] = useState(1);
+
+  useEffect(() => {
+    if (!sizeLabel || retailPackBundles) return;
+    fetchRetailPackBundles(sizeLabel).then(setRetailPackBundles);
+  }, [sizeLabel, retailPackBundles]);
   useEffect(() => {
     const loadProduct = async () => {
       if (!handle) return;
@@ -85,7 +146,26 @@ const ShopProduct = () => {
     })?.node;
   };
 
-  const selectedVariant = getSelectedVariant();
+  const baseVariant = getSelectedVariant();
+
+  // Combina el pack real de 100 unidades con los packs-bundle de 300/500/1000 en un solo
+  // "variant" con la misma forma, para no duplicar la lógica de precio/carrito de más abajo.
+  const activePackVariant = (() => {
+    if (selectedPackUnits === 100) return baseVariant;
+    const bundle = retailPackBundles?.find((b) => b.units === selectedPackUnits);
+    const v = bundle?.variants.find((vv) => vv.color === selectedColor);
+    if (!v) return null;
+    return {
+      id: v.id,
+      title: `${selectedColor} / ${selectedPackUnits} unidades`,
+      price: { amount: v.price, currencyCode: "CLP" },
+      availableForSale: v.availableForSale,
+      selectedOptions: [
+        { name: "Color", value: selectedColor },
+        { name: "Pack", value: `${selectedPackUnits} unidades` },
+      ],
+    };
+  })();
 
   const handleWhatsAppCustom = () => {
     const message = `¡Hola! Me interesa saber más sobre las bolsas personalizadas. ¿Podrían darme más información?`;
@@ -121,6 +201,69 @@ const ShopProduct = () => {
   const colorOptions = product.node.options.find(o => o.name === "Color")?.values || [];
   const packOptions = product.node.options.find(o => o.name === "Pack")?.values || [];
   const images = product.node.images.edges;
+
+  // Bolsas personalizadas: de qué tramo de precio se trata según la cantidad (siempre múltiplos
+  // de 100, un pack real = 100 unidades), y cuál de los 8 bundles de este tamaño corresponde.
+  const tramo: PersonalizadaTramo = cantidad <= 100 ? "100-199" : "200+";
+  const matchingBundle = personalizadaBundles?.find(b => b.tramo === tramo && b.nColores === nColores) ?? null;
+  const matchingVariant = matchingBundle?.variants.find(v => v.color === selectedColor) ?? null;
+  const packs = cantidad / 100;
+  const personalizadaTotal = matchingVariant ? parseFloat(matchingVariant.price) * packs : null;
+  const [bagCmW, bagCmH] = (sizeLabel?.split("x").map(Number) ?? [30, 40]) as [number, number];
+
+  const handleAddPersonalizadaToCart = async () => {
+    if (!matchingVariant || !logoState) return;
+    setAddingToCart(true);
+    try {
+      const logoUrl = await uploadToCloudinary(logoState.file, "personalizadas/logos");
+      let mockupUrl: string | null = null;
+      try {
+        const snapshotBlob = await mockupRef.current?.captureSnapshot();
+        if (snapshotBlob) {
+          mockupUrl = await uploadToCloudinary(snapshotBlob, "personalizadas/maquetas");
+        }
+      } catch (snapshotError) {
+        console.error("No se pudo generar la maqueta:", snapshotError);
+      }
+
+      const displayProduct: ShopifyProduct = {
+        node: {
+          ...product.node,
+          title: `${product.node.title} — Personalizada`,
+        },
+      };
+
+      useCartStore.getState().addItem({
+        product: displayProduct,
+        variantId: matchingVariant.id,
+        variantTitle: `Personalizada — ${selectedColor}, ${nColores} color${nColores > 1 ? "es" : ""}`,
+        price: { amount: matchingVariant.price, currencyCode: "CLP" },
+        quantity: packs,
+        selectedOptions: [
+          { name: "Color", value: selectedColor },
+          { name: "N° de colores", value: String(nColores) },
+        ],
+        lineAttributes: [
+          { key: "Tipo", value: "Personalizada" },
+          { key: "Cantidad", value: `${cantidad} unidades` },
+          { key: "N° de colores", value: String(nColores) },
+          { key: "Logo (archivo original)", value: logoUrl },
+          ...(mockupUrl ? [{ key: "Maqueta (vista previa posicionada)", value: mockupUrl }] : []),
+          { key: "Tamaño del logo", value: `${logoState.widthCm.toFixed(1)} x ${logoState.heightCm.toFixed(1)} cm` },
+          { key: "Posición del logo", value: getPositionLabel(logoState.pos) },
+        ],
+      });
+
+      toast.success("Bolsa personalizada agregada al carrito");
+      setLogoState(null);
+      setColorAck(false);
+    } catch (error) {
+      console.error("Error al agregar personalizada al carrito:", error);
+      toast.error("No se pudo subir tu logo. Intenta de nuevo.");
+    } finally {
+      setAddingToCart(false);
+    }
+  };
   const getImageForColor = (color: string) => {
     if (!color) return images[0]?.node;
     const matchByAlt = images.find(e =>
@@ -319,9 +462,14 @@ const ShopProduct = () => {
                 <h1 className="text-3xl lg:text-4xl font-display font-bold text-foreground mt-2">
                   {product.node.title}
                 </h1>
-                {selectedVariant && !wantsCustom && (
+                {activePackVariant && !wantsCustom && (
                   <p className="text-2xl text-primary font-semibold mt-4">
-                    {formatCLP(selectedVariant.price.amount)}
+                    {formatCLP(parseFloat(activePackVariant.price.amount) * packQuantity)}
+                    {packQuantity > 1 && (
+                      <span className="text-sm text-muted-foreground font-normal ml-2">
+                        ({packQuantity} × {selectedPackUnits} uds = {packQuantity * selectedPackUnits} uds)
+                      </span>
+                    )}
                   </p>
                 )}
               </div>
@@ -386,7 +534,7 @@ const ShopProduct = () => {
                     }`}
                   >
                     <span className="text-foreground font-medium text-sm">Personalizada</span>
-                    <p className="text-xs text-muted-foreground mt-1">Tu logo o diseño</p>
+                    <p className="text-xs text-muted-foreground mt-1">Tu logo en un lado, diseño Órbita en el otro</p>
                   </button>
                 </div>
               </div>
@@ -395,26 +543,39 @@ const ShopProduct = () => {
                 <div className="bg-card rounded-2xl p-6 border border-border">
                   <h3 className="font-semibold text-foreground mb-4">3. Elige el pack</h3>
                   <div className="space-y-3">
-                    {packOptions.map((pack) => {
-                      const variant = product.node.variants.edges.find(v => {
-                        const hasColor = v.node.selectedOptions.some(o => o.name === "Color" && o.value === selectedColor);
-                        const hasPack = v.node.selectedOptions.some(o => o.name === "Pack" && o.value === pack);
-                        return hasColor && hasPack;
-                      })?.node;
+                    {[100, 300, 500, 1000].map((units) => {
+                      const isBase = units === 100;
+                      const bundle = !isBase ? retailPackBundles?.find((b) => b.units === units) : null;
+                      const variant = isBase
+                        ? baseVariant
+                        : bundle?.variants.find((v) => v.color === selectedColor);
+                      const price = isBase ? baseVariant?.price.amount : variant && "price" in variant ? variant.price : undefined;
+                      const fullPrice = isBase ? undefined : (parseFloat(baseVariant?.price.amount || "0") / 100) * units;
+                      const hasDiscount = !isBase && price && fullPrice && parseFloat(price) < fullPrice;
+
+                      if (!isBase && !bundle) return null;
 
                       return (
                         <button
-                          key={pack}
-                          onClick={() => setSelectedPack(pack)}
+                          key={units}
+                          onClick={() => {
+                            setSelectedPackUnits(units);
+                            setPackQuantity(1);
+                          }}
                           className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
-                            selectedPack === pack ? "border-primary bg-primary/10" : "border-border hover:border-primary/50"
+                            selectedPackUnits === units ? "border-primary bg-primary/10" : "border-border hover:border-primary/50"
                           }`}
                         >
                           <div className="flex justify-between items-center">
-                            <span className="font-medium text-foreground">{pack}</span>
-                            {variant && (
-                              <span className="text-primary font-semibold">
-                                {formatCLP(variant.price.amount)}
+                            <span className="font-medium text-foreground">{units} unidades</span>
+                            {price && (
+                              <span className="text-right">
+                                {hasDiscount && (
+                                  <span className="block text-xs text-muted-foreground line-through">
+                                    {formatCLP(fullPrice)}
+                                  </span>
+                                )}
+                                <span className="text-primary font-semibold">{formatCLP(price)}</span>
                               </span>
                             )}
                           </div>
@@ -422,51 +583,196 @@ const ShopProduct = () => {
                       );
                     })}
                   </div>
+
+                  <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">
+                      ¿Cuántos packs de {selectedPackUnits} uds?
+                    </span>
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => setPackQuantity((q) => Math.max(1, q - 1))}
+                        className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:border-primary/50"
+                        aria-label="Reducir cantidad de packs"
+                      >
+                        −
+                      </button>
+                      <span className="w-6 text-center font-medium">{packQuantity}</span>
+                      <button
+                        onClick={() => setPackQuantity((q) => q + 1)}
+                        className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:border-primary/50"
+                        aria-label="Aumentar cantidad de packs"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {!wantsCustom && activePackVariant && (
+                <div className="bg-card rounded-2xl p-6 border border-border">
+                  <div className="flex justify-between items-baseline mb-1">
+                    <span className="text-sm text-muted-foreground">Precio por pack de {selectedPackUnits}</span>
+                    <span className="font-medium">{formatCLP(activePackVariant.price.amount)}</span>
+                  </div>
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-foreground font-semibold">
+                      Total ({packQuantity * selectedPackUnits} uds)
+                    </span>
+                    <span className="text-2xl text-primary font-semibold">
+                      {formatCLP(parseFloat(activePackVariant.price.amount) * packQuantity)}
+                    </span>
+                  </div>
                 </div>
               )}
 
               {wantsCustom && (
-                <div className="bg-accent/20 rounded-2xl p-6 border border-accent/30">
-                  <h3 className="font-semibold text-foreground mb-2">Personalización</h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Para bolsas personalizadas con tu logo o diseño, contáctanos por WhatsApp para cotización y detalles.
-                  </p>
+                <div className="space-y-6">
+                  <div className="bg-card rounded-2xl p-6 border border-border">
+                    <h3 className="font-semibold text-foreground mb-4">3. N° de colores del estampado</h3>
+                    <div className="grid grid-cols-4 gap-2">
+                      {[1, 2, 3, 4].map((n) => (
+                        <button
+                          key={n}
+                          onClick={() => setNColores(n)}
+                          className={`p-3 rounded-xl border-2 transition-all text-sm font-medium ${
+                            nColores === n ? "border-primary bg-primary/10" : "border-border hover:border-primary/50"
+                          }`}
+                        >
+                          {n} color{n > 1 ? "es" : ""}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="bg-card rounded-2xl p-6 border border-border">
+                    <h3 className="font-semibold text-foreground mb-4">4. Cantidad</h3>
+                    <div className="flex items-center gap-4">
+                      <button
+                        onClick={() => setCantidad((c) => Math.max(100, c - 100))}
+                        className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-primary/50"
+                        aria-label="Reducir cantidad"
+                      >
+                        −
+                      </button>
+                      <span className="text-lg font-semibold w-24 text-center">{cantidad} uds</span>
+                      <button
+                        onClick={() => setCantidad((c) => c + 100)}
+                        className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-primary/50"
+                        aria-label="Aumentar cantidad"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-2">
+                      Se pide en múltiplos de 100. Mínimo 100 unidades.
+                    </p>
+                  </div>
+
+                  {loadingBundles ? (
+                    <div className="flex items-center justify-center py-6">
+                      <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                    </div>
+                  ) : matchingVariant && personalizadaTotal !== null ? (
+                    <div className="bg-card rounded-2xl p-6 border border-border">
+                      <div className="flex justify-between items-baseline mb-1">
+                        <span className="text-sm text-muted-foreground">Precio por bolsa</span>
+                        <span className="font-medium">{formatCLP(parseFloat(matchingVariant.price) / 100)}</span>
+                      </div>
+                      <div className="flex justify-between items-baseline">
+                        <span className="text-foreground font-semibold">Total ({cantidad} uds)</span>
+                        <span className="text-2xl text-primary font-semibold">{formatCLP(personalizadaTotal)}</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-sm text-destructive">
+                      Esta combinación no está disponible por ahora. Prueba con otra cantidad o N° de colores.
+                    </p>
+                  )}
+
+                  <div className="bg-card rounded-2xl p-6 border border-border">
+                    <h3 className="font-semibold text-foreground mb-4">5. Tu logo</h3>
+                    <LogoMockup
+                      ref={mockupRef}
+                      bagCm={{ w: bagCmW, h: bagCmH }}
+                      color={(selectedColor as "Blanca" | "Negra") || "Blanca"}
+                      onStateChange={setLogoState}
+                    />
+                  </div>
+
+                  <div className="bg-secondary/30 rounded-2xl p-6 border border-border text-sm text-muted-foreground space-y-2">
+                    <p>
+                      Tu pedido queda listo dentro de las 2 semanas siguientes a tu pago. Las bolsas
+                      se mandan a imprimir tu logo en un ciclo semanal, así que no salen de
+                      inmediato — te avisaremos apenas estén en camino.
+                    </p>
+                    <label className="flex items-start gap-3 cursor-pointer pt-2 border-t border-border">
+                      <input
+                        type="checkbox"
+                        checked={colorAck}
+                        onChange={(e) => setColorAck(e.target.checked)}
+                        className="mt-0.5 w-4 h-4"
+                      />
+                      <span>
+                        Entiendo que si mi arte tiene más colores de los que compré (
+                        {nColores} color{nColores > 1 ? "es" : ""}), la entrega se puede atrasar hasta
+                        llegar a un acuerdo.
+                      </span>
+                    </label>
+                  </div>
+
+                  <Button
+                    onClick={handleAddPersonalizadaToCart}
+                    disabled={!matchingVariant || !logoState || !colorAck || addingToCart}
+                    className="w-full py-6 text-lg bg-primary hover:bg-primary/90"
+                    size="lg"
+                  >
+                    {addingToCart ? (
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    ) : (
+                      <ShoppingCart className="w-5 h-5 mr-2" />
+                    )}
+                    {addingToCart ? "Subiendo tu logo..." : "Agregar al carrito"}
+                  </Button>
+
                   <Button
                     onClick={handleWhatsAppCustom}
-                    className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white"
+                    variant="outline"
+                    className="w-full"
                   >
                     <MessageCircle className="w-5 h-5 mr-2" />
-                    Consultar por WhatsApp
+                    ¿Dudas? Consultar por WhatsApp
                   </Button>
                 </div>
               )}
 
               {!wantsCustom && (
-                selectedVariant?.availableForSale ? (
+                activePackVariant?.availableForSale ? (
                   <Button
                     onClick={() => {
                       useCartStore.getState().addItem({
                         product,
-                        variantId: selectedVariant.id,
-                        variantTitle: selectedVariant.title,
-                        price: selectedVariant.price,
-                        quantity: 1,
-                        selectedOptions: selectedVariant.selectedOptions || [],
+                        variantId: activePackVariant.id,
+                        variantTitle: activePackVariant.title,
+                        price: activePackVariant.price,
+                        quantity: packQuantity,
+                        selectedOptions: activePackVariant.selectedOptions || [],
                       });
                       if (typeof (window as any).fbq === "function") {
                         (window as any).fbq("track", "AddToCart", {
                           content_name: product.node.title,
-                          content_ids: [selectedVariant.id],
-                          value: parseFloat(selectedVariant.price.amount),
+                          content_ids: [activePackVariant.id],
+                          value: parseFloat(activePackVariant.price.amount) * packQuantity,
                           currency: "CLP",
                         });
                       }
+                      setPackQuantity(1);
                     }}
                     className="w-full py-6 text-lg bg-primary hover:bg-primary/90"
                     size="lg"
                   >
                     <ShoppingCart className="w-5 h-5 mr-2" />
-                    Agregar al carrito
+                    Agregar al carrito{packQuantity > 1 ? ` (${packQuantity * selectedPackUnits} uds)` : ""}
                   </Button>
                 ) : (
                   <NotifyMeModal 
