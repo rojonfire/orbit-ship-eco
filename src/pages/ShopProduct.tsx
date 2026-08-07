@@ -204,11 +204,33 @@ const ShopProduct = () => {
 
   // Bolsas personalizadas: de qué tramo de precio se trata según la cantidad (siempre múltiplos
   // de 100, un pack real = 100 unidades), y cuál de los 8 bundles de este tamaño corresponde.
-  const tramo: PersonalizadaTramo = cantidad <= 100 ? "100-199" : "200+";
+  const tramoForQuantity = (q: number): PersonalizadaTramo =>
+    q <= 100 ? "100" :
+    q < 300 ? "200+" :
+    q < 500 ? "300+" :
+    q < 1000 ? "500+" : "1000+";
+  const tramo = tramoForQuantity(cantidad);
   const matchingBundle = personalizadaBundles?.find(b => b.tramo === tramo && b.nColores === nColores) ?? null;
   const matchingVariant = matchingBundle?.variants.find(v => v.color === selectedColor) ?? null;
   const packs = cantidad / 100;
   const personalizadaTotal = matchingVariant ? parseFloat(matchingVariant.price) * packs : null;
+  const pricePerBag = matchingVariant ? parseFloat(matchingVariant.price) / 100 : null;
+
+  // Precio de referencia (100 uds, sin descuento por volumen) para mostrar tachado en los
+  // botones de cantidad — así el ahorro se ve de entrada, sin tener que llegar al tramo.
+  const base100Bundle = personalizadaBundles?.find(b => b.tramo === "100" && b.nColores === nColores) ?? null;
+  const base100Variant = base100Bundle?.variants.find(v => v.color === selectedColor) ?? null;
+  const base100PerBag = base100Variant ? parseFloat(base100Variant.price) / 100 : null;
+
+  const QUANTITY_TIERS = [100, 200, 300, 500, 1000];
+  const quantityTierOptions = QUANTITY_TIERS.map((tierQty) => {
+    const tierTramo = tramoForQuantity(tierQty);
+    const bundle = personalizadaBundles?.find(b => b.tramo === tierTramo && b.nColores === nColores) ?? null;
+    const variant = bundle?.variants.find(v => v.color === selectedColor) ?? null;
+    const pricePerBagForTier = variant ? parseFloat(variant.price) / 100 : null;
+    const hasDiscount = tierQty !== 100 && pricePerBagForTier !== null && base100PerBag !== null && pricePerBagForTier < base100PerBag;
+    return { tierQty, pricePerBagForTier, hasDiscount, available: variant !== null };
+  });
   const [bagCmW, bagCmH] = (sizeLabel?.split("x").map(Number) ?? [30, 40]) as [number, number];
 
   const handleAddPersonalizadaToCart = async () => {
@@ -645,50 +667,84 @@ const ShopProduct = () => {
                     </div>
                   </div>
 
-                  <div className="bg-card rounded-2xl p-6 border border-border">
-                    <h3 className="font-semibold text-foreground mb-4">4. Cantidad</h3>
-                    <div className="flex items-center gap-4">
-                      <button
-                        onClick={() => setCantidad((c) => Math.max(100, c - 100))}
-                        className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-primary/50"
-                        aria-label="Reducir cantidad"
-                      >
-                        −
-                      </button>
-                      <span className="text-lg font-semibold w-24 text-center">{cantidad} uds</span>
-                      <button
-                        onClick={() => setCantidad((c) => c + 100)}
-                        className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-primary/50"
-                        aria-label="Aumentar cantidad"
-                      >
-                        +
-                      </button>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-2">
-                      Se pide en múltiplos de 100. Mínimo 100 unidades.
-                    </p>
-                  </div>
-
                   {loadingBundles ? (
-                    <div className="flex items-center justify-center py-6">
+                    <div className="bg-card rounded-2xl p-6 border border-border flex items-center justify-center py-6">
                       <Loader2 className="w-6 h-6 animate-spin text-primary" />
                     </div>
-                  ) : matchingVariant && personalizadaTotal !== null ? (
+                  ) : (
+                    <div className="bg-card rounded-2xl p-6 border border-border">
+                      <h3 className="font-semibold text-foreground mb-4">4. Cantidad</h3>
+                      <div className="space-y-3">
+                        {quantityTierOptions.map(({ tierQty, pricePerBagForTier, hasDiscount, available }) => {
+                          if (!available) return null;
+                          return (
+                            <button
+                              key={tierQty}
+                              onClick={() => setCantidad(tierQty)}
+                              className={`w-full p-4 rounded-xl border-2 transition-all text-left ${
+                                cantidad === tierQty ? "border-primary bg-primary/10" : "border-border hover:border-primary/50"
+                              }`}
+                            >
+                              <div className="flex justify-between items-center">
+                                <span className="font-medium text-foreground">{tierQty} unidades</span>
+                                <span className="text-right">
+                                  {hasDiscount && base100PerBag && (
+                                    <span className="block text-xs text-muted-foreground line-through">
+                                      {formatCLP(base100PerBag)}
+                                    </span>
+                                  )}
+                                  <span className="text-primary font-semibold">
+                                    {formatCLP(pricePerBagForTier ?? 0)}
+                                  </span>
+                                </span>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
+                        <span className="text-sm text-muted-foreground">Ajustar cantidad exacta</span>
+                        <div className="flex items-center gap-3">
+                          <button
+                            onClick={() => setCantidad((c) => Math.max(100, c - 100))}
+                            className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:border-primary/50"
+                            aria-label="Reducir cantidad"
+                          >
+                            −
+                          </button>
+                          <span className="w-16 text-center font-medium">{cantidad} uds</span>
+                          <button
+                            onClick={() => setCantidad((c) => c + 100)}
+                            className="w-8 h-8 rounded-full border border-border flex items-center justify-center hover:border-primary/50"
+                            aria-label="Aumentar cantidad"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Se pide en múltiplos de 100. Mínimo 100 unidades.
+                      </p>
+                    </div>
+                  )}
+
+                  {matchingVariant && personalizadaTotal !== null ? (
                     <div className="bg-card rounded-2xl p-6 border border-border">
                       <div className="flex justify-between items-baseline mb-1">
                         <span className="text-sm text-muted-foreground">Precio por bolsa</span>
-                        <span className="font-medium">{formatCLP(parseFloat(matchingVariant.price) / 100)}</span>
+                        <span className="font-medium">{formatCLP(pricePerBag ?? 0)}</span>
                       </div>
                       <div className="flex justify-between items-baseline">
                         <span className="text-foreground font-semibold">Total ({cantidad} uds)</span>
                         <span className="text-2xl text-primary font-semibold">{formatCLP(personalizadaTotal)}</span>
                       </div>
                     </div>
-                  ) : (
+                  ) : !loadingBundles ? (
                     <p className="text-sm text-destructive">
                       Esta combinación no está disponible por ahora. Prueba con otra cantidad o N° de colores.
                     </p>
-                  )}
+                  ) : null}
 
                   <div className="bg-card rounded-2xl p-6 border border-border">
                     <h3 className="font-semibold text-foreground mb-4">5. Tu logo</h3>

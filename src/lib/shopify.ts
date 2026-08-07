@@ -259,7 +259,7 @@ export async function fetchProductByHandle(handle: string): Promise<ShopifyProdu
 // producto-bundle separado (Shopify Bundles no permite agregar una opción propia, solo
 // hereda Color del producto real). El título codifica el tramo y los colores, ej.
 // "Bolsas Personalizadas 30x40 - 200+ uds, 2 colores".
-export type PersonalizadaTramo = '100-199' | '200+';
+export type PersonalizadaTramo = '100' | '200+' | '300+' | '500+' | '1000+';
 
 export interface PersonalizadaBundleVariant {
   id: string;
@@ -309,7 +309,7 @@ export async function fetchPersonalizadaBundles(sizeLabel: string): Promise<Pers
 
   return edges
     .map(({ node }) => {
-      const match = node.title.match(/(100-199|200\+)\s*uds,\s*(\d+)\s*color(?:es)?/i);
+      const match = node.title.match(/(1000\+|500\+|300\+|200\+|100)\s*uds,\s*(\d+)\s*color(?:es)?/i);
       if (!match) return null;
       const tramo = match[1] as PersonalizadaTramo;
       const nColores = parseInt(match[2], 10);

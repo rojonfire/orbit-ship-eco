@@ -15,6 +15,7 @@ const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const Politicas = lazy(() => import("./pages/Politicas"));
+const MockupPersonalizado = lazy(() => import("./pages/MockupPersonalizado"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -55,6 +56,8 @@ const App = () => (
               <Route path="/faq" element={<FAQ />} />
               <Route path="/politicas" element={<Politicas />} />
               <Route path="/shop/:handle" element={<ShopProduct />} />
+              {/* Prueba interna, no enlazada en el nav — herramienta de vista previa de logo personalizado */}
+              <Route path="/herramientas/mockup-logo" element={<MockupPersonalizado />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
