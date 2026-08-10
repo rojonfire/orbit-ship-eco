@@ -196,7 +196,7 @@ const ShopProduct = () => {
 
   const handleWhatsAppCustom = () => {
     const message = `¡Hola! Me interesa saber más sobre las bolsas personalizadas. ¿Podrían darme más información?`;
-    window.open(`https://wa.me/56954244951?text=${encodeURIComponent(message)}`, "_blank");
+    window.open(`https://wa.me/56931726288?text=${encodeURIComponent(message)}`, "_blank");
   };
 
   if (loading) {

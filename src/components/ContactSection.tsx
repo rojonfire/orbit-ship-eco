@@ -2,7 +2,7 @@ import { MessageCircle, Calendar, ArrowRight, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import AnimatedSection from './AnimatedSection';
 
-const WHATSAPP_PHONE = '56954244951';
+const WHATSAPP_PHONE = '56931726288';
 const WHATSAPP_TEXT = '¡Hola! Me interesa conocer más sobre las bolsas Orbita.';
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_TEXT)}`;
 

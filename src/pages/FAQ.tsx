@@ -90,7 +90,7 @@ const FAQ = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <a
-                  href="https://wa.me/56954244951"
+                  href="https://wa.me/56931726288"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 bg-secondary/50 text-foreground px-8 py-3 rounded-full font-medium hover:bg-secondary transition-colors"

@@ -44,7 +44,7 @@ const Politicas = () => {
                 Vendido por ORBITA BAGS, Santiago, Chile. Ante cualquier duda,
                 contáctanos por{" "}
                 <a
-                  href="https://wa.me/56954244951"
+                  href="https://wa.me/56931726288"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:underline"
@@ -116,7 +116,7 @@ const Politicas = () => {
               <p>
                 Escríbenos por{" "}
                 <a
-                  href="https://wa.me/56954244951"
+                  href="https://wa.me/56931726288"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:underline"
