@@ -822,6 +822,7 @@ const ShopProduct = () => {
                           currency: "CLP",
                         });
                       }
+                      toast.success("Agregado al carrito");
                       setPackQuantity(1);
                     }}
                     className="w-full py-6 text-lg bg-primary hover:bg-primary/90"
