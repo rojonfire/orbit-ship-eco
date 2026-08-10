@@ -42,9 +42,13 @@ const getPositionLabel = (pos: { x: number; y: number }) => {
 
 const ShopProduct = () => {
   const { handle } = useParams<{ handle: string }>();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const colorParam = searchParams.get("color");
   const tipoParam = searchParams.get("tipo");
+  const coloresParam = Number(searchParams.get("colores"));
+  const cantidadParam = Number(searchParams.get("cantidad"));
+  const packParam = Number(searchParams.get("pack"));
+  const packQtyParam = Number(searchParams.get("packQty"));
   const [product, setProduct] = useState<ShopifyProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedColor, setSelectedColor] = useState<string>("");
@@ -55,8 +59,12 @@ const ShopProduct = () => {
   // Bolsas personalizadas: cada tamaño tiene 8 bundles (2 tramos de cantidad x 4 N° de colores)
   const [personalizadaBundles, setPersonalizadaBundles] = useState<PersonalizadaBundle[] | null>(null);
   const [loadingBundles, setLoadingBundles] = useState(false);
-  const [nColores, setNColores] = useState(1);
-  const [cantidad, setCantidad] = useState(100);
+  const [nColores, setNColores] = useState(
+    coloresParam >= 1 && coloresParam <= 4 ? coloresParam : 1
+  );
+  const [cantidad, setCantidad] = useState(
+    cantidadParam >= 100 && cantidadParam % 100 === 0 ? cantidadParam : 100
+  );
   const [logoState, setLogoState] = useState<LogoMockupState | null>(null);
   const [colorAck, setColorAck] = useState(false);
   const [addingToCart, setAddingToCart] = useState(false);
@@ -75,8 +83,10 @@ const ShopProduct = () => {
   // Packs con descuento (300/500/1000) para la compra normal — el pack de 100 sigue viniendo
   // del producto real.
   const [retailPackBundles, setRetailPackBundles] = useState<RetailPackBundle[] | null>(null);
-  const [selectedPackUnits, setSelectedPackUnits] = useState(100);
-  const [packQuantity, setPackQuantity] = useState(1);
+  const [selectedPackUnits, setSelectedPackUnits] = useState(
+    [100, 300, 500, 1000].includes(packParam) ? packParam : 100
+  );
+  const [packQuantity, setPackQuantity] = useState(packQtyParam >= 1 ? packQtyParam : 1);
 
   useEffect(() => {
     if (!sizeLabel || retailPackBundles) return;
@@ -136,6 +146,23 @@ const ShopProduct = () => {
       });
     }
   }, [selectedColor, selectedPack, wantsCustom]);
+
+  // Mantiene la URL sincronizada con la selección actual para que el link se pueda compartir
+  // con todos los campos preseleccionados (no solo el color).
+  useEffect(() => {
+    if (!product || !selectedColor) return;
+    const params = new URLSearchParams();
+    params.set("color", selectedColor);
+    if (wantsCustom) {
+      params.set("tipo", "personalizada");
+      params.set("colores", String(nColores));
+      params.set("cantidad", String(cantidad));
+    } else {
+      params.set("pack", String(selectedPackUnits));
+      if (packQuantity > 1) params.set("packQty", String(packQuantity));
+    }
+    setSearchParams(params, { replace: true });
+  }, [product, selectedColor, wantsCustom, nColores, cantidad, selectedPackUnits, packQuantity, setSearchParams]);
 
   const getSelectedVariant = () => {
     if (!product) return null;
