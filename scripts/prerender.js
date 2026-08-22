@@ -171,6 +171,28 @@ const ROUTES = [
       </main>
     `,
   },
+  {
+    path: "/personalizadas",
+    title: "Bolsas Personalizadas con tu Logo | ORBITA BAGS",
+    description: "Personaliza tus bolsas courier compostables con tu logo. Serigrafía hecha en Chile, hasta 4 colores, desde 100 unidades. Compra en línea, con checkout inmediato.",
+    body: `
+      <main>
+        <h1>Bolsas Personalizadas con tu Logo</h1>
+        <p>Las mismas bolsas courier compostables en casa, con doble sello adhesivo, ahora impresas con tu marca. Serigrafía hecha en Chile, desde 100 unidades.</p>
+      </main>
+    `,
+  },
+  {
+    path: "/herramientas/generador-oc",
+    title: "Generador de Orden de Compra (OC) gratis | Orbita Bags",
+    description: "Genera tu Orden de Compra en PDF gratis: sirve para cualquier proveedor, no solo para comprarle a Orbita Bags. Completa los datos, firma y descarga — listo para tu contabilidad y el SII.",
+    body: `
+      <main>
+        <h1>Generador de Orden de Compra (OC) gratuito</h1>
+        <p>Herramienta gratuita de Orbita Bags para generar una Orden de Compra en PDF: sirve para cualquier proveedor, no solo para comprarnos a nosotros. Completa los datos del proveedor y del comprador, el detalle del pedido, firma y descarga el PDF listo para tu contabilidad.</p>
+      </main>
+    `,
+  },
   // Blog posts — con contenido completo
   ...blogPosts.map((p) => ({
     path: `/blog/${p.slug}`,

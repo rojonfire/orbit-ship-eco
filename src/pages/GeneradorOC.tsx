@@ -5,6 +5,7 @@ import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import SEOHead from "@/components/SEOHead";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo-orbita-bags.svg";
 
@@ -324,6 +325,11 @@ export default function GeneradorOC() {
 
   return (
     <div className="min-h-screen bg-background py-10 px-4 print:py-0 print:px-0">
+      <SEOHead
+        title="Generador de Orden de Compra (OC) gratis | Orbita Bags"
+        description="Genera tu Orden de Compra en PDF gratis: sirve para cualquier proveedor, no solo para comprarle a Orbita Bags. Completa los datos, firma y descarga — listo para tu contabilidad y el SII."
+        path="/herramientas/generador-oc"
+      />
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-6 print:hidden">
           <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
