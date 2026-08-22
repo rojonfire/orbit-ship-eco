@@ -15,7 +15,9 @@ const Blog = lazy(() => import("./pages/Blog"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const Politicas = lazy(() => import("./pages/Politicas"));
+const BolsasPersonalizadas = lazy(() => import("./pages/BolsasPersonalizadas"));
 const MockupPersonalizado = lazy(() => import("./pages/MockupPersonalizado"));
+const GeneradorOC = lazy(() => import("./pages/GeneradorOC"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -56,8 +58,12 @@ const App = () => (
               <Route path="/faq" element={<FAQ />} />
               <Route path="/politicas" element={<Politicas />} />
               <Route path="/shop/:handle" element={<ShopProduct />} />
+              <Route path="/personalizadas" element={<BolsasPersonalizadas />} />
               {/* Prueba interna, no enlazada en el nav — herramienta de vista previa de logo personalizado */}
               <Route path="/herramientas/mockup-logo" element={<MockupPersonalizado />} />
+              {/* No enlazada en el nav — se comparte el link directo con clientes. Genera OC apta para cualquier proveedor,
+                  con Orbitabags SpA precargado como opción por defecto. */}
+              <Route path="/herramientas/generador-oc" element={<GeneradorOC />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -49,4 +49,8 @@ export const FAQS: Faq[] = [
     question: "¿Las bolsas compostables resisten el transporte igual que las plásticas?",
     answer: "Sí. Las bolsas Orbita están diseñadas como bolsas courier de despacho: resisten la manipulación del transporte en Chile y protegen el producto durante el envío, con la ventaja de que después de usarse se compostan en casa en lugar de quedar como residuo plástico.",
   },
+  {
+    question: "¿Puedo generar una Orden de Compra (OC) para mi empresa?",
+    answer: "Sí, tenemos un generador de Orden de Compra gratuito en orbitabags.cl/herramientas/generador-oc: completas los datos de tu empresa y el detalle del pedido, firmas y descargas el PDF listo para tu contabilidad. Sirve para cualquier proveedor, no solo para comprarnos a nosotros.",
+  },
 ];

@@ -785,7 +785,7 @@ const ShopProduct = () => {
 
                   <div className="bg-secondary/30 rounded-2xl p-6 border border-border text-sm text-muted-foreground space-y-2">
                     <p>
-                      Tu pedido queda listo dentro de las 2 semanas siguientes a tu pago. Las bolsas
+                      Tu pedido queda listo en aproximadamente 10 días hábiles desde tu pago. Las bolsas
                       se mandan a imprimir tu logo en un ciclo semanal, así que no salen de
                       inmediato — te avisaremos apenas estén en camino.
                     </p>
