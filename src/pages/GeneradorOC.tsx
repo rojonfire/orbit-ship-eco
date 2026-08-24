@@ -58,7 +58,7 @@ const FAQ: { q: string; a: string }[] = [
 
 export default function GeneradorOC() {
   const [providerMode, setProviderMode] = useState<ProviderMode>("orbita");
-  const [orbitaRut, setOrbitaRut] = useState("76.XXX.XXX-X");
+  const [orbitaRut, setOrbitaRut] = useState("78.395.747-7");
   const [orbitaContacto, setOrbitaContacto] = useState("contacto@orbitabags.cl");
   const [otroNombre, setOtroNombre] = useState("");
   const [otroRut, setOtroRut] = useState("");
