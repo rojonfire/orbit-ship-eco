@@ -32,7 +32,7 @@ const newItem = (): Item => ({ id: `item-${++itemSeq}`, desc: "", qty: 1, price:
 const FAQ: { q: string; a: string }[] = [
   {
     q: "¿Sirve solo para comprarle a Orbitabags?",
-    a: "No. Podés usarla para cualquier proveedor: dejá seleccionado \"Orbitabags SpA\" si nos estás comprando a nosotros, o elegí \"Otro proveedor\" y completá sus datos para generar la OC de cualquier compra de tu empresa.",
+    a: "No. Puedes usarla para cualquier proveedor: deja seleccionado \"Orbitabags SpA\" si nos estás comprando a nosotros, o elige \"Otro proveedor\" y completa sus datos para generar la OC de cualquier compra de tu empresa.",
   },
   {
     q: "¿Quién tiene que completarla?",
@@ -52,7 +52,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "¿Se guardan mis datos en algún lado?",
-    a: "No. Todo se genera en tu navegador — nada se envía ni se almacena en un servidor. Si recargás la página, tenés que completarla de nuevo.",
+    a: "No. Todo se genera en tu navegador — nada se envía ni se almacena en un servidor. Si recargas la página, tienes que completarla de nuevo.",
   },
 ];
 
