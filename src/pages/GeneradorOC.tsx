@@ -668,7 +668,64 @@ export default function GeneradorOC() {
 
         <section className="mb-6">
           <SectionTitle>Detalle del pedido</SectionTitle>
-          <div className="overflow-x-auto">
+          {/* Celular: una tarjeta por producto, sin scroll lateral. */}
+          <div className="space-y-3 sm:hidden print:hidden">
+            {items.map((it, idx) => (
+              <div key={it.id} className="rounded-md border border-border p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] uppercase tracking-wide text-muted-foreground">Producto {idx + 1}</span>
+                  <button
+                    type="button"
+                    onClick={() => removeItem(it.id)}
+                    className="text-destructive hover:opacity-70 p-1 -m-1"
+                    aria-label="Eliminar producto"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+                <textarea
+                  value={it.desc}
+                  onChange={(e) => updateItem(it.id, { desc: e.target.value })}
+                  placeholder="Ej: Bolsa courier mediana 30x40cm"
+                  aria-label="Descripción"
+                  rows={2}
+                  className="flex w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-base md:text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                />
+                <div className="grid grid-cols-[1fr_1.5fr] gap-2 mt-2">
+                  <div>
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide">Cantidad</Label>
+                    <Input
+                      type="number"
+                      inputMode="numeric"
+                      min={1}
+                      value={it.qty}
+                      onChange={(e) => updateItem(it.id, { qty: parseFloat(e.target.value) || 0 })}
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-[10px] text-muted-foreground uppercase tracking-wide">Precio unit. (IVA incl.)</Label>
+                    <Input
+                      type="number"
+                      inputMode="numeric"
+                      min={0}
+                      value={it.price || ""}
+                      onChange={(e) => updateItem(it.id, { price: parseFloat(e.target.value) || 0 })}
+                      placeholder="0"
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-baseline justify-between mt-3 pt-2 border-t border-border text-sm">
+                  <span className="text-muted-foreground">Subtotal neto</span>
+                  <span className="font-medium">{fmtCLP(lineNeto(it))}</span>
+                </div>
+                <LineNotes it={it} className="text-right" />
+              </div>
+            ))}
+          </div>
+
+          <div className="hidden sm:block print:block overflow-x-auto">
             <table className="w-full border-collapse min-w-[560px]">
               <thead>
                 <tr>
@@ -716,14 +773,7 @@ export default function GeneradorOC() {
                     </td>
                     <td className="py-1.5 pt-4 text-sm text-right align-top">
                       {fmtCLP(lineNeto(it))}
-                      {it.price > 0 && (
-                        <div className="text-[11px] text-muted-foreground">{fmtCLPUnit(unitNeto(it))} neto c/u</div>
-                      )}
-                      {it.custom && (
-                        <div className="text-[11px] text-muted-foreground">
-                          {it.qty >= 200 ? "Precio 200+ uds" : "Precio 100–199 uds"}
-                        </div>
-                      )}
+                      <LineNotes it={it} />
                     </td>
                     <td className="py-1.5 pt-3 text-center align-top print:hidden">
                       <button
@@ -740,13 +790,13 @@ export default function GeneradorOC() {
               </tbody>
             </table>
           </div>
-          <div className="mt-3 flex flex-wrap items-center gap-2 print:hidden">
+          <div className="mt-3 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 print:hidden">
             {providerMode === "orbita" && (
               <select
                 value=""
                 onChange={(e) => addFromCatalog(e.target.value)}
                 aria-label="Agregar producto de Orbitabags"
-                className="h-9 rounded-md border border-primary bg-background px-3 text-sm font-medium text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="h-10 sm:h-9 w-full sm:w-auto max-w-full rounded-md border border-primary bg-background px-3 text-sm font-medium text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <option value="" disabled>
                   + Elegir producto de Orbitabags
@@ -769,7 +819,7 @@ export default function GeneradorOC() {
                 </optgroup>
               </select>
             )}
-            <Button type="button" variant="outline" size="sm" onClick={addItem}>
+            <Button type="button" variant="outline" size="sm" onClick={addItem} className="h-10 sm:h-9">
               + Agregar producto manual
             </Button>
           </div>
@@ -953,6 +1003,16 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
     <div className="flex items-center gap-2 mb-3">
       <span className="text-[11px] uppercase tracking-wide text-foreground/70 font-bold">{children}</span>
       <span className="flex-1 h-px bg-border" />
+    </div>
+  );
+}
+
+// Notas bajo el subtotal: neto por unidad y tramo de precio de personalizadas.
+function LineNotes({ it, className }: { it: Item; className?: string }) {
+  return (
+    <div className={cn("text-[11px] text-muted-foreground", className)}>
+      {it.price > 0 && <div>{fmtCLPUnit(unitNeto(it))} neto c/u</div>}
+      {it.custom && <div>{it.qty >= 200 ? "Precio 200+ uds" : "Precio 100–199 uds"}</div>}
     </div>
   );
 }
