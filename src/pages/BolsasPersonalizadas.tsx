@@ -6,6 +6,7 @@ import AnimatedSection from "@/components/AnimatedSection";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { SIZE_MEDIA } from "@/data/sizeMedia";
+import { PERSONALIZADA_SIZES, PRICING_100, PRICING_200 } from "@/data/personalizadas";
 
 interface SizeCard {
   handle: string;
@@ -44,19 +45,9 @@ const STEPS = [
   },
 ];
 
-const PRICING_100 = [
-  { size: "20 × 30 cm", prices: ["$730", "$1.180", "$1.630", "$2.070"] },
-  { size: "30 × 40 cm", prices: ["$800", "$1.250", "$1.700", "$2.140"] },
-  { size: "40 × 50 cm", prices: ["$880", "$1.330", "$1.780", "$2.220"] },
-  { size: "50 × 60 cm", prices: ["$990", "$1.440", "$1.890", "$2.330"] },
-];
-
-const PRICING_200 = [
-  { size: "20 × 30 cm", prices: ["$510", "$730", "$950", "$1.180"] },
-  { size: "30 × 40 cm", prices: ["$580", "$800", "$1.020", "$1.250"] },
-  { size: "40 × 50 cm", prices: ["$660", "$890", "$1.110", "$1.330"] },
-  { size: "50 × 60 cm", prices: ["$770", "$1.000", "$1.220", "$1.440"] },
-];
+const fmtPrice = (n: number) => "$" + n.toLocaleString("es-CL");
+const toRows = (table: number[][]) =>
+  table.map((prices, i) => ({ size: PERSONALIZADA_SIZES[i], prices: prices.map(fmtPrice) }));
 
 const FAQS_PERSONALIZADAS = [
   {
@@ -192,8 +183,8 @@ const BolsasPersonalizadas = () => {
               </p>
 
               {[
-                { tag: "100 unidades", rows: PRICING_100 },
-                { tag: "200+ unidades — mismo precio pidas 200 o 5.000", rows: PRICING_200 },
+                { tag: "100 unidades", rows: toRows(PRICING_100) },
+                { tag: "200+ unidades — mismo precio pidas 200 o 5.000", rows: toRows(PRICING_200) },
               ].map(({ tag, rows }) => (
                 <div key={tag} className="mb-8 last:mb-0">
                   <div className="text-xs font-semibold uppercase tracking-wider text-primary mb-3">

@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { jsPDF } from "jspdf";
 import { Trash2 } from "lucide-react";
@@ -7,6 +7,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import SEOHead from "@/components/SEOHead";
 import { cn } from "@/lib/utils";
+import { storefrontApiRequest } from "@/lib/shopify";
+import {
+  PERSONALIZADA_MIN_QTY,
+  PERSONALIZADA_SIZES,
+  personalizadaPrice,
+} from "@/data/personalizadas";
 import logo from "@/assets/logo-orbita-bags.svg";
 
 type ProviderMode = "orbita" | "otro";
@@ -16,6 +22,8 @@ interface Item {
   desc: string;
   qty: number;
   price: number; // precio unitario, IVA incluido
+  // Bolsa personalizada: el precio por bolsa depende del tramo de cantidad (100–199 / 200+).
+  custom?: { sizeIdx: number; colors: number };
 }
 
 const ORBITA = {
@@ -24,10 +32,111 @@ const ORBITA = {
 };
 
 const fmtCLP = (n: number) => "$" + Math.round(n).toLocaleString("es-CL");
+// Precio unitario neto: puede tener decimales (ej. $990 IVA incl. → $831,93 neto).
+const fmtCLPUnit = (n: number) =>
+  "$" + n.toLocaleString("es-CL", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+
+// El SII exige las líneas en neto. El usuario ingresa el precio con IVA,
+// así que cada fila se convierte a neto y el total se mantiene igual a lo pagado.
+const unitNeto = (it: Item) => (it.price || 0) / 1.19;
+const lineNeto = (it: Item) => Math.round(((it.qty || 0) * (it.price || 0)) / 1.19);
 const todayISO = () => new Date().toISOString().slice(0, 10);
 
 let itemSeq = 0;
 const newItem = (): Item => ({ id: `item-${++itemSeq}`, desc: "", qty: 1, price: 0 });
+
+// Catálogo de Orbita para autocompletar filas (precio de la tienda, IVA incluido).
+interface CatalogOption {
+  key: string;
+  desc: string;
+  price: number;
+}
+
+const CATALOG_QUERY = `
+  query GetOCCatalog {
+    products(first: 50, query: "product_type:'Bolsas Biodegradables'") {
+      edges {
+        node {
+          title
+          variants(first: 20) {
+            edges { node { id title availableForSale price { amount } } }
+          }
+        }
+      }
+    }
+  }
+`;
+
+type CatalogEdges = Array<{
+  node: {
+    title: string;
+    variants: { edges: Array<{ node: { id: string; title: string; availableForSale: boolean; price: { amount: string } } }> };
+  };
+}>;
+
+async function fetchCatalog(): Promise<CatalogOption[]> {
+  const data = await storefrontApiRequest(CATALOG_QUERY);
+  const edges = (data?.data?.products?.edges ?? []) as CatalogEdges;
+  return edges
+    .flatMap(({ node }) =>
+      node.variants.edges
+        .filter((v) => v.node.availableForSale)
+        .map((v) => ({
+          key: v.node.id,
+          // "Blanca / 100 unidades" → "Bolsa Biodegradable 20x30 cm · Blanca · 100 unidades"
+          desc: [node.title, ...v.node.title.split(" / ")].join(" · "),
+          price: Math.round(parseFloat(v.node.price.amount)),
+        })),
+    )
+    .sort((a, b) => a.desc.localeCompare(b.desc, "es", { numeric: true }));
+}
+
+// --- RUT chileno (módulo 11) ---
+const cleanRut = (rut: string) => rut.replace(/[^0-9kK]/g, "").toUpperCase();
+const rutDv = (body: string) => {
+  let sum = 0;
+  let mul = 2;
+  for (let i = body.length - 1; i >= 0; i--) {
+    sum += Number(body[i]) * mul;
+    mul = mul === 7 ? 2 : mul + 1;
+  }
+  const dv = 11 - (sum % 11);
+  return dv === 11 ? "0" : dv === 10 ? "K" : String(dv);
+};
+const isValidRut = (rut: string) => {
+  const c = cleanRut(rut);
+  if (c.length < 8 || c.length > 9) return false;
+  const body = c.slice(0, -1);
+  return /^\d+$/.test(body) && rutDv(body) === c.slice(-1);
+};
+// "781682225" → "78.168.222-5"
+const formatRut = (rut: string) => {
+  const c = cleanRut(rut);
+  if (c.length < 2) return rut;
+  const body = c.slice(0, -1).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return `${body}-${c.slice(-1)}`;
+};
+const rutError = (rut: string) => {
+  if (!rut.trim()) return "Falta el RUT";
+  if (!isValidRut(rut)) return "RUT inválido: revisa los números y el dígito verificador";
+  return undefined;
+};
+
+const PERSONALIZADA_OPTIONS = PERSONALIZADA_SIZES.flatMap((size, sizeIdx) =>
+  [1, 2, 3, 4].map((colors) => ({
+    key: `pers-${sizeIdx}-${colors}`,
+    custom: { sizeIdx, colors },
+    desc: `Bolsa personalizada ${size.replace(/ /g, "")} · logo ${colors} ${colors === 1 ? "color" : "colores"}`,
+  })),
+);
+
+// Nombre de archivo seguro: sin tildes, sin símbolos raros.
+const slugFile = (s: string) =>
+  s
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Za-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
 
 const FAQ: { q: string; a: string }[] = [
   {
@@ -40,7 +149,7 @@ const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "¿El precio que ingreso en cada producto lleva IVA o no?",
-    a: "Se ingresa el precio unitario CON IVA incluido, tal como te lo vendieron. El neto y el IVA (19%) se calculan solos a partir de ese total.",
+    a: "Se ingresa el precio unitario CON IVA incluido, tal como te lo vendieron. En el PDF cada fila aparece en neto (sin IVA), como lo pide el SII, y abajo se suman el neto, el IVA (19%) y el total.",
   },
   {
     q: "¿Quién debe firmar?",
@@ -83,6 +192,10 @@ export default function GeneradorOC() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const drawingRef = useRef(false);
   const [hasSignature, setHasSignature] = useState(false);
+  // Se activa al intentar descargar/imprimir: desde ahí se marcan los campos con error.
+  const [showErrors, setShowErrors] = useState(false);
+  // RUTs ya editados: su error se muestra al salir del campo, no mientras se escribe.
+  const [rutTouched, setRutTouched] = useState({ buyer: false, otro: false });
 
   const provider =
     providerMode === "orbita"
@@ -90,16 +203,56 @@ export default function GeneradorOC() {
       : { name: otroNombre, giro: otroGiro, rut: otroRut, contacto: otroContacto };
 
   const totals = useMemo(() => {
-    const totalConIva = items.reduce((sum, it) => sum + (it.qty || 0) * (it.price || 0), 0);
-    const neto = totalConIva / 1.19;
+    const totalConIva = Math.round(items.reduce((sum, it) => sum + (it.qty || 0) * (it.price || 0), 0));
+    const neto = items.reduce((sum, it) => sum + lineNeto(it), 0);
     const iva = totalConIva - neto;
     return { neto, iva, total: totalConIva };
   }, [items]);
 
   const updateItem = (id: string, patch: Partial<Item>) =>
-    setItems((prev) => prev.map((it) => (it.id === id ? { ...it, ...patch } : it)));
+    setItems((prev) =>
+      prev.map((it) => {
+        if (it.id !== id) return it;
+        const next = { ...it, ...patch };
+        // Personalizada: al cambiar la cantidad se ajusta solo el precio al tramo que corresponde.
+        if (next.custom && patch.qty !== undefined) {
+          next.price = personalizadaPrice(next.custom.sizeIdx, next.custom.colors, next.qty || 0);
+        }
+        // Si edita el precio a mano, deja de recalcularse.
+        if (patch.price !== undefined) delete next.custom;
+        return next;
+      }),
+    );
   const removeItem = (id: string) => setItems((prev) => prev.filter((it) => it.id !== id));
   const addItem = () => setItems((prev) => [...prev, newItem()]);
+
+  const [catalog, setCatalog] = useState<CatalogOption[]>([]);
+  useEffect(() => {
+    fetchCatalog()
+      .then(setCatalog)
+      .catch((err) => console.error("No se pudo cargar el catálogo", err));
+  }, []);
+  // Agrega un producto del catálogo; si la única fila está vacía, la reutiliza.
+  const addFromCatalog = (key: string) => {
+    const opt = catalog.find((c) => c.key === key);
+    const pers = PERSONALIZADA_OPTIONS.find((p) => p.key === key);
+    let filled: Omit<Item, "id">;
+    if (opt) filled = { desc: opt.desc, qty: 1, price: opt.price, custom: undefined };
+    else if (pers)
+      filled = {
+        desc: pers.desc,
+        qty: PERSONALIZADA_MIN_QTY,
+        price: personalizadaPrice(pers.custom.sizeIdx, pers.custom.colors, PERSONALIZADA_MIN_QTY),
+        custom: pers.custom,
+      };
+    else return;
+    setItems((prev) => {
+      const blank = prev.find((it) => !it.desc.trim() && !it.price);
+      return blank
+        ? prev.map((it) => (it.id === blank.id ? { ...it, ...filled } : it))
+        : [...prev, { ...newItem(), ...filled }];
+    });
+  };
 
   // --- Firma ---
   const getPos = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -122,7 +275,6 @@ export default function GeneradorOC() {
     ctx.beginPath();
     ctx.moveTo(p.x, p.y);
     drawingRef.current = true;
-    setHasSignature(true);
   };
   const onSigMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!drawingRef.current) return;
@@ -133,6 +285,7 @@ export default function GeneradorOC() {
     const p = getPos(e);
     ctx.lineTo(p.x, p.y);
     ctx.stroke();
+    if (!hasSignature) setHasSignature(true);
   };
   const onSigUp = () => {
     drawingRef.current = false;
@@ -144,8 +297,37 @@ export default function GeneradorOC() {
     setHasSignature(false);
   };
 
+  // --- Validación antes de generar ---
+  const errors = {
+    buyerName: buyerName.trim() ? undefined : "Falta la razón social",
+    buyerRut: rutError(buyerRut),
+    otroRut: providerMode === "otro" ? rutError(otroRut) : undefined,
+    items: items.some((it) => it.desc.trim() && it.qty > 0 && it.price > 0)
+      ? undefined
+      : "Agrega al menos un producto con descripción, cantidad y precio",
+    customMin: items.some((it) => it.custom && it.qty < PERSONALIZADA_MIN_QTY)
+      ? `Las bolsas personalizadas son desde ${PERSONALIZADA_MIN_QTY} unidades`
+      : undefined,
+    signerName: signerName.trim() ? undefined : "Falta el nombre de quien firma",
+    signature: hasSignature ? undefined : "Falta la firma",
+  };
+  const errorList = Object.values(errors).filter(Boolean) as string[];
+  const shown = (msg?: string) => (showErrors ? msg : undefined);
+
+  const validateOrWarn = () => {
+    setShowErrors(true);
+    if (errorList.length === 0) return true;
+    document.getElementById("oc-errores")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    return false;
+  };
+
+  const handlePrint = () => {
+    if (validateOrWarn()) window.print();
+  };
+
   // --- PDF ---
-  const handleDownload = () => {
+  const handleDownload = async () => {
+    if (!validateOrWarn()) return;
     try {
       const doc = new jsPDF({ unit: "pt", format: "a4" });
       const marginX = 48;
@@ -215,7 +397,7 @@ export default function GeneradorOC() {
       doc.setTextColor(122, 115, 104);
       doc.text("DESCRIPCIÓN", marginX, y);
       doc.text("CANT.", 330, y);
-      doc.text("P. UNIT. (IVA incl.)", 380, y);
+      doc.text("P. UNIT. NETO", 380, y);
       doc.text("SUBTOTAL", 480, y);
       y += 6;
       doc.setDrawColor(31, 42, 36);
@@ -227,12 +409,11 @@ export default function GeneradorOC() {
       doc.setTextColor(31, 42, 36);
 
       items.forEach((it) => {
-        const sub = (it.qty || 0) * (it.price || 0);
         const descLines = doc.splitTextToSize(it.desc || "—", 250);
         doc.text(descLines, marginX, y);
         doc.text(String(it.qty || 0), 330, y);
-        doc.text(fmtCLP(it.price || 0), 380, y);
-        doc.text(fmtCLP(sub), 480, y);
+        doc.text(fmtCLPUnit(unitNeto(it)), 380, y);
+        doc.text(fmtCLP(lineNeto(it)), 480, y);
         y += Math.max(14, descLines.length * 13);
         if (y > 720) {
           doc.addPage();
@@ -302,10 +483,18 @@ export default function GeneradorOC() {
       doc.setTextColor(160, 155, 145);
       doc.text("Generado con la herramienta gratuita de Orbitabags SpA · orbitabags.cl", marginX, 806);
 
-      const fileName = `OC_${oc}_${(buyerName || "orden-compra").replace(/\s+/g, "_")}.pdf`;
+      const fileName = `OC_${slugFile(oc) || "sin-numero"}_${slugFile(buyerName) || "orden-compra"}.pdf`;
 
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      if (isMobile) {
+      // En celular, compartir un File con nombre evita que llegue como "Unknown.pdf" (ej. por WhatsApp).
+      const file = new File([doc.output("blob")], fileName, { type: "application/pdf" });
+      if (isMobile && navigator.canShare?.({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], title: fileName });
+        } catch (err) {
+          if ((err as Error).name !== "AbortError") throw err;
+        }
+      } else if (isMobile) {
         const win = window.open(doc.output("bloburl") as unknown as string, "_blank");
         if (!win) {
           alert(
@@ -422,7 +611,17 @@ export default function GeneradorOC() {
           ) : (
             <div className="grid sm:grid-cols-2 gap-4">
               <Field label="Razón social" value={otroNombre} onChange={setOtroNombre} placeholder="Nombre del proveedor" />
-              <Field label="RUT" value={otroRut} onChange={setOtroRut} placeholder="XX.XXX.XXX-X" />
+              <Field
+                label="RUT"
+                value={otroRut}
+                onChange={setOtroRut}
+                onBlur={() => {
+                  setOtroRut(formatRut(otroRut));
+                  setRutTouched((t) => ({ ...t, otro: true }));
+                }}
+                placeholder="XX.XXX.XXX-X"
+                error={rutTouched.otro && otroRut.trim() ? errors.otroRut : shown(errors.otroRut)}
+              />
               <Field label="Giro" value={otroGiro} onChange={setOtroGiro} placeholder="Giro comercial" />
               <Field label="Contacto" value={otroContacto} onChange={setOtroContacto} placeholder="Email o teléfono" />
             </div>
@@ -432,8 +631,24 @@ export default function GeneradorOC() {
         <section className="mb-6">
           <SectionTitle>Datos del comprador</SectionTitle>
           <div className="grid sm:grid-cols-2 gap-4">
-            <Field label="Razón social" value={buyerName} onChange={setBuyerName} placeholder="Nombre de tu empresa" />
-            <Field label="RUT" value={buyerRut} onChange={setBuyerRut} placeholder="XX.XXX.XXX-X" />
+            <Field
+              label="Razón social"
+              value={buyerName}
+              onChange={setBuyerName}
+              placeholder="Nombre de tu empresa"
+              error={shown(errors.buyerName)}
+            />
+            <Field
+              label="RUT"
+              value={buyerRut}
+              onChange={setBuyerRut}
+              onBlur={() => {
+                setBuyerRut(formatRut(buyerRut));
+                setRutTouched((t) => ({ ...t, buyer: true }));
+              }}
+              placeholder="XX.XXX.XXX-X"
+              error={rutTouched.buyer && buyerRut.trim() ? errors.buyerRut : shown(errors.buyerRut)}
+            />
             <Field label="Giro" value={buyerGiro} onChange={setBuyerGiro} placeholder="Giro comercial" />
             <Field label="Dirección" value={buyerAddr} onChange={setBuyerAddr} placeholder="Dirección de facturación" />
             <Field label="Ciudad" value={buyerCity} onChange={setBuyerCity} placeholder="Ciudad" />
@@ -460,7 +675,7 @@ export default function GeneradorOC() {
                     Precio unit. (IVA incl.)
                   </th>
                   <th className="text-right text-[10px] uppercase tracking-wide text-muted-foreground border-b border-foreground pb-1.5 w-[18%]">
-                    Subtotal
+                    Subtotal neto
                   </th>
                   <th className="w-[7%] border-b border-foreground pb-1.5 print:hidden" />
                 </tr>
@@ -492,7 +707,17 @@ export default function GeneradorOC() {
                         placeholder="0"
                       />
                     </td>
-                    <td className="py-1.5 pt-4 text-sm text-right align-top">{fmtCLP(it.qty * it.price)}</td>
+                    <td className="py-1.5 pt-4 text-sm text-right align-top">
+                      {fmtCLP(lineNeto(it))}
+                      {it.price > 0 && (
+                        <div className="text-[11px] text-muted-foreground">{fmtCLPUnit(unitNeto(it))} neto c/u</div>
+                      )}
+                      {it.custom && (
+                        <div className="text-[11px] text-muted-foreground">
+                          {it.qty >= 200 ? "Precio 200+ uds" : "Precio 100–199 uds"}
+                        </div>
+                      )}
+                    </td>
                     <td className="py-1.5 pt-3 text-center align-top print:hidden">
                       <button
                         type="button"
@@ -508,9 +733,39 @@ export default function GeneradorOC() {
               </tbody>
             </table>
           </div>
-          <Button type="button" variant="outline" size="sm" onClick={addItem} className="mt-3 print:hidden">
-            + Agregar producto
-          </Button>
+          <div className="mt-3 flex flex-wrap items-center gap-2 print:hidden">
+            {providerMode === "orbita" && (
+              <select
+                value=""
+                onChange={(e) => addFromCatalog(e.target.value)}
+                aria-label="Agregar producto de Orbitabags"
+                className="h-9 rounded-md border border-primary bg-background px-3 text-sm font-medium text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <option value="" disabled>
+                  + Elegir producto de Orbitabags
+                </option>
+                {catalog.length > 0 && (
+                  <optgroup label="Bolsas compostables (pack)">
+                    {catalog.map((c) => (
+                      <option key={c.key} value={c.key}>
+                        {c.desc} — {fmtCLP(c.price)}
+                      </option>
+                    ))}
+                  </optgroup>
+                )}
+                <optgroup label="Bolsas personalizadas con logo (precio por bolsa)">
+                  {PERSONALIZADA_OPTIONS.map((p) => (
+                    <option key={p.key} value={p.key}>
+                      {p.desc} — desde {fmtCLP(personalizadaPrice(p.custom.sizeIdx, p.custom.colors, 200))} c/u
+                    </option>
+                  ))}
+                </optgroup>
+              </select>
+            )}
+            <Button type="button" variant="outline" size="sm" onClick={addItem}>
+              + Agregar producto manual
+            </Button>
+          </div>
 
           <div className="mt-4 ml-auto w-full sm:w-64 space-y-1">
             <div className="flex justify-between text-sm border-b border-border py-1.5">
@@ -542,7 +797,13 @@ export default function GeneradorOC() {
         <section className="mb-8">
           <SectionTitle>Firma del representante legal</SectionTitle>
           <div className="grid sm:grid-cols-2 gap-4 mb-3">
-            <Field label="Nombre completo" value={signerName} onChange={setSignerName} placeholder="Nombre del representante legal" />
+            <Field
+              label="Nombre completo"
+              value={signerName}
+              onChange={setSignerName}
+              placeholder="Nombre del representante legal"
+              error={shown(errors.signerName)}
+            />
             <Field
               label="Cargo"
               value={signerRole}
@@ -558,8 +819,14 @@ export default function GeneradorOC() {
             onPointerDown={onSigDown}
             onPointerMove={onSigMove}
             onPointerUp={onSigUp}
-            className="w-full max-w-[500px] h-[150px] border border-border bg-white rounded-sm mt-1 touch-none"
+            className={cn(
+              "w-full max-w-[500px] h-[150px] border bg-white rounded-sm mt-1 touch-none",
+              shown(errors.signature) ? "border-destructive border-2" : "border-border",
+            )}
           />
+          {shown(errors.signature) && (
+            <p className="text-xs text-destructive mt-1">Falta la firma: firma dentro del recuadro antes de descargar.</p>
+          )}
           <div className="mt-2 flex items-center gap-3 print:hidden">
             <Button type="button" variant="outline" size="sm" onClick={clearSignature}>
               Borrar firma
@@ -568,11 +835,26 @@ export default function GeneradorOC() {
           </div>
         </section>
 
+        {showErrors && errorList.length > 0 && (
+          <div
+            id="oc-errores"
+            role="alert"
+            className="mb-4 rounded-md border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm print:hidden"
+          >
+            <p className="font-semibold text-destructive mb-1">Antes de descargar, completa lo siguiente:</p>
+            <ul className="list-disc pl-5 space-y-0.5 text-foreground">
+              {errorList.map((msg) => (
+                <li key={msg}>{msg}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div className="flex gap-3 flex-wrap mb-10 print:hidden">
           <Button type="button" onClick={handleDownload}>
             Descargar PDF
           </Button>
-          <Button type="button" variant="outline" onClick={() => window.print()}>
+          <Button type="button" variant="outline" onClick={handlePrint}>
             Imprimir
           </Button>
         </div>
@@ -627,17 +909,29 @@ function Field({
   label,
   value,
   onChange,
+  onBlur,
   placeholder,
+  error,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
+  onBlur?: () => void;
   placeholder?: string;
+  error?: string;
 }) {
   return (
     <div>
       <Label className="text-[11px] text-muted-foreground uppercase tracking-wide">{label}</Label>
-      <Input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className="mt-1" />
+      <Input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
+        placeholder={placeholder}
+        aria-invalid={!!error}
+        className={cn("mt-1", error && "border-destructive focus-visible:ring-destructive")}
+      />
+      {error && <p className="text-xs text-destructive mt-1">{error}</p>}
     </div>
   );
 }
