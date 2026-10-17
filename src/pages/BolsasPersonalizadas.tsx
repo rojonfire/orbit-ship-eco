@@ -283,6 +283,7 @@ const BolsasPersonalizadas = () => {
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <a
                   href="https://wa.me/56931726288?text=Hola!%20Quiero%20cotizar%20bolsas%20personalizadas%20con%20mi%20logo"
+                  data-track="personalizadas_whatsapp_click"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 bg-secondary/50 text-foreground px-8 py-3 rounded-full font-medium hover:bg-secondary transition-colors"
@@ -290,7 +291,7 @@ const BolsasPersonalizadas = () => {
                   <MessageCircle className="w-4 h-4" />
                   Hablar por WhatsApp
                 </a>
-                <Link to={`/shop/${SIZES[0].handle}?tipo=personalizada`}>
+                <Link to={`/shop/${SIZES[0].handle}?tipo=personalizada`} data-track="personalizadas_cta_click">
                   <Button className="rounded-full px-8 py-6 btn-lift group w-full sm:w-auto">
                     Empezar a personalizar
                     <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />

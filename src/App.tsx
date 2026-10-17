@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import { useEffect, lazy, Suspense } from "react";
+import { useEffect, useRef, lazy, Suspense } from "react";
 import Index from "./pages/Index";
 
 // Lazy-load non-critical routes to reduce initial JS bundle
@@ -24,9 +24,14 @@ const queryClient = new QueryClient();
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
+  const isFirstRender = useRef(true);
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Fire Meta Pixel PageView on every route change
+    // El PageView de la carga inicial ya lo dispara index.html; aquí solo los cambios de ruta
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
     if (typeof (window as any).fbq === "function") {
       (window as any).fbq("track", "PageView");
     }

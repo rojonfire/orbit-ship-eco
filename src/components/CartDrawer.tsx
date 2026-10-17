@@ -15,6 +15,7 @@ import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide
 import { useCartStore } from "@/stores/cartStore";
 import { formatCLP } from "@/lib/shopify";
 import { invoiceSchema } from "@/lib/invoice";
+import { track } from "@/lib/analytics";
 
 const emptyInvoiceForm = { rut: "", razonSocial: "", giro: "", direccion: "" };
 
@@ -62,6 +63,11 @@ export const CartDrawer = () => {
         setInvoiceData(null);
       }
 
+      track("checkout_started", {
+        items: totalItems,
+        value: totalPrice,
+        wants_invoice: wantsInvoice,
+      });
       if (typeof (window as any).fbq === "function") {
         (window as any).fbq("track", "InitiateCheckout", {
           content_ids: items.map(item => item.variantId),

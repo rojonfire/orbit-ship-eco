@@ -22,6 +22,7 @@ import LogoMockup, { LogoMockupHandle, LogoMockupState } from "@/components/Logo
 import { useCartStore } from "@/stores/cartStore";
 import bolsasTamanos from "@/assets/bolsas-tamanos.webp";
 import { SIZE_MEDIA } from "@/data/sizeMedia";
+import { track } from "@/lib/analytics";
 
 const POSITION_LABELS: Record<string, string> = {
   "0,0": "Arriba izquierda",
@@ -108,6 +109,12 @@ const ShopProduct = () => {
           if (initialColor) setSelectedColor(initialColor);
           if (packOption?.values[0]) setSelectedPack(packOption.values[0]);
         }
+        if (data) {
+          track("product_viewed", {
+            product: data.node.title,
+            price: parseFloat(data.node.priceRange.minVariantPrice.amount),
+          });
+        }
         if (data && typeof (window as any).fbq === "function") {
           const colorOpt = data.node.options.find(o => o.name === "Color");
           const packOpt = data.node.options.find(o => o.name === "Pack");
@@ -137,6 +144,12 @@ const ShopProduct = () => {
   // Track selection changes
   useEffect(() => {
     if (!product || !selectedColor) return;
+    track("product_option_selected", {
+      product: product.node.title,
+      color: selectedColor,
+      pack: selectedPack,
+      personalizada: wantsCustom,
+    });
     if (typeof (window as any).fbq === "function") {
       (window as any).fbq("trackCustom", "ProductOptionSelected", {
         content_name: product.node.title,
@@ -840,6 +853,12 @@ const ShopProduct = () => {
                         price: activePackVariant.price,
                         quantity: packQuantity,
                         selectedOptions: activePackVariant.selectedOptions || [],
+                      });
+                      track("add_to_cart", {
+                        product: product.node.title,
+                        variant: activePackVariant.title,
+                        quantity: packQuantity,
+                        value: parseFloat(activePackVariant.price.amount) * packQuantity,
                       });
                       if (typeof (window as any).fbq === "function") {
                         (window as any).fbq("track", "AddToCart", {

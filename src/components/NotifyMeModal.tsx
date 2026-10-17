@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { track } from "@/lib/analytics";
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznaIR6y_GuQICfGYXkAFNgvGxq7R2kQbVWx06cGQwC1R_zn4q_IBiCq6900IGGwsew/exec";
 
@@ -49,6 +50,10 @@ const NotifyMeModal = ({ productName, selectedColor, selectedPack, isCustom, cla
         }),
       });
 
+      track("stock_notify_requested", {
+        product: productName || "General",
+        personalizada: isCustom,
+      });
       if (typeof (window as any).fbq === "function") {
         (window as any).fbq("track", "Lead", { content_name: productName || "General" });
       }

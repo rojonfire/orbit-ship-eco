@@ -14,6 +14,7 @@ import {
   personalizadaPrice,
 } from "@/data/personalizadas";
 import logo from "@/assets/logo-orbita-bags.svg";
+import { track } from "@/lib/analytics";
 
 type ProviderMode = "orbita" | "otro";
 
@@ -130,6 +131,9 @@ const PERSONALIZADA_OPTIONS = PERSONALIZADA_SIZES.flatMap((size, sizeIdx) =>
   })),
 );
 
+// Navegadores dentro de apps (WhatsApp, Instagram, Facebook, etc.) suelen bloquear descargas.
+const isInAppBrowser = () => /FBAN|FBAV|FB_IAB|Instagram|WhatsApp|Line\/|TikTok|musical_ly|; wv\)/i.test(navigator.userAgent);
+
 // Nombre de archivo seguro: sin tildes, sin símbolos raros.
 const slugFile = (s: string) =>
   s
@@ -194,6 +198,9 @@ export default function GeneradorOC() {
   const [hasSignature, setHasSignature] = useState(false);
   // Se activa al intentar descargar/imprimir: desde ahí se marcan los campos con error.
   const [showErrors, setShowErrors] = useState(false);
+  // Último PDF generado: queda un link de descarga visible por si el navegador no lo bajó solo.
+  const [pdfReady, setPdfReady] = useState<{ url: string; file: File } | null>(null);
+  const inApp = useMemo(isInAppBrowser, []);
   // RUTs ya editados: su error se muestra al salir del campo, no mientras se escribe.
   const [rutTouched, setRutTouched] = useState({ buyer: false, otro: false });
 
@@ -322,12 +329,15 @@ export default function GeneradorOC() {
   };
 
   const handlePrint = () => {
-    if (validateOrWarn()) window.print();
+    if (!validateOrWarn()) return;
+    track("oc_printed", { provider: providerMode });
+    window.print();
   };
 
   // --- PDF ---
   const handleDownload = async () => {
     if (!validateOrWarn()) return;
+    track("oc_downloaded", { provider: providerMode });
     try {
       const doc = new jsPDF({ unit: "pt", format: "a4" });
       const marginX = 48;
@@ -485,25 +495,22 @@ export default function GeneradorOC() {
 
       const fileName = `OC_${slugFile(oc) || "sin-numero"}_${slugFile(buyerName) || "orden-compra"}.pdf`;
 
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-      // En celular, compartir un File con nombre evita que llegue como "Unknown.pdf" (ej. por WhatsApp).
       const file = new File([doc.output("blob")], fileName, { type: "application/pdf" });
-      if (isMobile && navigator.canShare?.({ files: [file] })) {
-        try {
-          await navigator.share({ files: [file], title: fileName });
-        } catch (err) {
-          if ((err as Error).name !== "AbortError") throw err;
-        }
-      } else if (isMobile) {
-        const win = window.open(doc.output("bloburl") as unknown as string, "_blank");
-        if (!win) {
-          alert(
-            'El navegador bloqueó la ventana emergente. Habilita ventanas emergentes para este sitio, o usa el botón "Imprimir" y elige "Guardar como PDF".',
-          );
-        }
-      } else {
-        doc.save(fileName);
-      }
+      const url = URL.createObjectURL(file);
+      setPdfReady((prev) => {
+        if (prev) URL.revokeObjectURL(prev.url);
+        return { url, file };
+      });
+
+      // Descarga directa (funciona en escritorio, Chrome de Android y Safari de iPhone).
+      // Antes en celular se abría una ventana nueva y muchos navegadores la bloqueaban.
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => document.getElementById("oc-listo")?.scrollIntoView({ behavior: "smooth", block: "center" }), 100);
     } catch (err) {
       console.error(err);
       alert(
@@ -835,6 +842,16 @@ export default function GeneradorOC() {
           </div>
         </section>
 
+        {inApp && (
+          <div className="mb-4 rounded-md border border-amber-400/60 bg-amber-50 px-4 py-3 text-sm text-amber-900 print:hidden">
+            <p className="font-semibold">Abriste esta página dentro de una app (WhatsApp, Instagram u otra).</p>
+            <p>
+              Ahí las descargas suelen no funcionar. Si el PDF no se baja, abre el menú (⋮ o ···) y elige{" "}
+              <strong>"Abrir en el navegador"</strong> (Chrome o Safari).
+            </p>
+          </div>
+        )}
+
         {showErrors && errorList.length > 0 && (
           <div
             id="oc-errores"
@@ -858,6 +875,40 @@ export default function GeneradorOC() {
             Imprimir
           </Button>
         </div>
+
+        {pdfReady && (
+          <div
+            id="oc-listo"
+            className="-mt-6 mb-10 rounded-md border border-primary/40 bg-primary/5 px-4 py-4 text-sm print:hidden"
+          >
+            <p className="font-semibold mb-1">✓ Tu Orden de Compra está lista</p>
+            <p className="text-muted-foreground mb-3">
+              Si no se descargó sola, usa estos botones. En celular, el archivo queda en Descargas o en la app Archivos.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <a
+                href={pdfReady.url}
+                download={pdfReady.file.name}
+                className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:opacity-90"
+              >
+                Descargar {pdfReady.file.name}
+              </a>
+              {typeof navigator.canShare === "function" && navigator.canShare({ files: [pdfReady.file] }) && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="h-9"
+                  onClick={() =>
+                    navigator.share({ files: [pdfReady.file], title: pdfReady.file.name }).catch(() => undefined)
+                  }
+                >
+                  Compartir (WhatsApp, correo…)
+                </Button>
+              )}
+            </div>
+          </div>
+        )}
 
         <section className="mb-10 print:hidden">
           <SectionTitle>Preguntas frecuentes</SectionTitle>
