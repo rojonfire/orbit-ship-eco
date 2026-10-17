@@ -74,6 +74,7 @@ export function buildPurchaseEvent(order: ShopifyOrder) {
         items: (order.line_items ?? []).reduce((sum, li) => sum + li.quantity, 0),
         wants_invoice: attrs["Factura"] === "Sí",
         discount_code: order.discount_codes?.[0]?.code,
+        origin: attrs["Origen"],
         returning_customer: (order.customer?.orders_count ?? 1) > 1,
         __revenue: total,
         ...(deviceId ? { __deviceId: deviceId } : {}),
