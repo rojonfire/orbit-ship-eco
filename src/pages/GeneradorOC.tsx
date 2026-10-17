@@ -335,7 +335,7 @@ export default function GeneradorOC() {
   };
 
   // --- PDF ---
-  const handleDownload = async () => {
+  const handleDownload = () => {
     if (!validateOrWarn()) return;
     track("oc_downloaded", { provider: providerMode });
     try {
@@ -882,6 +882,7 @@ export default function GeneradorOC() {
             className="-mt-6 mb-10 rounded-md border border-primary/40 bg-primary/5 px-4 py-4 text-sm print:hidden"
           >
             <p className="font-semibold mb-1">✓ Tu Orden de Compra está lista</p>
+            <p className="text-xs text-muted-foreground mb-1 break-all">{pdfReady.file.name}</p>
             <p className="text-muted-foreground mb-3">
               Si no se descargó sola, usa estos botones. En celular, el archivo queda en Descargas o en la app Archivos.
             </p>
@@ -891,7 +892,7 @@ export default function GeneradorOC() {
                 download={pdfReady.file.name}
                 className="inline-flex h-9 items-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:opacity-90"
               >
-                Descargar {pdfReady.file.name}
+                Descargar PDF
               </a>
               {typeof navigator.canShare === "function" && navigator.canShare({ files: [pdfReady.file] }) && (
                 <Button
