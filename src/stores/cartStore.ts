@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import { CartItem, createStorefrontCheckout } from '@/lib/shopify';
 import { InvoiceData, toCartAttributes } from '@/lib/invoice';
+import { getAnalyticsDeviceId } from '@/lib/analytics';
 
 interface CartStore {
   items: CartItem[];
@@ -82,7 +83,10 @@ export const useCartStore = create<CartStore>()(
 
         setLoading(true);
         try {
-          const attributes = invoiceData ? toCartAttributes(invoiceData) : undefined;
+          const attributes = invoiceData ? toCartAttributes(invoiceData) : [];
+          const deviceId = getAnalyticsDeviceId();
+          // El "_" inicial lo oculta en el checkout; lo lee el webhook de compra
+          if (deviceId) attributes.push({ key: '_op_device_id', value: deviceId });
           const checkoutUrl = await createStorefrontCheckout(items, attributes);
           setCheckoutUrl(checkoutUrl);
         } catch (error) {

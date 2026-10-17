@@ -48,3 +48,12 @@ export function track(event: string, props: Props = {}) {
   op?.track(event, props);
   if (clarityReady) Clarity.event(event);
 }
+
+/**
+ * ID de dispositivo de OpenPanel. Se manda al carrito de Shopify como atributo
+ * oculto para que el webhook de compra (functions/api/shopify-order-paid.ts)
+ * atribuya la venta al mismo visitante.
+ */
+export function getAnalyticsDeviceId(): string {
+  return op?.getDeviceId() ?? "";
+}
