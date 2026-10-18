@@ -79,8 +79,10 @@ export const CartDrawer = () => {
       await createCheckout();
       const checkoutUrl = useCartStore.getState().checkoutUrl;
       if (checkoutUrl) {
-        window.open(checkoutUrl, '_blank');
+        // Misma pestaña: window.open después de un await lo bloquean Safari y los
+        // navegadores de Instagram/WhatsApp, y el cliente se quedaba sin checkout
         setIsOpen(false);
+        window.location.assign(checkoutUrl);
       }
     } catch (error) {
       console.error('Checkout failed:', error);
