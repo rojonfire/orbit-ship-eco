@@ -71,6 +71,27 @@ function loadFaqs() {
 }
 
 const faqs = loadFaqs();
+
+// Precios de bolsas personalizadas, desde src/data/personalizadas.ts (misma fuente que la página)
+function loadPersonalizadasPricing() {
+  const src = fs.readFileSync(path.resolve(__dirname, "../src/data/personalizadas.ts"), "utf-8");
+  const table = (name) => {
+    const block = src.match(new RegExp(`${name}: number\\[\\]\\[\\] = \\[([\\s\\S]*?)\\];`))[1];
+    return [...block.matchAll(/\[([\d,\s]+)\]/g)].map((r) => r[1].split(",").map((n) => Number(n.trim())));
+  };
+  const sizes = [...src.match(/PERSONALIZADA_SIZES = \[([^\]]+)\]/)[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+  return { sizes, p100: table("PRICING_100"), p200: table("PRICING_200") };
+}
+
+const pers = loadPersonalizadasPricing();
+const persTable = (caption, rows) => `<table>
+          <caption>${caption}</caption>
+          <tr><th>Tamaño</th><th>1 color</th><th>2 colores</th><th>3 colores</th><th>4 colores</th></tr>
+          ${rows.map((r, i) => `<tr><td>${pers.sizes[i]}</td>${r.map((n) => `<td>$${clp(n)}</td>`).join("")}</tr>`).join("\n          ")}
+        </table>`;
+const personalizadasTables = `<h2>Precios por bolsa (IVA incluido)</h2>
+        ${persTable("Desde 200 unidades (mismo precio pidas 200 o 5.000)", pers.p200)}
+        ${persTable("De 100 a 199 unidades", pers.p100)}`;
 console.log(`❓ Cargadas ${faqs.length} preguntas frecuentes desde src/data/faqs.ts`);
 
 const faqJsonLd = JSON.stringify({
@@ -84,13 +105,51 @@ const faqJsonLd = JSON.stringify({
 });
 
 // ─── Productos (handles + meta) ──────────────────────────────────────────
+// Precios de los packs de 100 (IVA incl.). Copiados de Shopify: si cambian allá, actualizarlos acá
+// para que los crawlers y los asistentes de IA (ChatGPT, etc.) no citen precios viejos.
 const shopProducts = [
-  { handle: "bolsa-biodegradable-15x20-cm", title: "Bolsa Courier Compostable 15x20 cm | Orbita Bags", description: "Bolsa courier compostable en casa 15x20 cm con doble adhesivo para envío y devolución. Certificación OK Compost HOME." },
-  { handle: "bolsa-biodegradable-20x30-cm", title: "Bolsa Courier Compostable 20x30 cm | Orbita Bags", description: "Bolsa courier compostable en casa 20x30 cm con doble adhesivo para envío y devolución. Certificación OK Compost HOME." },
-  { handle: "bolsa-biodegradable-30x40-cm", title: "Bolsa Courier Compostable 30x40 cm | Orbita Bags", description: "Bolsa courier compostable en casa 30x40 cm con doble adhesivo para envío y devolución. Certificación OK Compost HOME." },
-  { handle: "bolsa-biodegradable-40x50-cm", title: "Bolsa Courier Compostable 40x50 cm | Orbita Bags", description: "Bolsa courier compostable en casa 40x50 cm con doble adhesivo para envío y devolución. Certificación OK Compost HOME." },
-  { handle: "bolsa-biodegradable-50x60-cm", title: "Bolsa Courier Compostable 50x60 cm | Orbita Bags", description: "Bolsa courier compostable en casa 50x60 cm con doble adhesivo para envío y devolución. Certificación OK Compost HOME." },
-];
+  { handle: "bolsa-biodegradable-20x30-cm", size: "20x30", prices: [9996] },
+  { handle: "bolsa-biodegradable-30x40-cm", size: "30x40", prices: [15946] },
+  { handle: "bolsa-biodegradable-40x50-cm", size: "40x50", prices: [27990] },
+  { handle: "bolsa-biodegradable-50x60-cm", size: "50x60", prices: [34990, 39900], note: "blanca $34.990, negra $39.900" },
+].map((p) => {
+  const low = Math.min(...p.prices);
+  const high = Math.max(...p.prices);
+  const priceText = p.note ?? `$${clp(low)}`;
+  return {
+    ...p,
+    low,
+    high,
+    priceText,
+    title: `Bolsa Courier Compostable ${p.size} cm | Orbita Bags`,
+    description: `Bolsa courier compostable en casa ${p.size} cm, blanca o negra, con doble adhesivo para envío y devolución. Pack de 100 unidades: ${priceText} IVA incluido. Certificación OK Compost HOME.`,
+  };
+});
+
+function clp(n) {
+  return n.toLocaleString("es-CL");
+}
+
+const productJsonLd = (p) =>
+  JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `Bolsa Courier Compostable ${p.size} cm (pack de 100)`,
+    description: p.description,
+    brand: { "@type": "Brand", name: "Orbita Bags" },
+    url: `${SITE_URL}/shop/${p.handle}/`,
+    offers: {
+      "@type": "AggregateOffer",
+      priceCurrency: "CLP",
+      lowPrice: p.low,
+      highPrice: p.high,
+      availability: "https://schema.org/InStock",
+    },
+  });
+
+const productList = shopProducts
+  .map((p) => `<li><a href="/shop/${p.handle}">Bolsa Compostable ${p.size} cm</a>: pack de 100 a ${p.priceText}</li>`)
+  .join("\n          ");
 
 // ─── Configuración de cada ruta ─────────────────────────────────────────
 const ROUTES = [
@@ -107,28 +166,29 @@ const ROUTES = [
           <li>Compostables en casa en 180 días — no requieren plantas industriales</li>
           <li>Doble adhesivo: una cinta para el envío, otra para la devolución</li>
           <li>Certificación OK Compost HOME (TÜV Austria)</li>
-          <li>Disponibles en 5 tamaños: 15x20, 20x30, 30x40, 40x50 y 50x60 cm</li>
+          <li>Disponibles en 4 tamaños (20x30, 30x40, 40x50 y 50x60 cm), en blanco o negro</li>
           <li>Hechas para ecommerce chileno</li>
         </ul>
         <h2>Tamaños disponibles</h2>
-        <p>Ofrecemos cinco tamaños de bolsas courier compostables para cubrir las necesidades de ecommerce de cualquier categoría: ropa, accesorios, libros, productos pequeños y envíos voluminosos.</p>
+        <p>Ofrecemos cuatro tamaños de bolsas courier compostables para cubrir las necesidades de ecommerce de cualquier categoría: ropa, accesorios, libros y envíos voluminosos. Se venden en packs de 100 unidades, IVA incluido:</p>
+        <ul>
+          ${productList}
+        </ul>
+        <h2>Bolsas personalizadas con tu logo</h2>
+        <p>También imprimimos tu logo en serigrafía en Chile, hasta 4 colores, desde 100 unidades y desde $510 por bolsa. <a href="/personalizadas">Ver bolsas personalizadas</a>.</p>
       </main>
     `,
   },
   {
     path: "/tienda",
     title: "Tienda | Bolsas Courier Compostables — Orbita Bags",
-    description: "Compra bolsas courier compostables en casa para tu ecommerce. Doble adhesivo, certificación OK Compost HOME, disponibles en 5 tamaños.",
+    description: "Compra bolsas courier compostables en casa para tu ecommerce, en packs de 100 desde $9.996. Doble adhesivo, certificación OK Compost HOME, 4 tamaños en blanco o negro.",
     body: `
       <main>
         <h1>Tienda — Bolsas Courier Compostables</h1>
-        <p>Compra bolsas courier compostables en casa para tu ecommerce en Chile. Todas con doble adhesivo, certificación OK Compost HOME y disponibles en 5 tamaños.</p>
+        <p>Compra bolsas courier compostables en casa para tu ecommerce en Chile. Todas con doble adhesivo y certificación OK Compost HOME, en 4 tamaños y en blanco o negro. Se venden en packs de 100 unidades, IVA incluido, con despacho a todo Chile.</p>
         <ul>
-          <li><a href="/shop/bolsa-biodegradable-15x20-cm">Bolsa Compostable 15x20 cm</a></li>
-          <li><a href="/shop/bolsa-biodegradable-20x30-cm">Bolsa Compostable 20x30 cm</a></li>
-          <li><a href="/shop/bolsa-biodegradable-30x40-cm">Bolsa Compostable 30x40 cm</a></li>
-          <li><a href="/shop/bolsa-biodegradable-40x50-cm">Bolsa Compostable 40x50 cm</a></li>
-          <li><a href="/shop/bolsa-biodegradable-50x60-cm">Bolsa Compostable 50x60 cm</a></li>
+          ${productList}
         </ul>
       </main>
     `,
@@ -178,7 +238,8 @@ const ROUTES = [
     body: `
       <main>
         <h1>Bolsas Personalizadas con tu Logo</h1>
-        <p>Las mismas bolsas courier compostables en casa, con doble sello adhesivo, ahora impresas con tu marca. Serigrafía hecha en Chile, desde 100 unidades.</p>
+        <p>Las mismas bolsas courier compostables en casa, con doble sello adhesivo, ahora impresas con tu marca. Serigrafía hecha en Chile, hasta 4 colores, desde 100 unidades. Se compran online y llegan en unos 10 días hábiles desde el pago. Si tu logo no está vectorizado, lo vectorizamos sin costo.</p>
+        ${personalizadasTables}
       </main>
     `,
   },
@@ -219,6 +280,7 @@ const ROUTES = [
       <main>
         <h1>${p.title.split("|")[0].trim()}</h1>
         <p>${p.description}</p>
+        <script type="application/ld+json">${productJsonLd(p)}</script>
       </main>
     `,
   })),
