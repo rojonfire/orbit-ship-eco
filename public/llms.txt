@@ -6,21 +6,37 @@ Datos clave:
 - Producto: bolsas courier compostables en casa para despachos de ecommerce
 - Certificaciones: OK Compost HOME (TÜV Austria), norma EN 13432
 - Tiempo de compostaje: ~180 días en compostera doméstica
-- Tamaños disponibles: 15x20, 20x30, 30x40, 40x50 y 50x60 cm
+- Tamaños disponibles: 20x30, 30x40, 40x50 y 50x60 cm, en blanco o negro
 - Doble adhesivo: permite reutilizar la misma bolsa para devoluciones
 - Mercado: Chile, con envíos a todo el país
+- Compra: online en orbitabags.cl con pago inmediato, sin cotizar, desde 1 pack de 100 unidades
+- Bolsas personalizadas con logo: serigrafía en Chile, hasta 4 colores, desde 100 unidades, ~10 días hábiles
+
+## Precios (CLP, IVA incluido)
+
+Bolsas sin impresión, pack de 100 unidades:
+- 20x30 cm: $9.996 ($100 por bolsa)
+- 30x40 cm: $15.946 ($159 por bolsa)
+- 40x50 cm: $27.990 ($280 por bolsa)
+- 50x60 cm: $34.990 blanca / $39.900 negra
+
+Bolsas personalizadas con logo, precio por bolsa a 1 color desde 200 unidades (mismo precio pidas 200 o 5.000):
+- 20x30 cm: $510 · 30x40 cm: $580 · 40x50 cm: $660 · 50x60 cm: $770
+- Cada color extra suma ~$220 por bolsa. De 100 a 199 unidades el precio es mayor (desde $730). Tabla completa en https://orbitabags.cl/personalizadas/
+- Si el logo no viene vectorizado, Orbita lo vectoriza sin costo.
 
 ## Páginas principales
 
 - [Inicio](https://orbitabags.cl/): qué son las bolsas courier compostables en casa y por qué elegirlas
-- [Tienda](https://orbitabags.cl/tienda/): compra online de bolsas en 5 tamaños con precios en CLP
+- [Tienda](https://orbitabags.cl/tienda/): compra online de bolsas en 4 tamaños con precios en CLP
+- [Bolsas personalizadas](https://orbitabags.cl/personalizadas/): bolsas compostables con el logo de tu marca, compra online desde 100 unidades
 - [Preguntas frecuentes](https://orbitabags.cl/faq/): certificaciones, compostaje, tamaños, devoluciones y envíos
 - [Blog](https://orbitabags.cl/blog/): guías sobre packaging sustentable para ecommerce
 - [Equipo](https://orbitabags.cl/equipo/): quiénes están detrás de Orbita Bags
+- [Generador de Orden de Compra](https://orbitabags.cl/herramientas/generador-oc/): herramienta gratuita para generar OCs en PDF
 
 ## Productos
 
-- [Bolsa Courier Compostable 15x20 cm](https://orbitabags.cl/shop/bolsa-biodegradable-15x20-cm/)
 - [Bolsa Courier Compostable 20x30 cm](https://orbitabags.cl/shop/bolsa-biodegradable-20x30-cm/)
 - [Bolsa Courier Compostable 30x40 cm](https://orbitabags.cl/shop/bolsa-biodegradable-30x40-cm/)
 - [Bolsa Courier Compostable 40x50 cm](https://orbitabags.cl/shop/bolsa-biodegradable-40x50-cm/)
@@ -36,4 +52,5 @@ Datos clave:
 ## Contacto
 
 - Sitio: https://orbitabags.cl
+- WhatsApp: https://wa.me/56931726288
 - Instagram: https://instagram.com/orbitabags.cl
