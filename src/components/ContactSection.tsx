@@ -2,9 +2,9 @@ import { MessageCircle, Calendar, ArrowRight, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import AnimatedSection from './AnimatedSection';
 
-const WHATSAPP_PHONE = '56931726288';
-const WHATSAPP_TEXT = '¡Hola! Me interesa conocer más sobre las bolsas Orbita.';
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_TEXT)}`;
+import { messageForPath, trackWhatsAppClick, whatsappUrl } from '@/lib/whatsapp';
+
+const WHATSAPP_URL = whatsappUrl(messageForPath('/'));
 
 const ContactSection = () => {
   return (
@@ -26,7 +26,7 @@ const ContactSection = () => {
             <AnimatedSection delay={100}>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg" className="rounded-full px-8 btn-lift group bg-[#25D366] hover:bg-[#20BD5A]">
-                  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                  <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick('contacto', '/')}>
                     <MessageCircle className="mr-2 w-5 h-5" />
                     WhatsApp
                     <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />

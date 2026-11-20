@@ -1,4 +1,4 @@
-# ORBITA BAGS
+# Orbita Bags
 
 > Orbita Bags fabrica bolsas courier 100% compostables en casa para el ecommerce en Chile. Certificadas OK Compost HOME (TÜV Austria) y norma EN 13432, se compostan en 180 días en una compostera doméstica, jardín o macetero, sin planta industrial y sin dejar microplásticos. Cada bolsa incluye doble adhesivo: uno para el envío y otro para la devolución. Envíos a todo Chile desde https://orbitabags.cl
 
@@ -23,7 +23,7 @@ Bolsas sin impresión, pack de 100 unidades:
 Bolsas personalizadas con logo, precio por bolsa a 1 color desde 200 unidades (mismo precio pidas 200 o 5.000):
 - 20x30 cm: $510 · 30x40 cm: $580 · 40x50 cm: $660 · 50x60 cm: $770
 - Cada color extra suma ~$220 por bolsa. De 100 a 199 unidades el precio es mayor (desde $730). Tabla completa en https://orbitabags.cl/personalizadas/
-- Si el logo no viene vectorizado, Orbita lo vectoriza sin costo.
+- Si el logo no viene vectorizado, Orbita Bags lo vectoriza sin costo.
 
 ## Páginas principales
 

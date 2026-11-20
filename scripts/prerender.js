@@ -155,12 +155,12 @@ const productList = shopProducts
 const ROUTES = [
   {
     path: "/",
-    title: "ORBITA BAGS | Bolsas courier compostables en casa para ecommerce en Chile",
+    title: "Orbita Bags | Bolsas courier compostables en casa para ecommerce en Chile",
     description: "Bolsas courier 100% compostables en casa para ecommerce en Chile. Packaging sustentable con doble adhesivo, ideales para tiendas online que quieren reducir su huella ambiental.",
     body: `
       <main>
         <h1>Bolsas courier compostables en casa para ecommerce en Chile</h1>
-        <p>En ORBITA BAGS fabricamos bolsas courier 100% compostables en casa, certificadas OK Compost HOME y norma EN 13432. Packaging sustentable con doble adhesivo para envío y devolución, ideal para tiendas online que quieren reducir su huella ambiental sin sacrificar margen.</p>
+        <p>En Orbita Bags fabricamos bolsas courier 100% compostables en casa, certificadas OK Compost HOME y norma EN 13432. Packaging sustentable con doble adhesivo para envío y devolución, ideal para tiendas online que quieren reducir su huella ambiental sin sacrificar margen.</p>
         <h2>Por qué elegir Orbita Bags</h2>
         <ul>
           <li>Compostables en casa en 180 días — no requieren plantas industriales</li>
@@ -225,7 +225,7 @@ const ROUTES = [
     body: `
       <main>
         <h1>Preguntas frecuentes sobre bolsas courier compostables</h1>
-        <p>Respuestas directas a las dudas más comunes sobre las bolsas Orbita: certificaciones, compostaje en casa, tamaños, doble adhesivo y envíos en Chile.</p>
+        <p>Respuestas directas a las dudas más comunes sobre las bolsas Orbita Bags: certificaciones, compostaje en casa, tamaños, doble adhesivo y envíos en Chile.</p>
         ${faqs.map((f) => `<section>\n          <h2>${f.question}</h2>\n          <p>${f.answer}</p>\n        </section>`).join("\n        ")}
         <script type="application/ld+json">${faqJsonLd}</script>
       </main>
@@ -233,7 +233,7 @@ const ROUTES = [
   },
   {
     path: "/personalizadas",
-    title: "Bolsas Personalizadas con tu Logo | ORBITA BAGS",
+    title: "Bolsas Personalizadas con tu Logo | Orbita Bags",
     description: "Personaliza tus bolsas courier compostables con tu logo. Serigrafía hecha en Chile, hasta 4 colores, desde 100 unidades. Compra en línea, con checkout inmediato.",
     body: `
       <main>

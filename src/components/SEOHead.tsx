@@ -28,7 +28,7 @@ const SEOHead = ({ title, description, path, ogImage = DEFAULT_OG_IMAGE, type = 
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage} />
       <meta property="og:locale" content="es_CL" />
-      <meta property="og:site_name" content="ORBITA BAGS" />
+      <meta property="og:site_name" content="Orbita Bags" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@orbitabags" />

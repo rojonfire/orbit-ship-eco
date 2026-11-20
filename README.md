@@ -1,6 +1,6 @@
-# ORBITA BAGS
+# Orbita Bags
 
-Sitio de ORBITA BAGS — bolsas courier compostables para ecommerce en Chile. Frontend en React + Vite, conectado a Shopify vía Storefront API (canal Headless).
+Sitio de Orbita Bags — bolsas courier compostables para ecommerce en Chile. Frontend en React + Vite, conectado a Shopify vía Storefront API (canal Headless).
 
 ## Stack
 

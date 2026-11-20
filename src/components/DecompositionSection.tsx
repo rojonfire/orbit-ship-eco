@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import AnimatedSection from './AnimatedSection';
 
 const stages = [
-  { day: 0, label: 'Día 0', title: 'Lista para enviar', desc: 'Tu bolsa ORBITA nueva, con doble sello' },
+  { day: 0, label: 'Día 0', title: 'Lista para enviar', desc: 'Tu bolsa Orbita Bags nueva, con doble sello' },
   { day: 30, label: 'Día 30', title: 'Comienza el proceso', desc: 'Fragmentación inicial en tu compost' },
   { day: 90, label: 'Día 90', title: 'Degradación activa', desc: 'Se integra al compost de tu jardín' },
   { day: 180, label: 'Día 180', title: 'Solo nutrientes', desc: 'Vuelve a la tierra, sin planta industrial' },
@@ -293,7 +293,7 @@ const DecompositionSection = () => {
                 De bolsa a <span className="text-primary">tierra</span> en tu jardín
               </h2>
               <p className="text-base lg:text-lg text-muted-foreground mb-6 lg:mb-10">
-                Tu bolsa ORBITA se composta en casa en solo 180 días. Sin planta industrial, 
+                Tu bolsa Orbita Bags se composta en casa en solo 180 días. Sin planta industrial, 
                 sin microplásticos. Solo nutrientes para el suelo.
               </p>
             </AnimatedSection>

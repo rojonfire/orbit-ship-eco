@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { useEffect, useRef, lazy, Suspense } from "react";
 import Index from "./pages/Index";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 // Lazy-load non-critical routes to reduce initial JS bundle
 const Equipo = lazy(() => import("./pages/Equipo"));
@@ -73,6 +74,7 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
+          <WhatsAppButton />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

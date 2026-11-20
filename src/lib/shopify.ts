@@ -135,11 +135,27 @@ const STOREFRONT_QUERY = `
   }
 `;
 
+/**
+ * En Shopify los productos se llaman "Bolsa Biodegradable 20x30 cm", pero la bolsa es
+ * compostable (certificada OK Compost HOME). Mostramos el nombre correcto en la web sin
+ * tocar Shopify, porque varias búsquedas (packs, generador de OC) dependen de ese título.
+ */
+export function displayProductTitle(title: string): string {
+  return title.replace(/Bolsas? Biodegradables?/gi, (m) =>
+    /^bolsas/i.test(m) ? "Bolsas Courier Compostables" : "Bolsa Courier Compostable",
+  );
+}
+
+const withDisplayTitle = (product: ShopifyProduct): ShopifyProduct => ({
+  ...product,
+  node: { ...product.node, title: displayProductTitle(product.node.title) },
+});
+
 // Fetch products from Shopify
 export async function fetchShopifyProducts(first: number = 10, query?: string): Promise<ShopifyProduct[]> {
   const data = await storefrontApiRequest(STOREFRONT_QUERY, { first, query });
   if (!data) return [];
-  return data.data.products.edges;
+  return (data.data.products.edges as ShopifyProduct[]).map(withDisplayTitle);
 }
 
 // GraphQL query to fetch single product by handle
@@ -252,7 +268,7 @@ export async function fetchRetailPackBundles(sizeLabel: string): Promise<RetailP
 export async function fetchProductByHandle(handle: string): Promise<ShopifyProduct | null> {
   const data = await storefrontApiRequest(PRODUCT_BY_HANDLE_QUERY, { handle });
   if (!data || !data.data.productByHandle) return null;
-  return { node: data.data.productByHandle };
+  return withDisplayTitle({ node: data.data.productByHandle });
 }
 
 // Bolsas personalizadas: cada combinación de tramo de cantidad + N° de colores es un

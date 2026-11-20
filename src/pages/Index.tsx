@@ -17,7 +17,7 @@ const Index = () => {
   return (
     <main className="min-h-screen">
       <SEOHead
-        title="ORBITA BAGS | Bolsas courier compostables Chile"
+        title="Orbita Bags | Bolsas courier compostables Chile"
         description="Bolsas courier 100% compostables en casa para ecommerce en Chile. Doble adhesivo para envío y devolución."
         path="/"
       />

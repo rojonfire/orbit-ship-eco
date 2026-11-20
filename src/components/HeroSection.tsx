@@ -1,8 +1,18 @@
 import { ArrowRight, Leaf, ArrowUpRight, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import bolsasDuo from '@/assets/bolsas-duo.webp';
+import { WhatsAppIcon } from '@/components/WhatsAppButton';
+import { messageForPath, trackWhatsAppClick, whatsappUrl } from '@/lib/whatsapp';
+
+// Precio de referencia: pack de 100 bolsas 20x30 ($9.996) = ~$100 por bolsa. Mantener igual a ProductOverview y llms.txt.
+const PRECIO_DESDE = '$100';
+
+// GIF vacío para que en escritorio (donde la portada usa tarjetas) el navegador no descargue la foto
+const EMPTY_GIF = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
 const HeroSection = () => {
+  const { pathname } = useLocation();
   return (
     <section className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
       <div className="container mx-auto px-6">
@@ -20,17 +30,64 @@ const HeroSection = () => {
               para <span className="text-primary">ir y volver</span>
             </h1>
 
-            <p className="text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
+            {/* Solo móvil: la bolsa y un precio de referencia a la vista, sin tener que bajar */}
+            <Link
+              to="/tienda"
+              data-track="hero_movil_producto_click"
+              className="lg:hidden flex items-center gap-4 mb-6 rounded-2xl border border-border bg-card/80 p-3 pr-4 shadow-sm"
+            >
+              <picture className="shrink-0">
+                <source media="(min-width: 1024px)" srcSet={EMPTY_GIF} />
+                <img
+                  src={bolsasDuo}
+                  alt="Bolsas courier compostables Orbita Bags en blanco y negro"
+                  width={112}
+                  height={139}
+                  fetchPriority="high"
+                  decoding="async"
+                  className="w-24 h-auto sm:w-28 object-contain"
+                />
+              </picture>
+              <div className="min-w-0">
+                <p className="text-xs text-muted-foreground">Desde</p>
+                <p className="text-3xl font-display font-bold text-primary leading-none">
+                  {PRECIO_DESDE}
+                  <span className="text-base font-sans font-medium text-muted-foreground"> / bolsa</span>
+                </p>
+                <p className="text-sm text-muted-foreground mt-1">Packs de 100 · 4 tamaños · blanca o negra</p>
+                <p className="text-sm font-semibold text-foreground mt-1 inline-flex items-center gap-1">
+                  Ver precios <ArrowRight className="w-4 h-4" />
+                </p>
+              </div>
+            </Link>
+
+            <p className="sm:hidden text-base text-muted-foreground mb-6 leading-relaxed">
+              Doble sello para envío y devolución. Se compostan en 180 días en tu jardín.
+            </p>
+            <p className="hidden sm:block text-lg text-muted-foreground max-w-lg mb-8 leading-relaxed">
               Bolsas compostables en casa para ecommerce en Chile. Con doble sello adhesivo 
               para envío y devolución. Se compostan en 180 días en tu jardín, sin planta industrial.
             </p>
 
-            <Button asChild size="lg" className="rounded-full px-10 py-6 text-base font-medium btn-lift group shadow-lg hover:shadow-xl transition-all">
-              <Link to="/tienda">
-                Comprar ahora
-                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button asChild size="lg" className="rounded-full px-10 py-6 text-base font-medium btn-lift group shadow-lg hover:shadow-xl transition-all">
+                <Link to="/tienda">
+                  Comprar ahora
+                  <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="rounded-full px-8 py-6 text-base font-medium border-[#25D366] text-foreground hover:bg-[#25D366]/10">
+                <a
+                  href={whatsappUrl(messageForPath(pathname))}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackWhatsAppClick('portada', pathname)}
+                >
+                  <WhatsAppIcon className="mr-2 w-5 h-5 text-[#25D366]" />
+                  Cotizar por WhatsApp
+                </a>
+              </Button>
+            </div>
           </div>
 
           {/* Right: Visual cards */}

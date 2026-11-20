@@ -1,3 +1,4 @@
+import { trackWhatsAppClick, whatsappUrl } from "@/lib/whatsapp";
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ShoppingCart, Loader2, Leaf, Recycle, Package, MessageCircle, ChevronLeft, ChevronRight, Play } from "lucide-react";
@@ -209,7 +210,8 @@ const ShopProduct = () => {
 
   const handleWhatsAppCustom = () => {
     const message = `¡Hola! Me interesa saber más sobre las bolsas personalizadas. ¿Podrían darme más información?`;
-    window.open(`https://wa.me/56931726288?text=${encodeURIComponent(message)}`, "_blank");
+    trackWhatsAppClick("producto_personalizada", window.location.pathname);
+    window.open(whatsappUrl(message), "_blank");
   };
 
   if (loading) {
@@ -534,7 +536,7 @@ const ShopProduct = () => {
             <div className="space-y-6">
               <div>
                 <span className="text-primary text-sm font-medium uppercase tracking-wider">
-                  Bolsas Biodegradables
+                  Bolsas courier compostables
                 </span>
                 <h1 className="text-3xl lg:text-4xl font-display font-bold text-foreground mt-2">
                   {product.node.title}
@@ -558,7 +560,7 @@ const ShopProduct = () => {
               <div className="grid grid-cols-3 gap-4">
                 <div className="bg-secondary/30 rounded-xl p-4 text-center border border-border">
                   <Leaf className="w-6 h-6 text-primary mx-auto mb-2" />
-                  <span className="text-xs text-muted-foreground">100% Biodegradable</span>
+                  <span className="text-xs text-muted-foreground">Compostable en casa</span>
                 </div>
                 <div className="bg-secondary/30 rounded-xl p-4 text-center border border-border">
                   <Recycle className="w-6 h-6 text-accent mx-auto mb-2" />
@@ -601,7 +603,7 @@ const ShopProduct = () => {
                       !wantsCustom ? "border-primary bg-primary/10" : "border-border hover:border-primary/50"
                     }`}
                   >
-                    <span className="text-foreground font-medium text-sm">Con diseño Orbita</span>
+                    <span className="text-foreground font-medium text-sm">Con diseño Orbita Bags</span>
                     <p className="text-xs text-muted-foreground mt-1">Listas para usar</p>
                   </button>
                   <button
@@ -611,7 +613,7 @@ const ShopProduct = () => {
                     }`}
                   >
                     <span className="text-foreground font-medium text-sm">Personalizada</span>
-                    <p className="text-xs text-muted-foreground mt-1">Tu logo en un lado, diseño Órbita en el otro</p>
+                    <p className="text-xs text-muted-foreground mt-1">Tu logo en un lado, diseño Orbita Bags en el otro</p>
                   </button>
                 </div>
               </div>

@@ -80,7 +80,7 @@ const BolsasPersonalizadas = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Bolsas Personalizadas con tu Logo | ORBITA BAGS"
+        title="Bolsas Personalizadas con tu Logo | Orbita Bags"
         description="Personaliza tus bolsas courier compostables con tu logo. Serigrafía hecha en Chile, hasta 4 colores, desde 100 unidades. Compra en línea, con checkout inmediato."
         path="/personalizadas"
       />

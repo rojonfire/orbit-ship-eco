@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import SEOHead from "@/components/SEOHead";
 import { cn } from "@/lib/utils";
-import { storefrontApiRequest } from "@/lib/shopify";
+import { displayProductTitle, storefrontApiRequest } from "@/lib/shopify";
 import {
   PERSONALIZADA_MIN_QTY,
   PERSONALIZADA_SIZES,
@@ -84,8 +84,8 @@ async function fetchCatalog(): Promise<CatalogOption[]> {
         .filter((v) => v.node.availableForSale)
         .map((v) => ({
           key: v.node.id,
-          // "Blanca / 100 unidades" → "Bolsa Biodegradable 20x30 cm · Blanca · 100 unidades"
-          desc: [node.title, ...v.node.title.split(" / ")].join(" · "),
+          // "Blanca / 100 unidades" → "Bolsa Courier Compostable 20x30 cm · Blanca · 100 unidades"
+          desc: [displayProductTitle(node.title), ...v.node.title.split(" / ")].join(" · "),
           price: Math.round(parseFloat(v.node.price.amount)),
         })),
     )
@@ -144,7 +144,7 @@ const slugFile = (s: string) =>
 
 const FAQ: { q: string; a: string }[] = [
   {
-    q: "¿Sirve solo para comprarle a Orbitabags?",
+    q: "¿Sirve solo para comprarle a Orbita Bags?",
     a: "No. Puedes usarla para cualquier proveedor: deja seleccionado \"Orbitabags SpA\" si nos estás comprando a nosotros, o elige \"Otro proveedor\" y completa sus datos para generar la OC de cualquier compra de tu empresa.",
   },
   {
@@ -529,7 +529,7 @@ export default function GeneradorOC() {
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center justify-between mb-6 print:hidden">
           <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-            <img src={logo} alt="Orbitabags" className="h-6 w-6" />
+            <img src={logo} alt="Orbita Bags" className="h-6 w-6" />
             Orbitabags SpA
           </Link>
           <span className="text-xs text-muted-foreground">Herramienta gratuita para tus clientes</span>
@@ -795,11 +795,11 @@ export default function GeneradorOC() {
               <select
                 value=""
                 onChange={(e) => addFromCatalog(e.target.value)}
-                aria-label="Agregar producto de Orbitabags"
+                aria-label="Agregar producto de Orbita Bags"
                 className="h-10 sm:h-9 w-full sm:w-auto max-w-full rounded-md border border-primary bg-background px-3 text-sm font-medium text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <option value="" disabled>
-                  + Elegir producto de Orbitabags
+                  + Elegir producto de Orbita Bags
                 </option>
                 {catalog.length > 0 && (
                   <optgroup label="Bolsas compostables (pack)">
