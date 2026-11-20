@@ -12,37 +12,14 @@ const FinalCTA = lazy(() => import("@/components/FinalCTA"));
 const Footer = lazy(() => import("@/components/Footer"));
 
 const Index = () => {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Orbita Bags",
-    "url": "https://orbitabags.cl",
-    "logo": "https://orbitabags.cl/favicon.png",
-    "description": "Bolsas courier compostables en casa para ecommerce en Chile. Con doble sello adhesivo para envío y devolución.",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Santiago",
-      "addressCountry": "CL"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+56-9-3172-6288",
-      "contactType": "sales",
-      "availableLanguage": "Spanish"
-    },
-    "sameAs": [
-      "https://instagram.com/orbitabags.cl",
-      "https://linkedin.com/company/orbitabags"
-    ]
-  };
-
+  // El schema de Organización ya está en index.html (lo ven todos los crawlers sin JS);
+  // repetirlo aquí lo duplicaba en el inicio.
   return (
     <main className="min-h-screen">
       <SEOHead
         title="Orbita Bags | Bolsas courier compostables Chile"
         description="Bolsas courier 100% compostables en casa para ecommerce en Chile. Doble adhesivo para envío y devolución."
         path="/"
-        jsonLd={jsonLd}
       />
       <Header />
       <HeroSection />
