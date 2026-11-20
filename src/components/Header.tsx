@@ -72,7 +72,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3">
-          <img src={logo} alt="ORBITA BAGS" className="h-10 w-auto" />
+          <img src={logo} alt="Orbita Bags" className="h-10 w-auto" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-10">

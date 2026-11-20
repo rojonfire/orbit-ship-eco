@@ -26,7 +26,7 @@ const TEAM_MEMBERS: TeamMember[] = [
     name: "Jacqueline Meza",
     role: "Jefa de Producto y Estrategia",
     description:
-      "Ingeniera Civil Industrial con Magíster en Ingeniería Industrial e Investigación de Operaciones. Lidera el desarrollo de producto y la estrategia de Orbita; su misión es que nuestro packaging sea el mejor del mercado al menor costo posible.",
+      "Ingeniera Civil Industrial con Magíster en Ingeniería Industrial e Investigación de Operaciones. Lidera el desarrollo de producto y la estrategia de Orbita Bags; su misión es que nuestro packaging sea el mejor del mercado al menor costo posible.",
     image: teamJacqueline,
     socials: {
       linkedin: "https://www.linkedin.com/in/jacqueline-meza-cofre/",
@@ -46,7 +46,7 @@ const TEAM_MEMBERS: TeamMember[] = [
     name: "Raimundo Vives",
     role: "Jefe de Finanzas y Desarrollo de Negocios",
     description:
-      "Ingeniero Civil Industrial con mención en Medio Ambiente. Lidera las finanzas y el desarrollo de negocios: cierre y control de ventas, proyecciones y la coordinación contable de Orbita.",
+      "Ingeniero Civil Industrial con mención en Medio Ambiente. Lidera las finanzas y el desarrollo de negocios: cierre y control de ventas, proyecciones y la coordinación contable de Orbita Bags.",
     image: teamRaimundo,
     socials: {
       linkedin: "https://www.linkedin.com/in/raimundo-vives/",
@@ -68,8 +68,8 @@ const Equipo = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Nuestro Equipo | ORBITA BAGS - Packaging sustentable en Chile"
-        description="Conoce al equipo detrás de ORBITA BAGS. Profesionales apasionados por la sustentabilidad y el packaging ecológico para ecommerce en Chile."
+        title="Nuestro Equipo | Orbita Bags - Packaging sustentable en Chile"
+        description="Conoce al equipo detrás de Orbita Bags. Profesionales apasionados por la sustentabilidad y el packaging ecológico para ecommerce en Chile."
         path="/equipo"
       />
       <Header />

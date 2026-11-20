@@ -16,8 +16,8 @@ const Politicas = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Política de Envío y Devoluciones | ORBITA BAGS"
-        description="Política de envío, plazos de entrega, derecho a retracto y garantía legal para compras en ORBITA BAGS, Chile."
+        title="Política de Envío y Devoluciones | Orbita Bags"
+        description="Política de envío, plazos de entrega, derecho a retracto y garantía legal para compras en Orbita Bags, Chile."
         path="/politicas"
       />
       <Header />
@@ -41,7 +41,7 @@ const Politicas = () => {
                 Política de Envío y Devoluciones
               </h1>
               <p className="text-lg text-muted-foreground">
-                Vendido por ORBITA BAGS, Santiago, Chile. Ante cualquier duda,
+                Vendido por Orbita Bags, Santiago, Chile. Ante cualquier duda,
                 contáctanos por{" "}
                 <a
                   href="https://wa.me/56931726288"

@@ -45,7 +45,7 @@ const BAG_BBOX_PCT: Record<Color, { x: number; y: number; w: number; h: number }
   Negra: { x: 23, y: 16.4, w: 54.5, h: 73.4 },
 };
 
-// Foto real de la cara CON el diseño de Órbita, para mostrarla al lado de la cara con el logo del
+// Foto real de la cara CON el diseño Orbita Bags, para mostrarla al lado de la cara con el logo del
 // cliente. Falta la equivalente en Blanca (mismo encuadre que las "plana") — pedirla si se retoma.
 const BRANDED_PHOTO: Partial<Record<Color, string>> = { Negra: bolsaNegraOrbita, Blanca: bolsaBlancaOrbita };
 
@@ -208,7 +208,7 @@ export default function MockupPersonalizado() {
           <h1 className="text-2xl font-semibold">Vista previa de logo en bolsa (prueba interna)</h1>
           <p className="text-muted-foreground mt-2 text-sm max-w-2xl">
             Herramienta interna, no está enlazada ni visible en el sitio. Es una sola bolsa, con dos
-            caras: el <strong>Lado A</strong> siempre trae el diseño de Órbita (no es opcional). El{" "}
+            caras: el <strong>Lado A</strong> siempre trae el diseño Orbita Bags (no es opcional). El{" "}
             <strong>Lado B</strong> viene en blanco si no se personaliza, o con el logo del cliente si
             se personaliza — se puede arrastrar a cualquier parte, incluidas las esquinas, y ajustar
             de tamaño dentro del máximo real de estampado.
@@ -217,7 +217,7 @@ export default function MockupPersonalizado() {
 
         <div className="grid sm:grid-cols-2 gap-6 mb-8">
           <div>
-            <p className="text-sm font-medium mb-2 text-center">Lado A — diseño de Órbita (siempre)</p>
+            <p className="text-sm font-medium mb-2 text-center">Lado A — diseño Orbita Bags (siempre)</p>
             <div
               className="relative w-full rounded-lg overflow-hidden shadow-sm bg-neutral-100"
               style={{ aspectRatio: `${BAG_PHOTO_ASPECT[color]}` }}
@@ -225,13 +225,13 @@ export default function MockupPersonalizado() {
               {BRANDED_PHOTO[color] ? (
                 <img
                   src={BRANDED_PHOTO[color]}
-                  alt={`Bolsa ${color.toLowerCase()} con el diseño de Órbita`}
+                  alt={`Bolsa ${color.toLowerCase()} con el diseño Orbita Bags`}
                   className="absolute inset-0 w-full h-full object-contain"
                   draggable={false}
                 />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground text-center p-6">
-                  Falta la foto de la bolsa {color.toLowerCase()} con el diseño de Órbita
+                  Falta la foto de la bolsa {color.toLowerCase()} con el diseño Orbita Bags
                 </div>
               )}
             </div>

@@ -40,7 +40,7 @@ const Tienda = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Tienda | Bolsas compostables ORBITA BAGS Chile"
+        title="Tienda | Bolsas compostables Orbita Bags Chile"
         description="Compra bolsas courier compostables en casa para tu ecommerce. Envío a todo Chile. Doble sello, OK Compost HOME."
         path="/tienda"
         jsonLd={collectionJsonLd}
@@ -63,10 +63,10 @@ const Tienda = () => {
                 Tienda Online
               </span>
               <h1 className="text-4xl lg:text-5xl font-display font-bold text-foreground mt-2 mb-4">
-                Compra Bolsas Orbita
+                Compra en Orbita Bags
               </h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Elige tus bolsas biodegradables favoritas. Todas con envío a todo Chile.
+                Elige tus bolsas courier compostables. Todas con envío a todo Chile.
               </p>
             </div>
           </AnimatedSection>

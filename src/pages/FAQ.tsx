@@ -24,7 +24,7 @@ const FAQ = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Preguntas Frecuentes | ORBITA BAGS - Bolsas courier compostables"
+        title="Preguntas Frecuentes | Orbita Bags - Bolsas courier compostables"
         description="Respuestas a las preguntas más comunes sobre bolsas courier compostables en casa: certificación OK Compost HOME, tiempos de compostaje, tamaños, doble adhesivo y envíos en Chile."
         path="/faq"
         jsonLd={faqJsonLd}

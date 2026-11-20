@@ -57,7 +57,7 @@ const WhyOrbita = () => {
               Resuelven los <span className="text-primary">3 dolores</span> de enviar con bolsas comunes
             </h2>
             <p className="text-lg text-muted-foreground">
-              Plástico que contamina, bolsas que se rompen y devoluciones que cuestan caro. ORBITA ataca los tres a la vez.
+              Plástico que contamina, bolsas que se rompen y devoluciones que cuestan caro. Orbita Bags ataca los tres a la vez.
             </p>
           </div>
         </AnimatedSection>

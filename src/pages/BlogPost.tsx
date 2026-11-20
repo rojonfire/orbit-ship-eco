@@ -21,10 +21,10 @@ const BlogPost = () => {
     "image": post.coverImage,
     "datePublished": post.date,
     "dateModified": post.date,
-    "author": { "@type": "Organization", "name": "ORBITA BAGS" },
+    "author": { "@type": "Organization", "name": "Orbita Bags" },
     "publisher": {
       "@type": "Organization",
-      "name": "ORBITA BAGS",
+      "name": "Orbita Bags",
       "logo": { "@type": "ImageObject", "url": "https://orbitabags.cl/favicon.png" }
     },
     "mainEntityOfPage": `https://orbitabags.cl/blog/${post.slug}`

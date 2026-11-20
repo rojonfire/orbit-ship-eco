@@ -14,7 +14,7 @@ export const FAQS: Faq[] = [
     answer: "En orbitabags.cl puedes comprar online bolsas courier compostables en casa, certificadas OK Compost HOME, en packs de 100 unidades y con despacho a todo Chile. Pagas con tarjeta en el checkout y no necesitas cotizar ni tener un pedido mínimo grande.",
   },
   {
-    question: "¿Cuánto cuestan las bolsas courier compostables Orbita?",
+    question: "¿Cuánto cuestan las bolsas courier compostables Orbita Bags?",
     answer: "Se venden en packs de 100 unidades, IVA incluido: 20x30 cm a $9.996 ($100 por bolsa), 30x40 cm a $15.946 ($159 por bolsa), 40x50 cm a $27.990 ($280 por bolsa) y 50x60 cm a $34.990 en blanco o $39.900 en negro. Puedes comprar directo en orbitabags.cl/tienda.",
   },
   {
@@ -27,30 +27,30 @@ export const FAQS: Faq[] = [
   },
   {
     question: "¿Qué alternativa sustentable hay a las bolsas plásticas para despachos de ecommerce?",
-    answer: "La alternativa más directa es una bolsa courier compostable en casa: funciona igual que la plástica (sella, resiste el transporte y protege el producto), pero después tu cliente la puede compostar en su casa en unos 180 días sin dejar microplásticos. Las bolsas Orbita además traen doble adhesivo para reutilizarlas en devoluciones, y ayudan a tu tienda a prepararse para la Ley REP de envases.",
+    answer: "La alternativa más directa es una bolsa courier compostable en casa: funciona igual que la plástica (sella, resiste el transporte y protege el producto), pero después tu cliente la puede compostar en su casa en unos 180 días sin dejar microplásticos. Las bolsas Orbita Bags además traen doble adhesivo para reutilizarlas en devoluciones, y ayudan a tu tienda a prepararse para la Ley REP de envases.",
   },
   {
     question: "¿Qué diferencia hay entre una bolsa compostable y una biodegradable?",
-    answer: "Compostable significa que la bolsa se descompone en condiciones de compostaje en un plazo definido y sin dejar residuos tóxicos ni microplásticos, respaldado por certificaciones como OK Compost HOME. Biodegradable solo indica que el material se degradará en algún momento, sin plazo ni condiciones garantizadas: una bolsa biodegradable puede tardar décadas y dejar microplásticos. Las bolsas Orbita son compostables en casa, no solo biodegradables.",
+    answer: "Compostable significa que la bolsa se descompone en condiciones de compostaje en un plazo definido y sin dejar residuos tóxicos ni microplásticos, respaldado por certificaciones como OK Compost HOME. Biodegradable solo indica que el material se degradará en algún momento, sin plazo ni condiciones garantizadas: una bolsa biodegradable puede tardar décadas y dejar microplásticos. Las bolsas Orbita Bags son compostables en casa, no solo biodegradables.",
   },
   {
     question: "¿Qué significa la certificación OK Compost HOME?",
-    answer: "OK Compost HOME es una certificación otorgada por TÜV Austria que garantiza que un producto se composta completamente en una compostera doméstica, a temperatura ambiente, sin necesidad de una planta de compostaje industrial. Las bolsas Orbita cuentan con esta certificación y además cumplen la norma europea EN 13432.",
+    answer: "OK Compost HOME es una certificación otorgada por TÜV Austria que garantiza que un producto se composta completamente en una compostera doméstica, a temperatura ambiente, sin necesidad de una planta de compostaje industrial. Las bolsas Orbita Bags cuentan con esta certificación y además cumplen la norma europea EN 13432.",
   },
   {
-    question: "¿Cuánto demora en compostarse una bolsa Orbita?",
-    answer: "Una bolsa Orbita se composta en aproximadamente 180 días en una compostera casera, un jardín o un macetero, sin dejar microplásticos. No requiere condiciones industriales de temperatura ni humedad.",
+    question: "¿Cuánto demora en compostarse una bolsa Orbita Bags?",
+    answer: "Una bolsa Orbita Bags se composta en aproximadamente 180 días en una compostera casera, un jardín o un macetero, sin dejar microplásticos. No requiere condiciones industriales de temperatura ni humedad.",
   },
   {
     question: "¿Necesito una planta de compostaje industrial para desecharlas?",
-    answer: "No. A diferencia de muchas bolsas compostables que solo se degradan en plantas industriales, las bolsas Orbita están certificadas OK Compost HOME: tu cliente puede compostarlas en su casa, en una compostera, jardín o macetero.",
+    answer: "No. A diferencia de muchas bolsas compostables que solo se degradan en plantas industriales, las bolsas Orbita Bags están certificadas OK Compost HOME: tu cliente puede compostarlas en su casa, en una compostera, jardín o macetero.",
   },
   {
     question: "¿Cómo funciona el doble adhesivo para devoluciones?",
-    answer: "Cada bolsa Orbita trae dos cintas adhesivas: la primera sella el envío original y la segunda queda disponible para que el cliente reutilice la misma bolsa si necesita hacer una devolución o un cambio. Así se evita usar una segunda bolsa y se simplifica la logística inversa de tu tienda.",
+    answer: "Cada bolsa Orbita Bags trae dos cintas adhesivas: la primera sella el envío original y la segunda queda disponible para que el cliente reutilice la misma bolsa si necesita hacer una devolución o un cambio. Así se evita usar una segunda bolsa y se simplifica la logística inversa de tu tienda.",
   },
   {
-    question: "¿En qué tamaños vienen las bolsas courier Orbita?",
+    question: "¿En qué tamaños vienen las bolsas courier Orbita Bags?",
     answer: "Ofrecemos cuatro tamaños: 20x30 cm, 30x40 cm, 40x50 cm y 50x60 cm, todos en color blanco o negro. Cubren desde accesorios y poleras hasta ropa voluminosa y pedidos con varios productos.",
   },
   {
@@ -67,7 +67,7 @@ export const FAQS: Faq[] = [
   },
   {
     question: "¿Las bolsas compostables resisten el transporte igual que las plásticas?",
-    answer: "Sí. Las bolsas Orbita están diseñadas como bolsas courier de despacho: resisten la manipulación del transporte en Chile y protegen el producto durante el envío, con la ventaja de que después de usarse se compostan en casa en lugar de quedar como residuo plástico.",
+    answer: "Sí. Las bolsas Orbita Bags están diseñadas como bolsas courier de despacho: resisten la manipulación del transporte en Chile y protegen el producto durante el envío, con la ventaja de que después de usarse se compostan en casa en lugar de quedar como residuo plástico.",
   },
   {
     question: "¿Puedo generar una Orden de Compra (OC) para mi empresa?",

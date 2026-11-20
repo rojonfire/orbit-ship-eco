@@ -26,7 +26,7 @@ const ProductOverview = () => {
             <div className="aspect-square flex items-center justify-center">
               <img
                 src={bolsasDuo}
-                alt="Bolsas courier compostables Orbita - packaging sustentable para envío y devolución en Chile"
+                alt="Bolsas courier compostables Orbita Bags - packaging sustentable para envío y devolución en Chile"
                 className="w-full h-full object-contain hover-scale"
                 loading="lazy"
                 decoding="async"

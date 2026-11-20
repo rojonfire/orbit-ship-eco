@@ -15,7 +15,7 @@ const Index = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "ORBITA BAGS",
+    "name": "Orbita Bags",
     "url": "https://orbitabags.cl",
     "logo": "https://orbitabags.cl/favicon.png",
     "description": "Bolsas courier compostables en casa para ecommerce en Chile. Con doble sello adhesivo para envío y devolución.",
@@ -39,7 +39,7 @@ const Index = () => {
   return (
     <main className="min-h-screen">
       <SEOHead
-        title="ORBITA BAGS | Bolsas courier compostables Chile"
+        title="Orbita Bags | Bolsas courier compostables Chile"
         description="Bolsas courier 100% compostables en casa para ecommerce en Chile. Doble adhesivo para envío y devolución."
         path="/"
         jsonLd={jsonLd}
