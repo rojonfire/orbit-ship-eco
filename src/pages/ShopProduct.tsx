@@ -362,30 +362,45 @@ const ShopProduct = () => {
   const goTo = (i: number) => setMediaIndex((i + mediaItems.length) % mediaItems.length);
 
   const allImages = product.node.images.edges.map(e => e.node.url).filter(Boolean);
+  // Mismo título que el HTML prerenderizado (scripts/prerender.js), para que Google no vea dos
+  // versiones distintas. Antes se cortaba el título de Shopify a 35 caracteres y quedaba trunco.
+  const seoTitle = sizeLabel
+    ? `Bolsa Courier Compostable ${sizeLabel} cm | Orbita Bags`
+    : `${product.node.title} | Orbita Bags`;
+  const seoDescription = (product.node.description ||
+    `Bolsa courier compostable en casa${sizeLabel ? ` ${sizeLabel} cm` : ""}, con doble adhesivo para envío y devolución. Envío a todo Chile.`).slice(0, 160);
+  // Precios y stock reales de las variantes (pack de 100), en vez de "InStock" fijo
+  const variantNodes = product.node.variants.edges.map(e => e.node);
+  const variantPrices = variantNodes.map(v => parseFloat(v.price.amount)).filter(n => !Number.isNaN(n));
+  const anyAvailable = variantNodes.some(v => v.availableForSale);
+  const productUrl = `https://orbitabags.cl/shop/${handle}/`;
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": product.node.title,
-    "description": product.node.description || "Bolsa courier compostable en casa - ORBITA BAGS",
-    "image": allImages.length > 0 ? allImages : ["https://orbitabags.cl/placeholder.svg"],
+    "name": seoTitle.split("|")[0].trim(),
+    "description": seoDescription,
+    "image": allImages.length > 0 ? allImages : ["https://orbitabags.cl/og-image.png"],
     "brand": {
       "@type": "Brand",
-      "name": "ORBITA BAGS"
+      "name": "Orbita Bags"
     },
+    "url": productUrl,
     "offers": {
-      "@type": "Offer",
+      "@type": "AggregateOffer",
       "priceCurrency": "CLP",
-      "price": product.node.priceRange.minVariantPrice.amount,
-      "availability": "https://schema.org/InStock",
-      "url": `https://orbitabags.cl/shop/${handle}`
+      "lowPrice": variantPrices.length ? Math.min(...variantPrices) : parseFloat(product.node.priceRange.minVariantPrice.amount),
+      "highPrice": variantPrices.length ? Math.max(...variantPrices) : parseFloat(product.node.priceRange.minVariantPrice.amount),
+      "offerCount": variantNodes.length || 1,
+      "availability": anyAvailable ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      "url": productUrl
     }
   };
 
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title={`${product.node.title.length > 35 ? product.node.title.slice(0, 35) : product.node.title} | ORBITA BAGS`}
-        description={(product.node.description || `Compra ${product.node.title} - bolsa courier compostable en casa. Envío a todo Chile.`).slice(0, 160)}
+        title={seoTitle}
+        description={seoDescription}
         path={`/shop/${handle}`}
         ogImage={productImage}
         type="product"
